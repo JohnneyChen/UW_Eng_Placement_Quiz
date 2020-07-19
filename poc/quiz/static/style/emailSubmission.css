@@ -1,6 +1,7 @@
 body {
     font-family: 'gotham_condensedmedium';
 }
+
 .message {
     height: 150px;
     top: 0;
@@ -13,11 +14,11 @@ body {
 }
 
 .button {
-    background:#D0B4E7; 
-    border:2px solid #57058B;
-    cursor:pointer;
+    background: #D0B4E7;
+    border: 2px solid #57058B;
+    cursor: pointer;
     -webkit-border-radius: 5px;
-    border-radius: 5px; 
+    border-radius: 5px;
     color: #57058B;
     position: absolute;
     margin-left: -150px;
@@ -26,10 +27,12 @@ body {
     transition: all 0.3s ease-out;
     text-decoration: none;
 }
+
 .button:hover {
-    background:#57058B; 
+    background: #57058B;
     color: #D0B4E7;
 }
+
 .back {
     text-align: center;
     align-items: center;
@@ -39,6 +42,7 @@ body {
     padding-top: 10px;
     padding-left: 5px;
 }
+
 #backButton {
     position: relative;
     margin: auto;
@@ -46,7 +50,3 @@ body {
     width: 125px;
     height: 40px;
 }
-
-
-
-

@@ -1,6 +1,6 @@
 body {
   background-image: url('/static/img/background.png');
-  background-attachment: fixed ;
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -16,23 +16,26 @@ body {
   bottom: 0;
   right: 0;
   margin: auto;
-
 }
+
 ul {
   position: relative;
   width: 60%;
   margin: auto;
   left: -20px;
 }
+
 li {
   list-style-type: none;
   text-align: center;
 }
+
 .title {
   font-size: 48px;
   text-align: center;
   font-weight: bolder;
 }
+
 .blurb {
   width: 800px;
   height: 100px;
@@ -40,23 +43,26 @@ li {
   left: 3%;
   top: 10%;
 }
-.blurb > p {
+
+.blurb>p {
   margin: 0;
   text-align: center;
   font-size: medium;
   font-weight: bold;
 }
+
 .links {
   margin: auto;
 }
+
 .button {
   display: block;
-  padding:7px 120px; 
-  background:#D0B4E7; 
-  border:2px solid #57058B;
-  cursor:pointer;
+  padding: 7px 120px;
+  background: #D0B4E7;
+  border: 2px solid #57058B;
+  cursor: pointer;
   -webkit-border-radius: 5px;
-  border-radius: 5px; 
+  border-radius: 5px;
   color: #57058B;
   position: relative;
   text-align: center;
@@ -65,28 +71,6 @@ li {
 }
 
 .button:hover {
-  background:#57058B; 
+  background: #57058B;
   color: #D0B4E7;
 }
-
-
-/* .homepage > a {
-  position: absolute;
-  display: inline-block;
-  right: 0;
-  bottom: -20px;
-  text-decoration: none;
-}
-
-a:link {
-  color: #57058B;
-}
-a:visited {
-  color: #733787;
-}
-a:hover {
-  color: #57058B;
-}
-a:active {
-  color: #733787;
-} */

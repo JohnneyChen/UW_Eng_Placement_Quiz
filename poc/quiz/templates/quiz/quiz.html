@@ -12,7 +12,7 @@
   <link rel="stylesheet" type="text/css" href="{% static '/style/quiz.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src= "{% static '/js/quiz.js' %}"></script>
+  <script type="text/javascript" src="{% static '/js/quiz.js' %}"></script>
 </head>
 
 
@@ -21,476 +21,522 @@
   <div class="container">
     <!-- Submitting a form-->
     <div class="panel-group" id="accordion">
-        <form id="submit" action="{% url 'submit' %}" method='post' onsubmit="return openRequiredQuestions();">
-          {% csrf_token %}
+      <form id="submit" action="{% url 'submit' %}" method='post' onsubmit="return openRequiredQuestions();">
+        {% csrf_token %}
 
-  <!--  Question 1 -->
-  <div class="panel panel-default" id="question1">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        Would you consider yourself as being creative?
-      </h4>
-    </div>
-    <div id="collapse1" class="panel-collapse collapse in">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="creative" value="creative">I am very creative</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="creative" value="somewhat_creative">I am somewhat creative</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="creative" value="not_creative">I am not creative</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 2 -->
-  <div class="panel panel-default" id="question2">
-      <div class="panel-heading" id="panel-heading">
-        <h4 class="panel-title" id ="panel-title">
-          You have an assignment to write an essay about anything you want. How does that make you feel?
-        </h4>
-      </div>
-      <div class="collapse" id="collapse2" class="panel-collapse collapse ">
-        <div class="panel-body" id="panel-body">
-          <div class="radio">
-            <label><input type="radio" name="essay" value="yes">Excited! I can share my theories with the world</label>
+        <!--  Question 1 -->
+        <div class="panel panel-default" id="question1">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              Would you consider yourself as being creative?
+            </h4>
           </div>
-          <div class="radio">
-            <label><input type="radio" name="essay" value="partial">A bit apprehensive. I get overwhelmed with so many options</label>
-          </div>
-          <div class="radio">
-            <label><input type="radio" name="essay" value="no">Annoyed. I would much rather be given a topic with clear instructions</label>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="creative" value="creative">I am very creative</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="creative" value="somewhat_creative">I am somewhat creative</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="creative" value="not_creative">I am not creative</label>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  <!--  Question 3 -->
-  <div class="panel panel-default" id="question3">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        How comfortable are you working in the outdoors?
-      </h4>
-    </div>
-    <div class="collapse" id="collapse3" class="panel-collapse collapse ">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="outdoors" value="outdoors">I love the outdoors and wish I could work outside every day</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="outdoors" value="limited">Working outside would be okay, but only for short periods of time</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="outdoors" value="indoors">I would rather work inside</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 4 -->
-  <div class="panel panel-default" id="question4">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        What can you see yourself doing in the future?
-      </h4>
-    </div>
-    <div class="collapse" id="collapse4" class="panel-collapse collapse ">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="career" value="moving_parts">Building things with moving parts</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="career" value="buildings">Designing buildings</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="career" value="sensors">Designing or building sensor based technology</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="career" value="resources">Improving the way we use the world's resources</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="career" value="molecules">Making discoveries at the molecular level</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="career" value="programming">Programming apps</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="career" value="optimizing">Optimizing processes</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 5 -->
-  <div class="panel panel-default" id="question5">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        How do you feel about group work?
-      </h4>
-    </div>
-    <div class="collapse" id="collapse5" class="panel-collapse collapse ">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="group_work" value="yes">I enjoy working with others</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="group_work" value="occasionally">I occasionally like working with others</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="group_work" value="no">I do not like working as part of a team. I would rather work alone</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 6 -->
-  <div class="panel panel-default" id="question6">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        What high school class did you enjoy the most?
-      </h4>
-    </div>
-    <div class="collapse" id="collapse6" class="panel-collapse collapse ">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="liked_courses" value="autoshop">Autoshop</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_courses" value="biology">Biology</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_courses" value="business">Business</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_courses" value="chemistry">Chemistry</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_courses" value="computer_science">Computer Science</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_courses" value="geography">Geography</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_courses" value="history">History</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_courses" value="language_arts">Language Arts</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_courses" value="math">Math</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_courses" value="physics">Physics</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_courses" value="visual_arts">Visual Arts</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 7 -->
-  <div class="panel panel-default" id="question7">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        What high school class did you enjoy the least?
-      </h4>
-    </div>
-    <div class="collapse" id="collapse7" class="panel-collapse collapse ">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="disliked_courses" value="autoshop">Autoshop</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_courses" value="biology">Biology</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_courses" value="business">Business</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_courses" value="chemistry">Chemistry</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_courses" value="computer_science">Computer Science</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_courses" value="geography">Geography</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_courses" value="history">History</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_courses" value="language_arts">Language Arts</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_courses" value="math">Math</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_courses" value="physics">Physics</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_courses" value="visual_arts">Visual Arts</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 8 -->
-  <div class="panel panel-default" id="question8">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        What type of club would you consider joining?
-      </h4>
-    </div>
-    <div class="collapse" id="collapse8" class="panel-collapse collapse ">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="join_clubs" value="art/design">Art or design club (i.e. Fashion for Change)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="join_clubs" value="autoshop">Autoshop club (i.e. Autonomoose Autonomous Car Club)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="join_clubs" value="business">Business club (i.e. UW Finance Association)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="join_clubs" value="consulting">Consulting club (i.e. DECA)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="join_clubs" value="environment">Environment club (i.e. UW Energy Network)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="join_clubs" value="robotics">Robotics club (i.e. UW Robotics Team)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="join_clubs" value="hacker_club">Hacker club (i.e. UW Hacks)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="join_clubs" value="student_council">Student council (i.e. Engineering Society)</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 9 -->
-  <div class="panel panel-default" id="question9">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        What type of club would you NOT want to join?
-      </h4>
-    </div>
-    <div class="collapse" id="collapse9" class="panel-collapse collapse ">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="not_clubs" value="art/design">Art or design club (i.e. Fashion for Change)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="not_clubs" value="autoshop">Autoshop club (i.e. Autonomoose Autonomous Car Club)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="not_clubs" value="business">Business club (i.e. UW Finance Association)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="not_clubs" value="consulting">Consulting club (i.e. DECA)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="not_clubs" value="environment">Environment club (i.e. UW Energy Network)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="not_clubs" value="robotics">Robotics club (i.e. UW Robotics Team)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="not_clubs" value="hacker_club">Hacker club (i.e. UW Hacks)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="not_clubs" value="student_council">Student council (i.e. Engineering Society)</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 10 -->
-  <div class="panel panel-default" id="question10">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        What project would you want to be a part of?
-      </h4>
-    </div>
-    <div class="collapse" id="collapse10" class="panel-collapse collapse ">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="liked_projects" value="prototyping_instrument">Prototyping a musical instrument for children</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_projects" value="olympic_village">Designing an Olympic village</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_projects" value="robot">Programming a robot that can make you dinner</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_projects" value="supercomputer">Building the world’s most powerful supercomputer</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_projects" value="mars_water_treatment">Designing a water treatment system for Mars</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_projects" value="battery">Creating a battery from recycled material</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="liked_projects" value="uber_pool">Optimizing the Uber Pool routes</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 11 -->
-  <div class="panel panel-default" id="question11">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        What project do you find the least interesting?
-      </h4>
-    </div>
-    <div class="collapse" id="collapse11" class="panel-collapse collapse ">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="disliked_projects" value="prototyping_instrument">Prototyping a musical instrument for children</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_projects" value="olympic_village">Designing an Olympic village</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_projects" value="robot">Programming a robot that can make you dinner</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_projects" value="supercomputer"> Building the world’s most powerful supercomputer</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_projects" value="mars_water_treatment">Designing a water treatment system for Mars</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_projects" value="battery">Creating a battery from recycled material</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="disliked_projects" value="uber_pool">Optimizing the Uber Pool routes</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 12 -->
-  <div class="panel panel-default" id="question12">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        If engineering didn’t exist, what would you consider studying?
-      </h4>
-    </div>
-    <div class="collapse" id="collapse12" class="panel-collapse collapse ">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="applied_science">Applied Science</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="business">Business</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="cs">Computer Science</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="econ">Economics</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="lit">English Literature</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="env">Environmental Studies</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="fin">Finance</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="geo">Geography</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="design">Graphic Design</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="health">Health Studies</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="marketing">Marketing</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="math">Math</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="poli_sci">Political Science</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="psych">Psychology</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="alternate_degree" value="visual_arts">Visual Arts</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 13 -->
-  <div class="panel panel-default" id="question13">
-    <div class="panel-heading" id="panel-heading">
-      <h4 class="panel-title" id ="panel-title">
-        How would you describe your drawing abilities?
-      </h4>
-    </div>
-    <div class="collapse" id="collapse13" class="panel-collapse collapse ">
-      <div class="panel-body" id="panel-body">
-        <div class="radio">
-          <label><input type="radio" name="drawing" value="good">Really good, I can draw just about anything</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="drawing" value="partial">I am not the best, but I am not the worst</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="drawing" value="bad">I am not very good</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Question 14 -->
-  <div class="panel panel-default" id="question14">
-      <div class="panel-heading" id="panel-heading">
-        <h4 class="panel-title" id ="panel-title">
-          What industry can you see yourself working in, in the future? Select all that apply.
-        </h4>
-      </div>
-      <div class="collapse" id="collapse14" class="panel-collapse collapse">
-        <div class="panel-body" id="panel-body">
-          <div class="checkbox">
-              <label><input type="checkbox" name="industry" value="architecture">Architecture (i.e. Designing a building taller than the CN Tower)</label>
+        <!--  Question 2 -->
+        <div class="panel panel-default" id="question2">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              You have an assignment to write an essay about anything you want. How does that make you feel?
+            </h4>
           </div>
-          <div class="checkbox">
-            <label><input type="checkbox" name="industry" value="automotive">Automotive (i.e. Designing a new autonomous car)</label>
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox" name="industry" value="business">Entrepreneurship (i.e. Starting your own consulting company)</label>
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox" name="industry" value="construction">Construction (i.e. Building a smart city)</label>
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox" name="industry" value="health">Health (i.e. Creating technology for minimally invasive surgeries)</label>
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox" name="industry" value="environment">Environment (i.e. Producing energy in sustainable ways)</label>
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox" name="industry" value="manufacturing">Manufacturing (i.e. Optimization or automation of manufacturing processes)</label>
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox" name="industry" value="technology">Technology (i.e. Working with cloud based software)</label>
+          <div class="collapse" id="collapse2" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="essay" value="yes">Excited! I can share my theories with the
+                  world</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="essay" value="partial">A bit apprehensive. I get overwhelmed with so
+                  many options</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="essay" value="no">Annoyed. I would much rather be given a topic with
+                  clear instructions</label>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+        <!--  Question 3 -->
+        <div class="panel panel-default" id="question3">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              How comfortable are you working in the outdoors?
+            </h4>
+          </div>
+          <div class="collapse" id="collapse3" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="outdoors" value="outdoors">I love the outdoors and wish I could work
+                  outside every day</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="outdoors" value="limited">Working outside would be okay, but only for
+                  short periods of time</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="outdoors" value="indoors">I would rather work inside</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Question 4 -->
+        <div class="panel panel-default" id="question4">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              What can you see yourself doing in the future?
+            </h4>
+          </div>
+          <div class="collapse" id="collapse4" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="career" value="moving_parts">Building things with moving parts</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="career" value="buildings">Designing buildings</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="career" value="sensors">Designing or building sensor based
+                  technology</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="career" value="resources">Improving the way we use the world's
+                  resources</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="career" value="molecules">Making discoveries at the molecular
+                  level</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="career" value="programming">Programming apps</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="career" value="optimizing">Optimizing processes</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Question 5 -->
+        <div class="panel panel-default" id="question5">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              How do you feel about group work?
+            </h4>
+          </div>
+          <div class="collapse" id="collapse5" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="group_work" value="yes">I enjoy working with others</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="group_work" value="occasionally">I occasionally like working with
+                  others</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="group_work" value="no">I do not like working as part of a team. I would
+                  rather work alone</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Question 6 -->
+        <div class="panel panel-default" id="question6">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              What high school class did you enjoy the most?
+            </h4>
+          </div>
+          <div class="collapse" id="collapse6" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="liked_courses" value="autoshop">Autoshop</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_courses" value="biology">Biology</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_courses" value="business">Business</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_courses" value="chemistry">Chemistry</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_courses" value="computer_science">Computer Science</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_courses" value="geography">Geography</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_courses" value="history">History</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_courses" value="language_arts">Language Arts</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_courses" value="math">Math</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_courses" value="physics">Physics</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_courses" value="visual_arts">Visual Arts</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Question 7 -->
+        <div class="panel panel-default" id="question7">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              What high school class did you enjoy the least?
+            </h4>
+          </div>
+          <div class="collapse" id="collapse7" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="disliked_courses" value="autoshop">Autoshop</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_courses" value="biology">Biology</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_courses" value="business">Business</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_courses" value="chemistry">Chemistry</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_courses" value="computer_science">Computer Science</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_courses" value="geography">Geography</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_courses" value="history">History</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_courses" value="language_arts">Language Arts</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_courses" value="math">Math</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_courses" value="physics">Physics</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_courses" value="visual_arts">Visual Arts</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Question 8 -->
+        <div class="panel panel-default" id="question8">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              What type of club would you consider joining?
+            </h4>
+          </div>
+          <div class="collapse" id="collapse8" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="join_clubs" value="art/design">Art or design club (i.e. Fashion for
+                  Change)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="join_clubs" value="autoshop">Autoshop club (i.e. Autonomoose Autonomous
+                  Car Club)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="join_clubs" value="business">Business club (i.e. UW Finance
+                  Association)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="join_clubs" value="consulting">Consulting club (i.e. DECA)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="join_clubs" value="environment">Environment club (i.e. UW Energy
+                  Network)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="join_clubs" value="robotics">Robotics club (i.e. UW Robotics
+                  Team)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="join_clubs" value="hacker_club">Hacker club (i.e. UW Hacks)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="join_clubs" value="student_council">Student council (i.e. Engineering
+                  Society)</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Question 9 -->
+        <div class="panel panel-default" id="question9">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              What type of club would you NOT want to join?
+            </h4>
+          </div>
+          <div class="collapse" id="collapse9" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="not_clubs" value="art/design">Art or design club (i.e. Fashion for
+                  Change)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="not_clubs" value="autoshop">Autoshop club (i.e. Autonomoose Autonomous
+                  Car Club)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="not_clubs" value="business">Business club (i.e. UW Finance
+                  Association)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="not_clubs" value="consulting">Consulting club (i.e. DECA)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="not_clubs" value="environment">Environment club (i.e. UW Energy
+                  Network)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="not_clubs" value="robotics">Robotics club (i.e. UW Robotics
+                  Team)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="not_clubs" value="hacker_club">Hacker club (i.e. UW Hacks)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="not_clubs" value="student_council">Student council (i.e. Engineering
+                  Society)</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Question 10 -->
+        <div class="panel panel-default" id="question10">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              What project would you want to be a part of?
+            </h4>
+          </div>
+          <div class="collapse" id="collapse10" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="liked_projects" value="prototyping_instrument">Prototyping a musical
+                  instrument for children</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_projects" value="olympic_village">Designing an Olympic
+                  village</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_projects" value="robot">Programming a robot that can make you
+                  dinner</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_projects" value="supercomputer">Building the world’s most
+                  powerful supercomputer</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_projects" value="mars_water_treatment">Designing a water
+                  treatment system for Mars</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_projects" value="battery">Creating a battery from recycled
+                  material</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="liked_projects" value="uber_pool">Optimizing the Uber Pool
+                  routes</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Question 11 -->
+        <div class="panel panel-default" id="question11">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              What project do you find the least interesting?
+            </h4>
+          </div>
+          <div class="collapse" id="collapse11" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="disliked_projects" value="prototyping_instrument">Prototyping a musical
+                  instrument for children</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_projects" value="olympic_village">Designing an Olympic
+                  village</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_projects" value="robot">Programming a robot that can make you
+                  dinner</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_projects" value="supercomputer"> Building the world’s most
+                  powerful supercomputer</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_projects" value="mars_water_treatment">Designing a water
+                  treatment system for Mars</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_projects" value="battery">Creating a battery from recycled
+                  material</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="disliked_projects" value="uber_pool">Optimizing the Uber Pool
+                  routes</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Question 12 -->
+        <div class="panel panel-default" id="question12">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              If engineering didn’t exist, what would you consider studying?
+            </h4>
+          </div>
+          <div class="collapse" id="collapse12" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="applied_science">Applied Science</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="business">Business</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="cs">Computer Science</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="econ">Economics</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="lit">English Literature</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="env">Environmental Studies</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="fin">Finance</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="geo">Geography</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="design">Graphic Design</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="health">Health Studies</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="marketing">Marketing</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="math">Math</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="poli_sci">Political Science</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="psych">Psychology</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="alternate_degree" value="visual_arts">Visual Arts</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Question 13 -->
+        <div class="panel panel-default" id="question13">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              How would you describe your drawing abilities?
+            </h4>
+          </div>
+          <div class="collapse" id="collapse13" class="panel-collapse collapse ">
+            <div class="panel-body" id="panel-body">
+              <div class="radio">
+                <label><input type="radio" name="drawing" value="good">Really good, I can draw just about
+                  anything</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="drawing" value="partial">I am not the best, but I am not the
+                  worst</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="drawing" value="bad">I am not very good</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Question 14 -->
+        <div class="panel panel-default" id="question14">
+          <div class="panel-heading" id="panel-heading">
+            <h4 class="panel-title" id="panel-title">
+              What industry can you see yourself working in, in the future? Select all that apply.
+            </h4>
+          </div>
+          <div class="collapse" id="collapse14" class="panel-collapse collapse">
+            <div class="panel-body" id="panel-body">
+              <div class="checkbox">
+                <label><input type="checkbox" name="industry" value="architecture">Architecture (i.e. Designing a
+                  building taller than the CN Tower)</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="industry" value="automotive">Automotive (i.e. Designing a new
+                  autonomous car)</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="industry" value="business">Entrepreneurship (i.e. Starting your own
+                  consulting company)</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="industry" value="construction">Construction (i.e. Building a smart
+                  city)</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="industry" value="health">Health (i.e. Creating technology for
+                  minimally invasive surgeries)</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="industry" value="environment">Environment (i.e. Producing energy in
+                  sustainable ways)</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="industry" value="manufacturing">Manufacturing (i.e. Optimization or
+                  automation of manufacturing processes)</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="industry" value="technology">Technology (i.e. Working with cloud
+                  based software)</label>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 
     <div class="button">
-        <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submitButton" disabled/>
+      <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submitButton" disabled />
     </div>
-    
-  </form>
-  </div>
 
+    </form>
+  </div>
 </body>
+
 </html>

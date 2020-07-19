@@ -1,8 +1,7 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-  if(sessionStorage.getItem("recommendationsPageState")) {
+  if (sessionStorage.getItem("recommendationsPageState")) {
     // on page reload, from recommendations page
-
     $('#beforeSubmit').addClass("hide");
     $('#afterSubmit').addClass("show");
   }
@@ -22,20 +21,17 @@ $(document).ready(function() {
   $("#program2").toggle();
   $("#program3").toggle();
   $("#program4").toggle();
-  $(".link > a").click(function() {             
-      $(this).toggleClass("activelink");          
-      $(this.name).toggle();
-      $("i", this).toggleClass("show hide");
-      // $(".content").animate({ scrollTop: $(document).height() }, "slow");
+
+  $(".link > a").click(function () {
+    $(this).toggleClass("activelink");
+    $(this.name).toggle();
+    $("i", this).toggleClass("show hide");
   })
-  // $('#emailSubmit').bind('click', function(){
-  //   $('#beforeSubmit').toggleClass("hide");
-  //   $('#afterSubmit').toggleClass("show");
-  // });
-  $("#submit").submit(function() {
+
+  $("#submit").submit(function () {
     var recommendationsPageState = 1;
     sessionStorage.setItem("recommendationsPageState", recommendationsPageState);
-})
+  })
 });
 
 function goBack() {

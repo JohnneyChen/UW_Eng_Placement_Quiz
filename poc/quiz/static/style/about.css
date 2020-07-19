@@ -1,16 +1,18 @@
 body {
     font-family: 'gotham_condensedmedium';
 }
+
 .title {
     font-size: 36px;
     text-align: center;
     font-weight: bolder;
 }
+
 .heading {
     font-size: 24px;
     font-weight: bold;
 }
+
 .heading2 {
     font-size: 20px;
 }
-

@@ -2,1285 +2,1299 @@
 <html>
 
 <head>
-    {% load static %}
-    <title>UW Program Compatibility Tool | Results</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static '/style/recommendations.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="{% static '/js/recommendations.js' %}"></script>
+  {% load static %}
+  <title>UW Program Compatibility Tool | Results</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static '/style/recommendations.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="{% static '/js/recommendations.js' %}"></script>
 </head>
 
 <body>
-    <div class="wrapper">
-      <form class="back">
-        <input type="button" class="button" id="backButton" value="Back to Quiz" onclick="goBack()">
-      </form>
-           
+  <div class="wrapper">
+    <form class="back">
+      <input type="button" class="button" id="backButton" value="Back to Quiz" onclick="goBack()">
+    </form>
+
     <div class="title">
-        <h2>Your Results Are In</h2>
-        <p>The following is your personalized list of all the engineering programs offered at the University of Waterloo, ordered starting with the program that aligns best with your interest.</p>
-        <p>Select a program to directly compare it below.</p>
+      <h2>Your Results Are In</h2>
+      <p>The following is your personalized list of all the engineering programs offered at the University of Waterloo,
+        ordered starting with the program that aligns best with your interest.</p>
+      <p>Select a program to directly compare it below.</p>
     </div>
-            <div class="sidenav">
-                    <div class="link">
-                        <a name=#program0 id="link0">1. {{ recommendation_set.0.program.name }} <i class="fa fa-eye" id="eye0"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program1 id="link1">2. {{ recommendation_set.1.program.name }} <i class="fa fa-eye" id="eye1"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program2 id="link2">3. {{ recommendation_set.2.program.name }} <i class="fa fa-eye" id="eye2"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program3 id="link3">4. {{ recommendation_set.3.program.name }} <i class="fa fa-eye" id="eye3"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program4 id="link4">5. {{ recommendation_set.4.program.name }} <i class="fa fa-eye" id="eye4"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program5 id="link5">6. {{ recommendation_set.5.program.name }} <i class="fa fa-eye" id="eye5"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program6 id="link6">7. {{ recommendation_set.6.program.name }} <i class="fa fa-eye" id="eye6"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program7 id="link7">8. {{ recommendation_set.7.program.name }} <i class="fa fa-eye" id="eye7"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program8 id="link8">9. {{ recommendation_set.8.program.name }} <i class="fa fa-eye" id="eye8"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program9 id="link9">10. {{ recommendation_set.9.program.name }} <i class="fa fa-eye" id="eye9"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program10 id="link10">11. {{ recommendation_set.10.program.name }} <i class="fa fa-eye" id="eye10"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program11 id="link11">12. {{ recommendation_set.11.program.name }} <i class="fa fa-eye" id="eye11"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program12 id="link12">13. {{ recommendation_set.12.program.name }} <i class="fa fa-eye" id="eye12"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program13 id="link13">14. {{ recommendation_set.13.program.name }} <i class="fa fa-eye" id="eye13"></i></a>
-                    </div>
-                    <div class="link">
-                        <a name=#program14 id="link14">15. {{ recommendation_set.14.program.name }} <i class="fa fa-eye" id="eye14"></i></a>
-                    </div>
-                  </div>
-                  <div class="emailSection" id="beforeSubmit">
-                      <form id="submit" method="POST" action="{% url 'emailSubmit' %}">
-                          {% csrf_token %}
-                        <p>Enter your email below to recieve information about Engineering at the University of Waterloo</p>
-                        <input type="email" id="email" name="email" required>
-                        <input type="submit" class="button" name="emailSubmit" id="emailSubmit" value="&#62;">
-                      </form>
-                    </div>
-                  <div class="emailSection" id="afterSubmit">
-                      <p>We have recieved your email, thank you!</p>
-                  </div>
-            <div class="content">
-                    <div class="program" id="program0">
-                      <div class="programInfo">
-                          <h3>1. {{ recommendation_set.0.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home0">About</a></li>
-                              <li><a data-toggle="tab" href="#courses0">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers0">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison0">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home0" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.0.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.0.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses0" class="tab-pane fade">
-                                <p>{{ recommendation_set.0.course.course }}</p>
-                                <div class="row">
-                                  <div class="column">
-                                      <h4>Sample First Year Courses</h4>
-                                      {% for cars in course_set %}
-                                      {% if cars.program.code == recommendation_set.0.code %}
-                                          {% if cars.course_type.option == "First Year Course" %}
-                                          <p>{{ cars.course }}</p>
-                                          {% endif %}
-                                      {% endif %}
-                                      {% endfor %}
-                                  </div>
-                                  <div class="column">
-                                      <h4>Sample Upper Year Courses</h4>
-                                      {% for cars in course_set %}
-                                      {% if cars.program.code == recommendation_set.0.code %}
-                                          {% if cars.course_type.option == "Upper Year Course" %}
-                                          <p>{{ cars.course }}</p>
-                                          {% endif %}
-                                      {% endif %}
-                                      {% endfor %}
-                                  </div>
-                                </div>
-                              </div>
-                              <div id="careers0" class="tab-pane fade">
-                                <p>{{ recommendation_set.0.career.career }}</p>
-                                <div class="row">
-                                  <div class="column">
-                                      <h4>Sample Co-op Jobs</h4>
-                                      {% for cars in career_set %}
-                                      {% if cars.program.code == recommendation_set.0.code %}
-                                          {% if cars.career_type.option == "Sample Co-op Job" %}
-                                          <p>{{ cars.career }}</p>
-                                          {% endif %}
-                                      {% endif %}
-                                      {% endfor %}
-                                  </div>
-                                  <div class="column">
-                                      <h4>Sample Full-Time Jobs</h4>
-                                      {% for cars in career_set %}
-                                      {% if cars.program.code == recommendation_set.0.code %}
-                                          {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                          <p>{{ cars.career }}</p>
-                                          {% endif %}
-                                      {% endif %}
-                                      {% endfor %}
-                                  </div>
-                                </div>
-                              </div>
-                              <div id="comparison0" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.0.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    <div class="program" id="program1">
-                      <div class="programInfo">
-                          <h3>2. {{ recommendation_set.1.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home1">About</a></li>
-                              <li><a data-toggle="tab" href="#courses1">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers1">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison1">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home1" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.1.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.1.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses1" class="tab-pane fade">
-                                <p>{{ recommendation_set.1.course.course }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample First Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.1.code %}
-                                            {% if cars.course_type.option == "First Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Upper Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.1.code %}
-                                            {% if cars.course_type.option == "Upper Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="careers1" class="tab-pane fade">
-                                <p>{{ recommendation_set.1.career.career }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample Co-op Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.1.code %}
-                                            {% if cars.career_type.option == "Sample Co-op Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Full-Time Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.1.code %}
-                                            {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="comparison1" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.1.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    <div class="program" id="program2">
-                      <div class="programInfo">
-                          <h3>3. {{ recommendation_set.2.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home2">About</a></li>
-                              <li><a data-toggle="tab" href="#courses2">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers2">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison2">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home2" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.2.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.2.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses2" class="tab-pane fade">
-                                <p>{{ recommendation_set.2.course.course }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample First Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.2.code %}
-                                            {% if cars.course_type.option == "First Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Upper Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.2.code %}
-                                            {% if cars.course_type.option == "Upper Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="careers2" class="tab-pane fade">
-                                <p>{{ recommendation_set.2.career.career }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample Co-op Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.2.code %}
-                                            {% if cars.career_type.option == "Sample Co-op Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Full-Time Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.2.code %}
-                                            {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="comparison2" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.2.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    <div class="program" id="program3">
-                      <div class="programInfo">
-                          <h3>4. {{ recommendation_set.3.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home3">About</a></li>
-                              <li><a data-toggle="tab" href="#courses3">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers3">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison3">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home3" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.3.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.3.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses3" class="tab-pane fade">
-                                <p>{{ recommendation_set.3.course.course }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample First Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.3.code %}
-                                            {% if cars.course_type.option == "First Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Upper Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.3.code %}
-                                            {% if cars.course_type.option == "Upper Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="careers3" class="tab-pane fade">
-                                <p>{{ recommendation_set.3.career.career }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample Co-op Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.3.code %}
-                                            {% if cars.career_type.option == "Sample Co-op Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Full-Time Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.3.code %}
-                                            {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="comparison3" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.3.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    <div class="program" id="program4">
-                      <div class="programInfo">
-                          <h3>5. {{ recommendation_set.4.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home4">About</a></li>
-                              <li><a data-toggle="tab" href="#courses4">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers4">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison4">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home4" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.4.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.4.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses4" class="tab-pane fade">
-                                <p>{{ recommendation_set.4.course.course }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample First Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.4.code %}
-                                            {% if cars.course_type.option == "First Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Upper Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.4.code %}
-                                            {% if cars.course_type.option == "Upper Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div> 
-                              </div>
-                              <div id="careers4" class="tab-pane fade">
-                                <p>{{ recommendation_set.4.career.career }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample Co-op Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.4.code %}
-                                            {% if cars.career_type.option == "Sample Co-op Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Full-Time Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.4.code %}
-                                            {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="comparison4" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.4.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    <div class="program" id="program5">
-                      <div class="programInfo">
-                          <h3>6. {{ recommendation_set.5.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home5">About</a></li>
-                              <li><a data-toggle="tab" href="#courses5">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers5">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison5">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home5" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.5.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.5.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses5" class="tab-pane fade">
-                                <p>{{ recommendation_set.5.course.course }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample First Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.5.code %}
-                                            {% if cars.course_type.option == "First Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Upper Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.5.code %}
-                                            {% if cars.course_type.option == "Upper Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="careers5" class="tab-pane fade">
-                                <p>{{ recommendation_set.5.career.career }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample Co-op Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.5.code %}
-                                            {% if cars.career_type.option == "Sample Co-op Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Full-Time Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.5.code %}
-                                            {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="comparison5" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.5.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    <div class="program" id="program6">
-                        <div class="programInfo">
-                            <h3>7. {{ recommendation_set.6.program.name }}</h3>
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#home6">About</a></li>
-                                <li><a data-toggle="tab" href="#courses6">Courses</a></li>
-                                <li><a data-toggle="tab" href="#careers6">Careers</a></li>
-                                <li><a data-toggle="tab" href="#comparison6">Compared To</a></li>
-                              </ul>
-                            
-                              <div class="tab-content">
-                                <div id="home6" class="tab-pane fade in active">
-                                  <p>{{ recommendation_set.6.description.description }}</p>
-                                  {% for abt in description_set %}
-                                  {% if abt.program.code == recommendation_set.6.code %}
-                                  <p>{{ abt.description }}</p>
-                                  <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                  {% endif %}
-                                  {% endfor %}
-                                </div>
-                                <div id="courses6" class="tab-pane fade">
-                                  <p>{{ recommendation_set.6.course.course }}</p>
-                                  <div class="row">
-                                      <div class="column">
-                                          <h4>Sample First Year Courses</h4>
-                                          {% for cars in course_set %}
-                                          {% if cars.program.code == recommendation_set.6.code %}
-                                              {% if cars.course_type.option == "First Year Course" %}
-                                              <p>{{ cars.course }}</p>
-                                              {% endif %}
-                                          {% endif %}
-                                          {% endfor %}
-                                      </div>
-                                      <div class="column">
-                                          <h4>Sample Upper Year Courses</h4>
-                                          {% for cars in course_set %}
-                                          {% if cars.program.code == recommendation_set.6.code %}
-                                              {% if cars.course_type.option == "Upper Year Course" %}
-                                              <p>{{ cars.course }}</p>
-                                              {% endif %}
-                                          {% endif %}
-                                          {% endfor %}
-                                      </div>
-                                    </div>
-                                </div>
-                                <div id="careers6" class="tab-pane fade">
-                                  <p>{{ recommendation_set.6.career.career }}</p>
-                                  <div class="row">
-                                      <div class="column">
-                                          <h4>Sample Co-op Jobs</h4>
-                                          {% for cars in career_set %}
-                                          {% if cars.program.code == recommendation_set.6.code %}
-                                              {% if cars.career_type.option == "Sample Co-op Job" %}
-                                              <p>{{ cars.career }}</p>
-                                              {% endif %}
-                                          {% endif %}
-                                          {% endfor %}
-                                      </div>
-                                      <div class="column">
-                                          <h4>Sample Full-Time Jobs</h4>
-                                          {% for cars in career_set %}
-                                          {% if cars.program.code == recommendation_set.6.code %}
-                                              {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                              <p>{{ cars.career }}</p>
-                                              {% endif %}
-                                          {% endif %}
-                                          {% endfor %}
-                                      </div>
-                                    </div>
-                                </div>
-                                <div id="comparison6" class="tab-pane fade">
-                                  {% for vs in comparison_set %}
-                                  {% if vs.recommendation.code == recommendation_set.6.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                  <p>{{ vs.comparison }}</p>
-                                  {% endif %}
-                                  {% endfor %}
-                                </div>
-                              </div>
-                        </div>
-                      </div>
-                    <div class="program" id="program7">
-                          <div class="programInfo">
-                              <h3>8. {{ recommendation_set.7.program.name }}</h3>
-                              <ul class="nav nav-tabs">
-                                  <li class="active"><a data-toggle="tab" href="#home7">About</a></li>
-                                  <li><a data-toggle="tab" href="#courses7">Courses</a></li>
-                                  <li><a data-toggle="tab" href="#careers7">Careers</a></li>
-                                  <li><a data-toggle="tab" href="#comparison7">Compared To</a></li>
-                                </ul>
-                              
-                                <div class="tab-content">
-                                  <div id="home7" class="tab-pane fade in active">
-                                    <p>{{ recommendation_set.7.description.description }}</p>
-                                    {% for abt in description_set %}
-                                    {% if abt.program.code == recommendation_set.7.code %}
-                                    <p>{{ abt.description }}</p>
-                                    <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                    {% endif %}
-                                    {% endfor %}
-                                  </div>
-                                  <div id="courses7" class="tab-pane fade">
-                                    <p>{{ recommendation_set.7.course.course }}</p>
-                                    <div class="row">
-                                        <div class="column">
-                                            <h4>Sample First Year Courses</h4>
-                                            {% for cars in course_set %}
-                                            {% if cars.program.code == recommendation_set.7.code %}
-                                                {% if cars.course_type.option == "First Year Course" %}
-                                                <p>{{ cars.course }}</p>
-                                                {% endif %}
-                                            {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                        <div class="column">
-                                            <h4>Sample Upper Year Courses</h4>
-                                            {% for cars in course_set %}
-                                            {% if cars.program.code == recommendation_set.7.code %}
-                                                {% if cars.course_type.option == "Upper Year Course" %}
-                                                <p>{{ cars.course }}</p>
-                                                {% endif %}
-                                            {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                      </div>
-                                  </div>
-                                  <div id="careers7" class="tab-pane fade">
-                                    <p>{{ recommendation_set.7.career.career }}</p>
-                                    <div class="row">
-                                        <div class="column">
-                                            <h4>Sample Co-op Jobs</h4>
-                                            {% for cars in career_set %}
-                                            {% if cars.program.code == recommendation_set.7.code %}
-                                                {% if cars.career_type.option == "Sample Co-op Job" %}
-                                                <p>{{ cars.career }}</p>
-                                                {% endif %}
-                                            {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                        <div class="column">
-                                            <h4>Sample Full-Time Jobs</h4>
-                                            {% for cars in career_set %}
-                                            {% if cars.program.code == recommendation_set.7.code %}
-                                                {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                                <p>{{ cars.career }}</p>
-                                                {% endif %}
-                                            {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                      </div>
-                                  </div>
-                                  <div id="comparison7" class="tab-pane fade">
-                                    {% for vs in comparison_set %}
-                                    {% if vs.recommendation.code == recommendation_set.7.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                    <p>{{ vs.comparison }}</p>
-                                    {% endif %}
-                                    {% endfor %}
-                                  </div>
-                                </div>
-                          </div>
-                    </div>
-                    <div class="program" id="program8">
-                      <div class="programInfo">
-                          <h3>9. {{ recommendation_set.8.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home8">About</a></li>
-                              <li><a data-toggle="tab" href="#courses8">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers8">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison8">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home8" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.8.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.8.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses8" class="tab-pane fade">
-                                <p>{{ recommendation_set.8.course.course }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample First Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.8.code %}
-                                            {% if cars.course_type.option == "First Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Upper Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.8.code %}
-                                            {% if cars.course_type.option == "Upper Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="careers8" class="tab-pane fade">
-                                <p>{{ recommendation_set.8.career.career }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample Co-op Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.8.code %}
-                                            {% if cars.career_type.option == "Sample Co-op Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Full-Time Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.8.code %}
-                                            {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="comparison8" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.8.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                          
-                      </div>
-                    </div>
-                    <div class="program" id="program9">
-                      <div class="programInfo">
-                          <h3>10. {{ recommendation_set.9.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home9">About</a></li>
-                              <li><a data-toggle="tab" href="#courses9">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers9">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison9">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home9" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.9.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.9.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses9" class="tab-pane fade">
-                                <p>{{ recommendation_set.9.course.course }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample First Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.9.code %}
-                                            {% if cars.course_type.option == "First Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Upper Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.9.code %}
-                                            {% if cars.course_type.option == "Upper Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="careers9" class="tab-pane fade">
-                                <p>{{ recommendation_set.9.career.career }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample Co-op Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.9.code %}
-                                            {% if cars.career_type.option == "Sample Co-op Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Full-Time Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.9.code %}
-                                            {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="comparison9" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.9.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    <div class="program" id="program10">
-                      <div class="programInfo">
-                          <h3>11. {{ recommendation_set.10.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home10">About</a></li>
-                              <li><a data-toggle="tab" href="#courses10">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers10">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison10">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home10" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.10.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.10.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses10" class="tab-pane fade">
-                                <p>{{ recommendation_set.10.course.course }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample First Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.10.code %}
-                                            {% if cars.course_type.option == "First Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Upper Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.10.code %}
-                                            {% if cars.course_type.option == "Upper Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="careers10" class="tab-pane fade">
-                                <p>{{ recommendation_set.10.career.career }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample Co-op Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.10.code %}
-                                            {% if cars.career_type.option == "Sample Co-op Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Full-Time Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.10.code %}
-                                            {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="comparison10" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.10.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    <div class="program" id="program11">
-                      <div class="programInfo">
-                          <h3>12. {{ recommendation_set.11.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home11">About</a></li>
-                              <li><a data-toggle="tab" href="#courses11">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers11">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison11">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home11" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.11.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.11.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses11" class="tab-pane fade">
-                                <p>{{ recommendation_set.11.course.course }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample First Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.11.code %}
-                                            {% if cars.course_type.option == "First Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Upper Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.11.code %}
-                                            {% if cars.course_type.option == "Upper Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="careers11" class="tab-pane fade">
-                                <p>{{ recommendation_set.11.career.career }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample Co-op Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.11.code %}
-                                            {% if cars.career_type.option == "Sample Co-op Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Full-Time Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.11.code %}
-                                            {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}  
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="comparison11" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.11.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    <div class="program" id="program12">
-                      <div class="programInfo">
-                          <h3>13. {{ recommendation_set.12.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home12">About</a></li>
-                              <li><a data-toggle="tab" href="#courses12">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers12">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison12">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home12" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.12.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.12.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses12" class="tab-pane fade">
-                                <p>{{ recommendation_set.12.course.course }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample First Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.12.code %}
-                                            {% if cars.course_type.option == "First Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Upper Year Courses</h4>
-                                        {% for cars in course_set %}
-                                        {% if cars.program.code == recommendation_set.12.code %}
-                                            {% if cars.course_type.option == "Upper Year Course" %}
-                                            <p>{{ cars.course }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %} 
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="careers12" class="tab-pane fade">
-                                <p>{{ recommendation_set.12.career.career }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample Co-op Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.12.code %}
-                                            {% if cars.career_type.option == "Sample Co-op Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Full-Time Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.12.code %}
-                                            {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="comparison12" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.12.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    <div class="program" id="program13">
-                        <div class="programInfo">
-                            <h3>14. {{ recommendation_set.13.program.name }}</h3>
-                              <ul class="nav nav-tabs">
-                                      <li class="active"><a data-toggle="tab" href="#home13">About</a></li>
-                                      <li><a data-toggle="tab" href="#courses13">Courses</a></li>
-                                      <li><a data-toggle="tab" href="#careers13">Careers</a></li>
-                                      <li><a data-toggle="tab" href="#comparison13">Compared To</a></li>
-                                    </ul>
-                                  
-                                    <div class="tab-content">
-                                      <div id="home13" class="tab-pane fade in active">
-                                        <p>{{ recommendation_set.13.description.description }}</p>
-                                        {% for abt in description_set %}
-                                        {% if abt.program.code == recommendation_set.13.code %}
-                                        <p>{{ abt.description }}</p>
-                                        <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                        {% endif %}
-                                        {% endfor %}
-                                      </div>
-                                      <div id="courses13" class="tab-pane fade">
-                                        <p>{{ recommendation_set.13.course.course }}</p>
-                                        <div class="row">
-                                            <div class="column">
-                                                <h4>Sample First Year Courses</h4>
-                                                {% for cars in course_set %}
-                                                {% if cars.program.code == recommendation_set.13.code %}
-                                                    {% if cars.course_type.option == "First Year Course" %}
-                                                    <p>{{ cars.course }}</p>
-                                                    {% endif %}
-                                                {% endif %}
-                                                {% endfor %}
-                                            </div>
-                                            <div class="column">
-                                                <h4>Sample Upper Year Courses</h4>
-                                                {% for cars in course_set %}
-                                                {% if cars.program.code == recommendation_set.13.code %}
-                                                    {% if cars.course_type.option == "Upper Year Course" %}
-                                                    <p>{{ cars.course }}</p>
-                                                    {% endif %}
-                                                {% endif %}
-                                                {% endfor %}
-                                            </div>
-                                          </div>
-                                      </div>
-                                      <div id="careers13" class="tab-pane fade">
-                                        <p>{{ recommendation_set.13.career.career }}</p>
-                                        <div class="row">
-                                            <div class="column">
-                                                <h4>Sample Co-op Jobs</h4>
-                                                {% for cars in career_set %}
-                                                {% if cars.program.code == recommendation_set.13.code %}
-                                                    {% if cars.career_type.option == "Sample Co-op Job" %}
-                                                    <p>{{ cars.career }}</p>
-                                                    {% endif %}
-                                                {% endif %}
-                                                {% endfor %}
-                                            </div>
-                                            <div class="column">
-                                                <h4>Sample Full-Time Jobs</h4>
-                                                {% for cars in career_set %}
-                                                {% if cars.program.code == recommendation_set.13.code %}
-                                                    {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                                    <p>{{ cars.career }}</p>
-                                                    {% endif %}
-                                                {% endif %}
-                                                {% endfor %}                                      
-                                            </div>
-                                          </div>
-                                      </div>
-                                      <div id="comparison13" class="tab-pane fade">
-                                        {% for vs in comparison_set %}
-                                        {% if vs.recommendation.code == recommendation_set.13.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                        <p>{{ vs.comparison }}</p>
-                                        {% endif %}
-                                        {% endfor %}
-                                      </div>
-                                    </div>
-                        </div>      
-                    </div>
-                    <div class="program" id="program14">
-                      <div class="programInfo">
-                          <h3>15. {{ recommendation_set.14.program.name }}</h3>
-                          <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home14">About</a></li>
-                              <li><a data-toggle="tab" href="#courses14">Courses</a></li>
-                              <li><a data-toggle="tab" href="#careers14">Careers</a></li>
-                              <li><a data-toggle="tab" href="#comparison14">Compared To</a></li>
-                            </ul>
-                          
-                            <div class="tab-content">
-                              <div id="home14" class="tab-pane fade in active">
-                                <p>{{ recommendation_set.14.description.description }}</p>
-                                {% for abt in description_set %}
-                                {% if abt.program.code == recommendation_set.14.code %}
-                                <p>{{ abt.description }}</p>
-                                <p> Read more about this program  <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="courses14" class="tab-pane fade">
-                                <h3>{{ recommendation_set.14.program.name }} Courses</h3>
-                                <p>{{ recommendation_set.14.course.course }}</p>
-                                <h4>Sample First Year Courses</h4>
-                                {% for cars in course_set %}
-                                {% if cars.program.code == recommendation_set.14.code %}
-                                    {% if cars.course_type.option == "First Year Course" %}
-                                    <p>{{ cars.course }}</p>
-                                    {% endif %}
-                                {% endif %}
-                                {% endfor %}
-                                <h4>Sample Upper Year Courses</h4>
-                                {% for cars in course_set %}
-                                {% if cars.program.code == recommendation_set.14.code %}
-                                    {% if cars.course_type.option == "Upper Year Course" %}
-                                    <p>{{ cars.course }}</p>
-                                    {% endif %}
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div id="careers14" class="tab-pane fade">
-                                <p>{{ recommendation_set.14.career.career }}</p>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>Sample Co-op Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.14.code %}
-                                            {% if cars.career_type.option == "Sample Co-op Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="column">
-                                        <h4>Sample Full-Time Jobs</h4>
-                                        {% for cars in career_set %}
-                                        {% if cars.program.code == recommendation_set.14.code %}
-                                            {% if cars.career_type.option == "Sample Full-Time Job" %}
-                                            <p>{{ cars.career }}</p>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                  </div>
-                              </div>
-                              <div id="comparison14" class="tab-pane fade">
-                                {% for vs in comparison_set %}
-                                {% if vs.recommendation.code == recommendation_set.14.code %} <p><strong>{{vs.program_2.name}}</strong></p>
-                                <p>{{ vs.comparison }}</p>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                      </div>
-                    </div>
+    <div class="sidenav">
+      <div class="link">
+        <a name=#program0 id="link0">1. {{ recommendation_set.0.program.name }} <i class="fa fa-eye" id="eye0"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program1 id="link1">2. {{ recommendation_set.1.program.name }} <i class="fa fa-eye" id="eye1"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program2 id="link2">3. {{ recommendation_set.2.program.name }} <i class="fa fa-eye" id="eye2"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program3 id="link3">4. {{ recommendation_set.3.program.name }} <i class="fa fa-eye" id="eye3"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program4 id="link4">5. {{ recommendation_set.4.program.name }} <i class="fa fa-eye" id="eye4"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program5 id="link5">6. {{ recommendation_set.5.program.name }} <i class="fa fa-eye" id="eye5"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program6 id="link6">7. {{ recommendation_set.6.program.name }} <i class="fa fa-eye" id="eye6"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program7 id="link7">8. {{ recommendation_set.7.program.name }} <i class="fa fa-eye" id="eye7"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program8 id="link8">9. {{ recommendation_set.8.program.name }} <i class="fa fa-eye" id="eye8"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program9 id="link9">10. {{ recommendation_set.9.program.name }} <i class="fa fa-eye" id="eye9"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program10 id="link10">11. {{ recommendation_set.10.program.name }} <i class="fa fa-eye"
+            id="eye10"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program11 id="link11">12. {{ recommendation_set.11.program.name }} <i class="fa fa-eye"
+            id="eye11"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program12 id="link12">13. {{ recommendation_set.12.program.name }} <i class="fa fa-eye"
+            id="eye12"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program13 id="link13">14. {{ recommendation_set.13.program.name }} <i class="fa fa-eye"
+            id="eye13"></i></a>
+      </div>
+      <div class="link">
+        <a name=#program14 id="link14">15. {{ recommendation_set.14.program.name }} <i class="fa fa-eye"
+            id="eye14"></i></a>
+      </div>
+    </div>
+    <div class="emailWrapper">
+      <div class="emailSection" id="beforeSubmit">
+        <form id="submit" method="POST" action="{% url 'emailSubmit' %}">
+          {% csrf_token %}
+          <p>Enter your email below to recieve information about Engineering at the University of Waterloo</p>
+          <input type="email" id="email" name="email" required>
+          <input type="submit" class="button" name="emailSubmit" id="emailSubmit" value="&#62;">
+        </form>
+      </div>
+      <div class="emailSection" id="afterSubmit">
+        <p>We have recieved your email, thank you!</p>
+      </div>
+    </div>
+    <div class="content">
+      <div class="program" id="program0">
+        <div class="programInfo">
+          <h3>1. {{ recommendation_set.0.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home0">About</a></li>
+            <li><a data-toggle="tab" href="#courses0">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers0">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison0">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home0" class="tab-pane fade in active">
+              <p>{{ recommendation_set.0.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.0.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
             </div>
+            <div id="courses0" class="tab-pane fade">
+              <p>{{ recommendation_set.0.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.0.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.0.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers0" class="tab-pane fade">
+              <p>{{ recommendation_set.0.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.0.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.0.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison0" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.0.code %} <p><strong>{{vs.program_2.name}}</strong></p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="program" id="program1">
+        <div class="programInfo">
+          <h3>2. {{ recommendation_set.1.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home1">About</a></li>
+            <li><a data-toggle="tab" href="#courses1">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers1">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison1">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home1" class="tab-pane fade in active">
+              <p>{{ recommendation_set.1.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.1.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses1" class="tab-pane fade">
+              <p>{{ recommendation_set.1.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.1.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.1.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers1" class="tab-pane fade">
+              <p>{{ recommendation_set.1.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.1.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.1.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison1" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.1.code %} <p><strong>{{vs.program_2.name}}</strong></p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program2">
+        <div class="programInfo">
+          <h3>3. {{ recommendation_set.2.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home2">About</a></li>
+            <li><a data-toggle="tab" href="#courses2">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers2">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison2">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home2" class="tab-pane fade in active">
+              <p>{{ recommendation_set.2.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.2.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses2" class="tab-pane fade">
+              <p>{{ recommendation_set.2.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.2.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.2.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers2" class="tab-pane fade">
+              <p>{{ recommendation_set.2.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.2.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.2.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison2" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.2.code %} <p><strong>{{vs.program_2.name}}</strong></p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program3">
+        <div class="programInfo">
+          <h3>4. {{ recommendation_set.3.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home3">About</a></li>
+            <li><a data-toggle="tab" href="#courses3">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers3">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison3">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home3" class="tab-pane fade in active">
+              <p>{{ recommendation_set.3.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.3.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses3" class="tab-pane fade">
+              <p>{{ recommendation_set.3.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.3.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.3.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers3" class="tab-pane fade">
+              <p>{{ recommendation_set.3.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.3.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.3.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison3" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.3.code %} <p><strong>{{vs.program_2.name}}</strong></p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program4">
+        <div class="programInfo">
+          <h3>5. {{ recommendation_set.4.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home4">About</a></li>
+            <li><a data-toggle="tab" href="#courses4">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers4">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison4">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home4" class="tab-pane fade in active">
+              <p>{{ recommendation_set.4.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.4.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses4" class="tab-pane fade">
+              <p>{{ recommendation_set.4.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.4.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.4.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers4" class="tab-pane fade">
+              <p>{{ recommendation_set.4.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.4.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.4.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison4" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.4.code %} <p><strong>{{vs.program_2.name}}</strong></p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program5">
+        <div class="programInfo">
+          <h3>6. {{ recommendation_set.5.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home5">About</a></li>
+            <li><a data-toggle="tab" href="#courses5">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers5">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison5">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home5" class="tab-pane fade in active">
+              <p>{{ recommendation_set.5.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.5.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses5" class="tab-pane fade">
+              <p>{{ recommendation_set.5.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.5.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.5.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers5" class="tab-pane fade">
+              <p>{{ recommendation_set.5.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.5.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.5.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison5" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.5.code %} <p><strong>{{vs.program_2.name}}</strong></p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program6">
+        <div class="programInfo">
+          <h3>7. {{ recommendation_set.6.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home6">About</a></li>
+            <li><a data-toggle="tab" href="#courses6">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers6">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison6">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home6" class="tab-pane fade in active">
+              <p>{{ recommendation_set.6.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.6.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses6" class="tab-pane fade">
+              <p>{{ recommendation_set.6.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.6.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.6.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers6" class="tab-pane fade">
+              <p>{{ recommendation_set.6.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.6.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.6.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison6" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.6.code %} <p><strong>{{vs.program_2.name}}</strong></p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program7">
+        <div class="programInfo">
+          <h3>8. {{ recommendation_set.7.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home7">About</a></li>
+            <li><a data-toggle="tab" href="#courses7">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers7">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison7">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home7" class="tab-pane fade in active">
+              <p>{{ recommendation_set.7.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.7.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses7" class="tab-pane fade">
+              <p>{{ recommendation_set.7.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.7.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.7.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers7" class="tab-pane fade">
+              <p>{{ recommendation_set.7.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.7.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.7.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison7" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.7.code %} <p><strong>{{vs.program_2.name}}</strong></p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program8">
+        <div class="programInfo">
+          <h3>9. {{ recommendation_set.8.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home8">About</a></li>
+            <li><a data-toggle="tab" href="#courses8">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers8">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison8">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home8" class="tab-pane fade in active">
+              <p>{{ recommendation_set.8.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.8.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses8" class="tab-pane fade">
+              <p>{{ recommendation_set.8.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.8.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.8.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers8" class="tab-pane fade">
+              <p>{{ recommendation_set.8.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.8.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.8.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison8" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.8.code %} <p><strong>{{vs.program_2.name}}</strong></p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="program" id="program9">
+        <div class="programInfo">
+          <h3>10. {{ recommendation_set.9.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home9">About</a></li>
+            <li><a data-toggle="tab" href="#courses9">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers9">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison9">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home9" class="tab-pane fade in active">
+              <p>{{ recommendation_set.9.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.9.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses9" class="tab-pane fade">
+              <p>{{ recommendation_set.9.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.9.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.9.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers9" class="tab-pane fade">
+              <p>{{ recommendation_set.9.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.9.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.9.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison9" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.9.code %} <p><strong>{{vs.program_2.name}}</strong></p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program10">
+        <div class="programInfo">
+          <h3>11. {{ recommendation_set.10.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home10">About</a></li>
+            <li><a data-toggle="tab" href="#courses10">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers10">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison10">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home10" class="tab-pane fade in active">
+              <p>{{ recommendation_set.10.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.10.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses10" class="tab-pane fade">
+              <p>{{ recommendation_set.10.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.10.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.10.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers10" class="tab-pane fade">
+              <p>{{ recommendation_set.10.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.10.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.10.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison10" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.10.code %} <p><strong>{{vs.program_2.name}}</strong>
+              </p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program11">
+        <div class="programInfo">
+          <h3>12. {{ recommendation_set.11.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home11">About</a></li>
+            <li><a data-toggle="tab" href="#courses11">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers11">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison11">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home11" class="tab-pane fade in active">
+              <p>{{ recommendation_set.11.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.11.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses11" class="tab-pane fade">
+              <p>{{ recommendation_set.11.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.11.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.11.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers11" class="tab-pane fade">
+              <p>{{ recommendation_set.11.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.11.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.11.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison11" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.11.code %} <p><strong>{{vs.program_2.name}}</strong>
+              </p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program12">
+        <div class="programInfo">
+          <h3>13. {{ recommendation_set.12.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home12">About</a></li>
+            <li><a data-toggle="tab" href="#courses12">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers12">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison12">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home12" class="tab-pane fade in active">
+              <p>{{ recommendation_set.12.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.12.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses12" class="tab-pane fade">
+              <p>{{ recommendation_set.12.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.12.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.12.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers12" class="tab-pane fade">
+              <p>{{ recommendation_set.12.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.12.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.12.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison12" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.12.code %} <p><strong>{{vs.program_2.name}}</strong>
+              </p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program13">
+        <div class="programInfo">
+          <h3>14. {{ recommendation_set.13.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home13">About</a></li>
+            <li><a data-toggle="tab" href="#courses13">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers13">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison13">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home13" class="tab-pane fade in active">
+              <p>{{ recommendation_set.13.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.13.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses13" class="tab-pane fade">
+              <p>{{ recommendation_set.13.course.course }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.13.code %}
+                  {% if cars.course_type.option == "First Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for cars in course_set %}
+                  {% if cars.program.code == recommendation_set.13.code %}
+                  {% if cars.course_type.option == "Upper Year Course" %}
+                  <p>{{ cars.course }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="careers13" class="tab-pane fade">
+              <p>{{ recommendation_set.13.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.13.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.13.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison13" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.13.code %} <p><strong>{{vs.program_2.name}}</strong>
+              </p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="program" id="program14">
+        <div class="programInfo">
+          <h3>15. {{ recommendation_set.14.program.name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home14">About</a></li>
+            <li><a data-toggle="tab" href="#courses14">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers14">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison14">Compared To</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="home14" class="tab-pane fade in active">
+              <p>{{ recommendation_set.14.description.description }}</p>
+              {% for abt in description_set %}
+              {% if abt.program.code == recommendation_set.14.code %}
+              <p>{{ abt.description }}</p>
+              <p> Read more about this program <a href="{{abt.hyperlink}}" target="_blank">here</a></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="courses14" class="tab-pane fade">
+              <h3>{{ recommendation_set.14.program.name }} Courses</h3>
+              <p>{{ recommendation_set.14.course.course }}</p>
+              <h4>Sample First Year Courses</h4>
+              {% for cars in course_set %}
+              {% if cars.program.code == recommendation_set.14.code %}
+              {% if cars.course_type.option == "First Year Course" %}
+              <p>{{ cars.course }}</p>
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+              <h4>Sample Upper Year Courses</h4>
+              {% for cars in course_set %}
+              {% if cars.program.code == recommendation_set.14.code %}
+              {% if cars.course_type.option == "Upper Year Course" %}
+              <p>{{ cars.course }}</p>
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div id="careers14" class="tab-pane fade">
+              <p>{{ recommendation_set.14.career.career }}</p>
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.14.code %}
+                  {% if cars.career_type.option == "Sample Co-op Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for cars in career_set %}
+                  {% if cars.program.code == recommendation_set.14.code %}
+                  {% if cars.career_type.option == "Sample Full-Time Job" %}
+                  <p>{{ cars.career }}</p>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="comparison14" class="tab-pane fade">
+              {% for vs in comparison_set %}
+              {% if vs.recommendation.code == recommendation_set.14.code %} <p><strong>{{vs.program_2.name}}</strong>
+              </p>
+              <p>{{ vs.comparison }}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>

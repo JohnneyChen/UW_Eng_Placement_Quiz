@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        {% load static %}
-        <title>UW Program Compatibility Tool | Home</title>
-        <link rel="stylesheet" type="text/css" href="{% static '/style/home.css' %}">
-        <!-- <script src="quizHomepage.js"></script> -->
-    </head>
-    <body>
-        <div class="homepage">
-            <div class="title">Program Compatibility Tool</div>
-            <div class="blurb">
-                <p>Your starting point for discovery!</p>
-                <p>Learn more about the different programs offered at the University of Waterlooand which ones align most with your interests</p>
-            </div>
-            <!-- <form action="{% url 'startQuiz' %}">
-                <button class="quizButton">Start Quiz</button>
-            </form> -->
-            <div class="links">
-                <ul>
-                    <li><a class="button" href="{% url 'startQuiz' %}">Start Quiz</a></li>
-                    <li><a class="button" href="{% url 'about' %}" target="_blank">About</a></li>
-                    <li><a class="button" href="{% url 'programInfo' %}" target="_blank">Programs</a></li>
-                </ul>
-            </div>
+
+<head>
+    {% load static %}
+    <title>UW Program Compatibility Tool | Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/style/home.css' %}">
+</head>
+
+<body>
+    <div class="homepage">
+        <div class="title">Program Compatibility Tool</div>
+        <div class="blurb">
+            <p>Your starting point for discovery!</p>
+            <p>Learn more about the different programs offered at the University of Waterlooand which ones align most
+                with your interests</p>
         </div>
-    </body>
+        <div class="links">
+            <ul>
+                <li><a class="button" href="{% url 'startQuiz' %}">Start Quiz</a></li>
+                <li><a class="button" href="{% url 'about' %}" target="_blank">About</a></li>
+                <li><a class="button" href="{% url 'programInfo' %}" target="_blank">Programs</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
 </html>

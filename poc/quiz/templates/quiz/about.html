@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% load static %}
     <title>UW Program Compatibility Tool | About</title>
@@ -10,140 +11,219 @@
 </head>
 
 <body>
-                <div class="title">How the Engineering Placement Quiz Works</div>
+    <div class="title">How the Engineering Placement Quiz Works</div>
 
-                <br>
-                <p>The Engineering Placement Quiz was built by a group of five Management Engineering students for their Fourth Year Design Project. </p>
-                
-                <div class="heading">The Machine Learning Algorithm Behind It </div>
-                
-                <p>The quiz is powered by a Naive Bayes classifier algorithm - one of the most efficient, intuitive and effective algorithms for applying machine learning to large data sets. </p>
-                
-                <br>
-                <p>The Naive Bayes algorithm leverages Bayes’ Theorem to calculate the probability of a sample belonging to a certain category. Speaking in terms of The Quiz, it is calculating the probability that you (the sample) should belong to each of the fifteen engineering programs offered at the University of Waterloo (the categories). It is calculating these probabilities based on the ~2000 data points it has been trained with. </p>
-                
-                <div class="heading2">Bayes’ Theorem</div>
-                
-                <p>In machine learning we are often interested in selecting the best hypothesis (H) given a set of data (D). Bayes’ Theorem provides a way to calculate the probability of a hypothesis given the available data. </p>
-                
-                <br>
-                <p>Bayes’ Theorem Equation: P(H | D) =P(D | H) x P(H)P(D)</p>
-                
-                <br>
-                <p>Where:</p>
-                
-                <p>P(H | D) is the probability of hypothesis H given the data D. This is called the posterior probability.</p>
-                
-                <p>P(D | H) is the probability of data D given that the hypothesis H was true.</p>
-                
-                <p>P(H) is the probability of hypothesis H being true (regardless of the data). This is called the prior probability of H.</p>
-                
-                <p>P(D) is the probability of the data (regardless of the hypothesis). </p>
-                
-                <div class="heading2">A Simple Example </div>
-                
-                <p>Let’s say we have data on 1000 pieces of fruit. The fruit being a lemon, mango or some other fruit. Imagine we also know 3 features of each fruit - whether it’s sour or not, round or not and yellow or not. We’ve organized all this data in the table below. </p>
-                
-                <br>
-                <table ><colgroup><col><col><col><col><col></colgroup>
-                <tbody>
-                <tr>
-                <td><p>Fruit</p></td>
-                <td><p>Sour</p></td>
-                <td><p>Round</p></td>
-                <td><p>Yellow</p></td>
-                <td><p>Total</p></td>
-                </tr>
-                
-                <tr>
-                <td><p>Lemon</p></td>
-                <td><p>400</p></td>
-                <td><p>350</p></td>
-                <td><p>450</p></td>
-                <td><p>500</p></td>
-                </tr>
-                
-                <tr>
-                <td><p>Mango</p></td>
-                <td><p>0</p></td>
-                <td><p>150</p></td>
-                <td><p>300</p></td>
-                <td><p>300</p></td>
-                </tr>
-                
-                <tr>
-                <td><p>Other</p></td>
-                <td><p>100</p></td>
-                <td><p>150</p></td>
-                <td><p>50</p></td>
-                <td><p>200</p></td>
-                </tr>
-                
-                <tr>
-                <td><p>Total</p></td>
-                <td><p>500</p></td>
-                <td><p>650</p></td>
-                <td><p>800</p></td>
-                <td><p>1000</p></td>
-                </tr>
-                
-                </tbody>
-                </table>
-                
-                <br>
-                <p>Just from looking at the table, we already know that: </p>
-                
-                <ul>
-                <li><p>50% of the total fruits are lemons</p>
-                
-                </li>
-                <li><p>30% are mangos</p>
-                
-                </li>
-                <li><p>20% are other fruits</p>
-                
-                </li>
-                </ul>
-                
-                <ul>
-                <li><p>Of the 500 lemons, 400 (80%) are sour, 350 (70%) are round and 450 (90%) are yellow</p>
-                
-                </li>
-                <li><p>Of the 300 mangos, 0 are sour, 150 (50%) are round and 300 (100%) are yellow</p>
-                
-                </li>
-                <li><p>Of the other 200 fruits, 100 (50%) are sour, 150 (75%) are round and 50 (25%) are yellow</p>
-                
-                </li>
-                </ul>
-                
-                <br>
-                <p>Let’s say we’re given the features of an additional piece of fruit and we want to predict what type of fruit it is (it’s class). We’re told that the fruit is sour, round, and yellow. We can use Bayes’ Theorem to classify whether it’s a lemon, a mango or other fruit. </p>
-                
-                <br>
-                <p>General Formula: P(A | B) =P(B | A) x P(A)P(B)</p>
-                
-                <br>
-                <p>Lemon:P(Lemon | Sour, Round, Yellow) =P(Sour | Lemon) x P(Round | Lemon) x P(Yellow | Lemon) x P(Lemon)P(Sour) x P(Round) x P(Yellow)</p>
-                
-                <p>P(Lemon | Sour, Round, Yellow) =(0.8) x (0.7) x (0.9) x (0.5)(0.25) x (0.33) x (0.41)</p>
-                
-                <p>P(Lemon | Sour, Round, Yellow) =0.252</p>
-                
-                <br>
-                <p>Mango: P(Mango | Sour, Round, Yellow)=P(Sour| Mango) x P(Round | Mango) x P(Yellow | Mango) x P(Mango)P(Sour) x P(Round) x P(Yellow)</p>
-                
-                <p>P(Mango | Sour, Round, Yellow)=0</p>
-                
-                <br>
-                <p>Other: P(Other | Sour, Round, Yellow) =P(Sour | Other) x P(Round | Other) x P(Yellow | Other) x P(Other)P(Sour) x P(Round) x P(Yellow)</p>
-                
-                <p>P(Other | Sour, Round, Yellow) =0.018</p>
-                
-                <br>
-                <p>Therefore, based on the highest score (~25.2% for lemon) we can assume this sour, round and yellow fruit is in fact, a lemon.</p>
-                
-                <br>
-                
+    <br>
+    <p>The Engineering Placement Quiz was built by a group of five Management Engineering students for their Fourth Year
+        Design Project. </p>
+
+    <div class="heading">The Machine Learning Algorithm Behind It </div>
+
+    <p>The quiz is powered by a Naive Bayes classifier algorithm - one of the most efficient, intuitive and effective
+        algorithms for applying machine learning to large data sets. </p>
+
+    <br>
+    <p>The Naive Bayes algorithm leverages Bayes’ Theorem to calculate the probability of a sample belonging to a
+        certain category. Speaking in terms of The Quiz, it is calculating the probability that you (the sample) should
+        belong to each of the fifteen engineering programs offered at the University of Waterloo (the categories). It is
+        calculating these probabilities based on the ~2000 data points it has been trained with. </p>
+
+    <div class="heading2">Bayes’ Theorem</div>
+
+    <p>In machine learning we are often interested in selecting the best hypothesis (H) given a set of data (D). Bayes’
+        Theorem provides a way to calculate the probability of a hypothesis given the available data. </p>
+
+    <br>
+    <p>Bayes’ Theorem Equation: P(H | D) =P(D | H) x P(H)P(D)</p>
+
+    <br>
+    <p>Where:</p>
+
+    <p>P(H | D) is the probability of hypothesis H given the data D. This is called the posterior probability.</p>
+
+    <p>P(D | H) is the probability of data D given that the hypothesis H was true.</p>
+
+    <p>P(H) is the probability of hypothesis H being true (regardless of the data). This is called the prior probability
+        of H.</p>
+
+    <p>P(D) is the probability of the data (regardless of the hypothesis). </p>
+
+    <div class="heading2">A Simple Example </div>
+
+    <p>Let’s say we have data on 1000 pieces of fruit. The fruit being a lemon, mango or some other fruit. Imagine we
+        also know 3 features of each fruit - whether it’s sour or not, round or not and yellow or not. We’ve organized
+        all this data in the table below. </p>
+
+    <br>
+    <table>
+        <colgroup>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p>Fruit</p>
+                </td>
+                <td>
+                    <p>Sour</p>
+                </td>
+                <td>
+                    <p>Round</p>
+                </td>
+                <td>
+                    <p>Yellow</p>
+                </td>
+                <td>
+                    <p>Total</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>Lemon</p>
+                </td>
+                <td>
+                    <p>400</p>
+                </td>
+                <td>
+                    <p>350</p>
+                </td>
+                <td>
+                    <p>450</p>
+                </td>
+                <td>
+                    <p>500</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>Mango</p>
+                </td>
+                <td>
+                    <p>0</p>
+                </td>
+                <td>
+                    <p>150</p>
+                </td>
+                <td>
+                    <p>300</p>
+                </td>
+                <td>
+                    <p>300</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>Other</p>
+                </td>
+                <td>
+                    <p>100</p>
+                </td>
+                <td>
+                    <p>150</p>
+                </td>
+                <td>
+                    <p>50</p>
+                </td>
+                <td>
+                    <p>200</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>Total</p>
+                </td>
+                <td>
+                    <p>500</p>
+                </td>
+                <td>
+                    <p>650</p>
+                </td>
+                <td>
+                    <p>800</p>
+                </td>
+                <td>
+                    <p>1000</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <br>
+    <p>Just from looking at the table, we already know that: </p>
+
+    <ul>
+        <li>
+            <p>50% of the total fruits are lemons</p>
+
+        </li>
+        <li>
+            <p>30% are mangos</p>
+
+        </li>
+        <li>
+            <p>20% are other fruits</p>
+
+        </li>
+    </ul>
+
+    <ul>
+        <li>
+            <p>Of the 500 lemons, 400 (80%) are sour, 350 (70%) are round and 450 (90%) are yellow</p>
+
+        </li>
+        <li>
+            <p>Of the 300 mangos, 0 are sour, 150 (50%) are round and 300 (100%) are yellow</p>
+
+        </li>
+        <li>
+            <p>Of the other 200 fruits, 100 (50%) are sour, 150 (75%) are round and 50 (25%) are yellow</p>
+
+        </li>
+    </ul>
+
+    <br>
+    <p>Let’s say we’re given the features of an additional piece of fruit and we want to predict what type of fruit it
+        is (it’s class). We’re told that the fruit is sour, round, and yellow. We can use Bayes’ Theorem to classify
+        whether it’s a lemon, a mango or other fruit. </p>
+
+    <br>
+    <p>General Formula: P(A | B) =P(B | A) x P(A)P(B)</p>
+
+    <br>
+    <p>Lemon:P(Lemon | Sour, Round, Yellow) =P(Sour | Lemon) x P(Round | Lemon) x P(Yellow | Lemon) x P(Lemon)P(Sour) x
+        P(Round) x P(Yellow)</p>
+
+    <p>P(Lemon | Sour, Round, Yellow) =(0.8) x (0.7) x (0.9) x (0.5)(0.25) x (0.33) x (0.41)</p>
+
+    <p>P(Lemon | Sour, Round, Yellow) =0.252</p>
+
+    <br>
+    <p>Mango: P(Mango | Sour, Round, Yellow)=P(Sour| Mango) x P(Round | Mango) x P(Yellow | Mango) x P(Mango)P(Sour) x
+        P(Round) x P(Yellow)</p>
+
+    <p>P(Mango | Sour, Round, Yellow)=0</p>
+
+    <br>
+    <p>Other: P(Other | Sour, Round, Yellow) =P(Sour | Other) x P(Round | Other) x P(Yellow | Other) x P(Other)P(Sour) x
+        P(Round) x P(Yellow)</p>
+
+    <p>P(Other | Sour, Round, Yellow) =0.018</p>
+
+    <br>
+    <p>Therefore, based on the highest score (~25.2% for lemon) we can assume this sour, round and yellow fruit is in
+        fact, a lemon.</p>
+
+    <br>
+
 </body>
+
 </html>
