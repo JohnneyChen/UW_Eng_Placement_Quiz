@@ -3,43 +3,43 @@ Password: quiz_test
 
 
 reset db
-heroku pg:reset DATABASE_URL --app=waterlooengineeringquiz
+heroku pg:reset DATABASE_URL --app=uw-engineering-quiz
 
-heroku run bash --app=waterlooengineeringquiz
+heroku run bash --app=uw-engineering-quiz
 
 python poc/manage.py makemigrations
 python poc/manage.py migrate
 
 ^ use this for making migrations
 
-heroku ps:copy --app=waterlooengineeringquiz
+heroku ps:copy --app=uw-engineering-quiz
 
 
-heroku logs --tail --app=waterlooengineeringquiz
+heroku logs --tail --app=uw-engineering-quiz
 
 
-heroku run python poc/manage.py createsuperuser --app=waterlooengineeringquiz
+heroku run python poc/manage.py createsuperuser --app=uw-engineering-quiz
 
-heroku run python poc/manage.py changepassword ayser  --app=waterlooengineeringquiz
+heroku run python poc/manage.py changepassword ayser  --app=uw-engineering-quiz
 
 
 # to clear database
 
-heroku run python poc/manage.py flush --app=waterlooengineeringquiz
+heroku run python poc/manage.py flush --app=uw-engineering-quiz
 
 
 
 
-heroku run python poc/manage.py clear_cache --app=waterlooengineeringquiz
+heroku run python poc/manage.py clear_cache --app=uw-engineering-quiz
 
-heroku run python poc/manage.py clean_pyc --app=waterlooengineeringquiz
+heroku run python poc/manage.py clean_pyc --app=uw-engineering-quiz
 
 heroku run python poc/manage.py reset_schema --app=waterlooengineeringquiz
 
 heroku run python poc/manage.py reset_db --app=waterlooengineeringquiz
 
-heroku run python poc/manage.py makemigrations --app=waterlooengineeringquiz
-heroku run python poc/manage.py migrate --app=waterlooengineeringquiz
+heroku run python poc/manage.py makemigrations --app=uw-engineering-quiz
+heroku run python poc/manage.py migrate --app=uw-engineering-quiz
 
 
 
