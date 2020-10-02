@@ -50,6 +50,11 @@ li {
   top: 10%;
 }
 
+a, a:hover, a:after, a:visited  {
+  color: #57058B;
+  text-decoration: none;
+}
+
 .blurb>p {
   margin: 0;
   text-align: center;
