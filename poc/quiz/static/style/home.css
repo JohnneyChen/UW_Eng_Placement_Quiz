@@ -7,6 +7,18 @@ body {
   font-family: 'gotham_condensedmedium';
 }
 
+.engineeringWorkmark{
+  min-width: 400px;
+	
+  /* Set up proportionate scaling */
+  width: 400px;
+  height: 93px;
+	
+  /* Set up positioning */
+  position: fixed;
+  top: 5%;
+  left: 5%;
+}
 .homepage {
   width: 850px;
   height: 250px;
