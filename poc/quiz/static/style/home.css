@@ -12,6 +12,7 @@ body {
   position: fixed;
   top: 5%;
   left: 1%;
+  background-color: #FAF4FE;
 }
 .homepage {
   width: 850px;
@@ -62,7 +63,7 @@ a, a:hover, a:after, a:visited  {
   font-weight: bold;
 }
 
-.blurb span {
+span {
   background-color: #FAF4FE;
 }
 
