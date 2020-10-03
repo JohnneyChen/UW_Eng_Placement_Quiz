@@ -7,6 +7,12 @@ body {
   font-family: 'gotham_condensedmedium';
 }
 
+.engineeringWatermark img {
+  max-width: 250px;
+  position: fixed;
+  top: 5%;
+  left: 1%;
+}
 .homepage {
   width: 850px;
   height: 250px;
@@ -44,11 +50,20 @@ li {
   top: 10%;
 }
 
-.blurb>p {
+a, a:hover, a:after, a:visited  {
+  color: #57058B;
+  text-decoration: none;
+}
+
+.blurb p {
   margin: 0;
   text-align: center;
   font-size: medium;
   font-weight: bold;
+}
+
+span {
+  background-color: #FAF4FE;
 }
 
 .links {
