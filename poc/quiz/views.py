@@ -16,6 +16,11 @@ from . activate_model import *
 def about(request):
     return render(request, 'quiz/about.html')
 
+def quickfix01(request):
+    results = Result.objects.all()[:4000]
+    Result.objects.exclude(pk__in=list(results)).delete()
+    return render(request, 'quiz/about.html')
+
 def home(request):
     return render(request, 'quiz/home.html')
 

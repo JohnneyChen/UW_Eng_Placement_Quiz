@@ -10,6 +10,6 @@ urlpatterns = [
     url(r'startQuiz', views.quiz, name='startQuiz'),
     url(r'programInfo', views.programs, name='programInfo'),
     url(r'about', views.about, name='about'),
-    url(r'emailSubmission', views.email, name='emailSubmit')
-
+    url(r'emailSubmission', views.email, name='emailSubmit'),
+    url(r'quickfix01', views.quickfix01, name='quickfix01')
 ]
