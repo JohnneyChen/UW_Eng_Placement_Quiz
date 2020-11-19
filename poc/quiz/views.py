@@ -17,7 +17,7 @@ def about(request):
     return render(request, 'quiz/about.html')
 
 def quickfix01(request):
-    results = Result.objects.all()[:4000]
+    results = Result.objects.filter(id > 12000)
     results.delete()
     return render(request, 'quiz/about.html')
 
