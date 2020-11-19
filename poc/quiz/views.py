@@ -18,7 +18,7 @@ def about(request):
 
 def quickfix01(request):
     results = Result.objects.all()[:4000]
-    Result.objects.exclude(pk__in=list(results)).delete()
+    results.delete()
     return render(request, 'quiz/about.html')
 
 def home(request):
