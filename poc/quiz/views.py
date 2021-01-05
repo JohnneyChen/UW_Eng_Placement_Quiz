@@ -48,7 +48,7 @@ def email(request):
                         if request.POST.get('email'):
                                 email = Email()
                                 email.email = request.POST.get('email')
-                                email.save()
+                                # email.save()
                                 return render(request,'quiz/emailSubmission.html')
         except:
                 print("Unexpected error:", sys.exc_info()[0])
@@ -262,8 +262,9 @@ def recommendations(request,post_dict):
     new_record.swe = results_dict['syde']
     new_record.tron = results_dict['tron']
     print("new record information collected...")
+    print("new record not saved. DB CLOSED 4 BIZNESS..")
 
-    new_record.save()
+    # new_record.save()
     print("new record saved...")
 
     comparison_set = Comparison.objects.all()
