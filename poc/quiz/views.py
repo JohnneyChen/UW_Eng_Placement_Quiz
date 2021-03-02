@@ -121,6 +121,7 @@ def email(request):
                                         html_message=msg_html,
                                         fail_silently=False,
                                     )
+                                    print('email sent')
                                 return render(request,'quiz/emailSubmission.html')
         except:
                 print("Unexpected error:", sys.exc_info()[0])
