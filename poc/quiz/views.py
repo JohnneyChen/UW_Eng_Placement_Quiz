@@ -38,7 +38,7 @@ def email(request):
                                 result_id = request.session.get('saved_result', '')
                                 if result_id == '':
                                     HttpResponse("Please finish the quiz first")
-                                result = Result.obejcts.get(pk=result_id)
+                                result = Result.objects.get(pk=result_id)
                                 wantUpdate = request.POST.get('register', False)
                                 print(wantUpdate)
                                 wantResult = request.POST.get('sendRes', False)
@@ -303,6 +303,4 @@ def recommendations(request,post_dict):
     res.time = datetime.today()
     res.save()
     request.session['saved_result'] = res.id
-    print('this is the session id saved')
-    print(request.session.get('saved_result', ''))
     return render(request, 'quiz/recommendations.html', {'result':res})
