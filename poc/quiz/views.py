@@ -194,72 +194,26 @@ def recommendations(request,post_dict):
     # Getting Ordered Results
     results_dict = retrieve_prediction_labels(model,prediction)
     results = list(sorted(results_dict, key=lambda key: results_dict[key],reverse=True))
-    return_list = []
-    for key in results:
-        return_list.append(Recommendation.objects.get(code=key))
-
-    print("Weights of Results")
-    print(results_dict)
-    print("Response Created...")
-
-    print("Creating new record...")
-    new_record = Result()
-    new_record.time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    # new_record.problem_type = post_dict['problem_type']
-    new_record.creative = post_dict['creative']
-    new_record.outdoors = post_dict['outdoors']
-    new_record.career = post_dict['career']
-    new_record.group_work = post_dict['group_work']
-    new_record.liked_courses = post_dict['liked_courses']
-    new_record.disliked_courses = post_dict['disliked_courses']
-    # new_record.programming = post_dict['programming']
-    new_record.join_clubs = post_dict['join_clubs']
-    new_record.not_clubs = post_dict['not_clubs']
-    new_record.liked_projects = post_dict['liked_projects']
-    new_record.disliked_projects = post_dict['disliked_projects']
-    # new_record.tv_shows = post_dict['tv_shows']
-    new_record.alternate_degree = post_dict['alternate_degree']
-    # new_record.expensive_equipment = post_dict['expensive_equipment']
-    new_record.drawing = post_dict['drawing']
-    new_record.essay = post_dict['essay']
-    new_record.architecture = post_dict['architecture']
-    new_record.automotive = post_dict['automotive']
-    new_record.business = post_dict['business']
-    new_record.construction = post_dict['construction']
-    new_record.health = post_dict['health']
-    new_record.environment = post_dict['environment']
-    new_record.manufacturing = post_dict['manufacturing']
-    new_record.technology = post_dict['technology']
-
-    new_record.arch = results_dict['arch']
-    new_record.arche = results_dict['arch-e']
-    new_record.bmed = results_dict['bmed']
-    new_record.ce = results_dict['ce']
-    new_record.cive = results_dict['chem']
-    new_record.chem = results_dict['cive']
-    new_record.env = results_dict['elec']
-    new_record.elec = results_dict['env']
-    new_record.geo = results_dict['geo']
-    new_record.mech = results_dict['mech']
-    new_record.msci = results_dict['msci']
-    new_record.nano = results_dict['nano']
-    new_record.syde = results_dict['swe']
-    new_record.swe = results_dict['syde']
-    new_record.tron = results_dict['tron']
-    print("new record information collected...")
-
-    new_record.save()
-    print("new record saved...")
-
-    comparison_set = Comparison.objects.all()
-    description_set = Description.objects.all()
-    course_set = Course.objects.all()
-    career_set = Career.objects.all()
-    context ={
-            'recommendation_set':return_list,
-            'comparison_set':list(comparison_set),
-            'course_set':list(course_set),
-            'career_set':list(career_set),
-            'description_set':list(description_set)
-            }
-    return render(request,'quiz/recommendations.html',context)
+    result_list= []
+    for code in results:
+        result_list.append(Program.objects.get(key=code))
+    res = Result()
+    res.one = result_list[0]
+    res.two = result_list[1]
+    res.three = result_list[2]
+    res.four = result_list[3]
+    res.five = result_list[4]
+    res.six = result_list[5]
+    res.seven = result_list[6]
+    res.eight = result_list[7]
+    res.nine = result_list[8]
+    res.ten = result_list[9]
+    res.eleven = result_list[10]
+    res.twelve = result_list[11]
+    res.thirteen = result_list[12]
+    res.fourteen = result_list[13]
+    res.fifteen = result_list[14]
+    res.time = datetime.today()
+    res.save()
+    request.session['saved_result'] = res.id
+    return render(request, 'quiz/recommendations.html', {'result':res})
