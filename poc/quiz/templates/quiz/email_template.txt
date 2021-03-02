@@ -1,0 +1,16 @@
+Hey there,
+
+Thank you for considering University of Waterloo's Engineering department!
+
+After you took the engineering quiz, the best engineering program for you is:
+{{best_program}}:
+{{best_program_details}}
+
+If this doesn't seem like something you're interested in, the other options in your results may be of interest:
+    {% for program in programs %}
+        {{program_name}}
+    {% endfor %}
+
+Thanks for taking the quiz and we hope to see you on our campus!
+
+Faculty of Engineering, University of Waterloo

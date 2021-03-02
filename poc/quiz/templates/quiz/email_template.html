@@ -1,0 +1,18 @@
+<p>Hey there,</p>
+
+<h1>Thank you for considering University of Waterloo's Engineering department!</h1>
+
+<p>After you took the engineering quiz, the best engineering program for you is:</p>
+<strong> <a href="{{best_program_site}}">{{best_program}}</a></strong>
+<p>{{best_program_details}}</p>
+
+If this doesn't seem like something you're interested in, the other options in your results may be of interest:
+<ol>
+    {% for program in programs %}
+    <li><a href="{{program.program_site}}">{{program.program_name}}</a></li>
+    {% endfor %}
+</ol>
+
+<p>Thanks for taking the quiz and we hope to see you on our campus!</p>
+
+<p>Faculty of Engineering, University of Waterloo</p>

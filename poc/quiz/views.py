@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.forms.models import model_to_dict
+from django.template.loader import render_to_string
 import json
 import pickle
 import numpy as np
@@ -28,12 +30,91 @@ def programs(request):
 
 def email(request):
         try:
-                print("Accessed submit...")
                 if request.method == 'POST':
                         if request.POST.get('email'):
-                                email = Email()
-                                email.email = request.POST.get('email')
-                                email.save()
+                                email = request.POST.get('email')
+                                result_id = request.session.get('result_id', '')
+                                if result_id == '':
+                                    HttpResponse("Please finish the quiz first")
+                                result = Result.obejcts.get(pk=result_id)
+                                wantUpdate = request.POST.get('register', False)
+                                wantResult = request.POST.get('sendRes', False)
+                                if wantUpdate == 'on':
+                                    result.email = email
+                                    result.save()
+                                if wantResult == 'on':
+                                    configs = {
+                                        'best_program': result.one.program_name
+                                        'best_program_details': result.one.description
+                                        'programs': [
+                                            {
+                                            'program_name': result.two.program_name
+                                            'program_site': result.two.site
+                                            },
+                                            {
+                                            'program_name': result.three.program_name
+                                            'program_site': result.three.site
+                                            },
+                                            {
+                                            'program_name': result.four.program_name
+                                            'program_site': result.four.site
+                                            },
+                                            {
+                                            'program_name': result.five.program_name
+                                            'program_site': result.five.site
+                                            },
+                                            {
+                                            'program_name': result.six.program_name
+                                            'program_site': result.six.site
+                                            },
+                                            {
+                                            'program_name': result.seven.program_name
+                                            'program_site': result.seven.site
+                                            },
+                                            {
+                                            'program_name': result.eight.program_name
+                                            'program_site': result.eight.site
+                                            },
+                                            {
+                                            'program_name': result.nine.program_name
+                                            'program_site': result.nine.site
+                                            },
+                                            {
+                                            'program_name': result.ten.program_name
+                                            'program_site': result.ten.site
+                                            },
+                                            {
+                                            'program_name': result.eleven.program_name
+                                            'program_site': result.eleven.site
+                                            },
+                                            {
+                                            'program_name': result.twelve.program_name
+                                            'program_site': result.twelve.site
+                                            },
+                                            {
+                                            'program_name': result.thirteen.program_name
+                                            'program_site': result.thirteen.site
+                                            },
+                                            {
+                                            'program_name': result.fourteen.program_name
+                                            'program_site': result.fourteen.site
+                                            },
+                                            {
+                                            'program_name': result.fifteen.program_name
+                                            'program_site': result.fifteen.site
+                                            }
+                                        ]
+                                    }
+                                    msg_html = render_to_string('email_template.html', configs)
+                                    msg_txt = render_to_string('email_template.txt', configs)
+                                    send_mail(
+                                        'Your Engineering Department Quiz Results',
+                                        msg_txt,
+                                        'johnneychendev@gmail.com',
+                                        [email],
+                                        html_message=msg_html,
+                                        fail_silently=False,
+                                    )
                                 return render(request,'quiz/emailSubmission.html')
         except:
                 print("Unexpected error:", sys.exc_info()[0])
