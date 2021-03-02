@@ -111,8 +111,8 @@ def email(request):
                                             }
                                         ]
                                     }
-                                    msg_html = render_to_string('email_template.html', configs)
-                                    msg_txt = render_to_string('email_template.txt', configs)
+                                    msg_html = render_to_string('quiz/email_template.html', configs)
+                                    msg_txt = render_to_string('quiz/email_template.txt', configs)
                                     send_mail(
                                         'Your Engineering Department Quiz Results',
                                         msg_txt,
