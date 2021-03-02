@@ -91,6 +91,12 @@
           <p>Enter your email below to recieve information about Engineering at the University of Waterloo</p>
           <input type="email" id="email" name="email" required>
           <input type="submit" class="button" name="emailSubmit" id="emailSubmit" value="&#62;">
+          <div class="">
+            <input type="checkbox" name="register" id="register" class="emailChoice" required>
+            <label for="register">Update me for future events</label>
+          </div>
+          <input type="checkbox" name="sendRes" id="sendRes" class="emailChoice" required>
+          <label for="sendRes">Send my results</label>
         </form>
       </div>
       <div class="emailSection" id="afterSubmit">
@@ -1076,6 +1082,26 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const countCheckbox = () => {
+      let counter = 0
+      $('.emailChoice').each((idx, box) => {
+        if (box.checked) counter++;
+      })
+      return counter
+    }
+    $(function () {
+      $('.emailChoice').on('change', () => {
+        let checked = countCheckbox()
+        if (checked > 0) {
+          $('.emailChoice').removeAttr('required')
+        } else {
+          $('.emailChoice').attr('required', 'required')
+        }
+      })
+    })
+  </script>
 </body>
 
 </html>
