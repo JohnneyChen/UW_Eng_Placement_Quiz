@@ -303,4 +303,6 @@ def recommendations(request,post_dict):
     res.time = datetime.today()
     res.save()
     request.session['saved_result'] = res.id
+    print('this is the session id saved')
+    print(request.session.get('saved_result', ''))
     return render(request, 'quiz/recommendations.html', {'result':res})
