@@ -135,6 +135,13 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Extra places for collectstatic to find static files.
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT =  '587'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+
 import django_heroku
 django_heroku.settings(locals())
 # del DATABASES['default']['OPTIONS']['sslmode']
+

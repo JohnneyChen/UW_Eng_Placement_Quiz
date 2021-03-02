@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.core.mail import send_mail
 from django.forms.models import model_to_dict
 from django.template.loader import render_to_string
 import json
@@ -46,6 +47,7 @@ def email(request):
                                     configs = {
                                         'best_program': result.one.program_name
                                         'best_program_details': result.one.description
+                                        'best_program_site': result.one.site
                                         'programs': [
                                             {
                                             'program_name': result.two.program_name
