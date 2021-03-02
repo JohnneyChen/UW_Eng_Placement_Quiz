@@ -1,154 +1,70 @@
 from django.db import models
 
 class Program(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=200)
-    def __str__(self):
-        return str(self.name)
-
-class Email(models.Model):
-    id = models.AutoField(primary_key=True)
-    email = models.CharField(max_length=200)
-    def __str__(self):
-        return str(self.email)
-
-class Recommendation(models.Model):
-    id = models.AutoField(primary_key=True)
-    program = models.ForeignKey(Program, on_delete=models.CASCADE)
-    code = models.CharField(max_length=200)
-    def __str__(self):
-        return str(self.program.name)
-
-class Description(models.Model):
-    id = models.AutoField(primary_key=True)
-    program = models.ForeignKey(Recommendation, on_delete=models.CASCADE,default=None)
+    program_name = models.CharField(max_length=200)
+    key = models.CharField(max_length=10)
     description = models.TextField()
-    hyperlink = models.TextField()
-    def __str__(self):
-        return str(self.program.program.name)
+    site = models.CharField(max_length=200)
 
-class CareerType(models.Model):
-    id = models.AutoField(primary_key=True)
-    option = models.CharField(max_length=200)
     def __str__(self):
-        return str(self.option)
+        return self.program_name
 
-class CourseType(models.Model):
-    id = models.AutoField(primary_key=True)
-    option = models.CharField(max_length=200)
-    def __str__(self):
-        return str(self.option)
+class Result(models.Model):
+    time = models.DateTimeField()
+    one = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='one')
+    two = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='two')
+    three = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='three')
+    four = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='four')
+    five = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='five')
+    six = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='six')
+    seven = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='seven')
+    eight = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='eight')
+    nine = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='nine')
+    ten = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='ten')
+    eleven = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='eleven')
+    twelve = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='twelve')
+    thirteen = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='thirteen')
+    fourteen = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='fourteen')
+    fifteen = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='fifteen')
+    email = models.CharField(max_length=200, blank=True)
 
-class Career(models.Model):
-    id = models.AutoField(primary_key=True)
-    program = models.ForeignKey(Recommendation, on_delete=models.CASCADE,default=None)
-    career_type = models.ForeignKey(CareerType, on_delete=models.CASCADE)
-    career = models.TextField()
     def __str__(self):
-        return str(self.program.program.name)+" : "+str(self.career)
+        return (
+            '1) ' + self.one.program_name +
+            '2) ' + self.two.program_name +
+            '3) ' + self.three.program_name +
+            '4) ' + self.four.program_name +
+            '5) ' + self.five.program_name +
+            '6) ' + self.six.program_name +
+            '7) ' + self.seven.program_name +
+            '8) ' + self.eight.program_name +
+            '9) ' + self.nine.program_name +
+            '10) ' + self.ten.program_name +
+            '11) ' + self.eleven.program_name +
+            '12) ' + self.twelve.program_name +
+            '13) ' + self.thirteen.program_name +
+            '14) ' + self.fourteen.program_name +
+            '15) ' + self.fifteen.program_name 
+        )
 
 class Course(models.Model):
-    id = models.AutoField(primary_key=True)
-    program = models.ForeignKey(Recommendation, on_delete=models.CASCADE,default=None)
-    course_type = models.ForeignKey(CourseType, on_delete=models.CASCADE)
+    program = models.ForeignKey(Program, on_delete=models.CASCADE)
+    course_type = models.CharField(max_length=5)
     course = models.TextField()
     def __str__(self):
-        return str(self.program.program.name)+" : "+str(self.course)
+        return self.course
+
+class Career(models.Model):
+    career_type = models.CharField(max_length=200)
+    career = models.TextField()
+    program = models.ForeignKey(Program, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.career
 
 class Comparison(models.Model):
     id = models.AutoField(primary_key=True)
-    program_1 = models.ForeignKey(Program, on_delete=models.CASCADE,related_name='program+')
-    program_2 = models.ForeignKey(Program, on_delete=models.CASCADE,related_name='compared_to+')
+    program_1 = models.ForeignKey(Program, on_delete=models.CASCADE,related_name='program')
+    program_2 = models.ForeignKey(Program, on_delete=models.CASCADE,related_name='compare_to')
     comparison = models.TextField()
-    recommendation = models.ForeignKey(Recommendation, on_delete=models.CASCADE,default=None)
     def __str__(self):
-        return str(self.program_1)+" vs. "+str(self.program_2)+" : "+str(self.comparison)
-
-class Result(models.Model):
-    id = models.AutoField(primary_key=True)
-    time = models.CharField(max_length=200)
-    problem_type = models.CharField(max_length=200)
-    creative = models.CharField(max_length=200)
-    outdoors = models.CharField(max_length=200)
-    career = models.CharField(max_length=200)
-    group_work = models.CharField(max_length=200)
-    liked_courses = models.CharField(max_length=200)
-    disliked_courses = models.CharField(max_length=200)
-    programming = models.CharField(max_length=200)
-    join_clubs = models.CharField(max_length=200)
-    not_clubs = models.CharField(max_length=200)
-    liked_projects = models.CharField(max_length=200)
-    disliked_projects = models.CharField(max_length=200)
-    tv_shows = models.CharField(max_length=200)
-    alternate_degree = models.CharField(max_length=200)
-    expensive_equipment = models.CharField(max_length=200)
-    drawing = models.CharField(max_length=200)
-    essay = models.CharField(max_length=200)
-    architecture = models.CharField(max_length=200)
-    automotive = models.CharField(max_length=200)
-    business = models.CharField(max_length=200)
-    construction = models.CharField(max_length=200)
-    health = models.CharField(max_length=200)
-    environment = models.CharField(max_length=200)
-    manufacturing = models.CharField(max_length=200)
-    technology = models.CharField(max_length=200)
-    arch = models.CharField(max_length=200,default=None)
-    arche = models.CharField(max_length=200,default=None)
-    bmed = models.CharField(max_length=200,default=None)
-    ce = models.CharField(max_length=200,default=None)
-    cive = models.CharField(max_length=200,default=None)
-    chem = models.CharField(max_length=200,default=None)
-    env = models.CharField(max_length=200,default=None)
-    elec = models.CharField(max_length=200,default=None)
-    geo = models.CharField(max_length=200,default=None)
-    mech = models.CharField(max_length=200,default=None)
-    msci = models.CharField(max_length=200,default=None)
-    nano = models.CharField(max_length=200,default=None)
-    syde = models.CharField(max_length=200,default=None)
-    swe = models.CharField(max_length=200,default=None)
-    tron = models.CharField(max_length=200,default=None)
-
-    def __str__(self):
-        return_value = (
-                        str(self.problem_type) + " , " +
-                        str(self.creative) + " , " +
-                        str(self.outdoors) + " , " +
-                        str(self.career) + " , " +
-                        str(self.group_work) + " , " +
-                        str(self.liked_courses) + " , " +
-                        str(self.disliked_courses) + " , " +
-                        str(self.programming) + " , " +
-                        str(self.join_clubs) + " , " +
-                        str(self.not_clubs) + " , " +
-                        str(self.liked_projects) + " , " +
-                        str(self.disliked_projects) + " , " +
-                        str(self.tv_shows) + " , " +
-                        str(self.alternate_degree) + " , " +
-                        str(self.expensive_equipment) + " , " +
-                        str(self.drawing) + " , " +
-                        str(self.essay) + " , " +
-                        str(self.architecture) + " , " +
-                        str(self.automotive) + " , " +
-                        str(self.business) + " , " +
-                        str(self.construction) + " , " +
-                        str(self.health) + " , " +
-                        str(self.environment) + " , " +
-                        str(self.manufacturing) + " , " +
-                        str(self.technology) + " , " +
-                        str(self.arch) + " , " +
-                        str(self.arche) + " , " +
-                        str(self.bmed) + " , " +
-                        str(self.ce) + " , " +
-                        str(self.cive) + " , " +
-                        str(self.chem) + " , " +
-                        str(self.env) + " , " +
-                        str(self.elec) + " , " +
-                        str(self.geo) + " , " +
-                        str(self.mech) + " , " +
-                        str(self.msci) + " , " +
-                        str(self.nano) + " , " +
-                        str(self.syde) + " , " +
-                        str(self.swe) + " , " +
-                        str(self.tron)
-                        )
-        return return_value
+        return str(self.program_1.program_name)+" vs. "+str(self.program_2.program_name)+" : "+str(self.comparison)
