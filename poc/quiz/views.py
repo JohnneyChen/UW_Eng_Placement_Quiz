@@ -33,16 +33,20 @@ def email(request):
         try:
                 if request.method == 'POST':
                         if request.POST.get('email'):
+                                print('got email')
                                 email = request.POST.get('email')
-                                result_id = request.session.get('result_id', '')
+                                result_id = request.session.get('saved_result', '')
                                 if result_id == '':
                                     HttpResponse("Please finish the quiz first")
                                 result = Result.obejcts.get(pk=result_id)
                                 wantUpdate = request.POST.get('register', False)
+                                print(wantUpdate)
                                 wantResult = request.POST.get('sendRes', False)
+                                print(wantResult)
                                 if wantUpdate == 'on':
                                     result.email = email
                                     result.save()
+                                    print('email saved')
                                 if wantResult == 'on':
                                     configs = {
                                         'best_program': result.one.program_name,
