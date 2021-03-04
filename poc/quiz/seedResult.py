@@ -15,7 +15,7 @@ for program in Program.objects.all():
     programs.append(program)
 
 for i in range(5000):
-    shuffle(programList)
+    shuffle(programs)
     res = Result()
     res.one = programs[0]
     res.two = programs[1]
