@@ -544,9 +544,9 @@
 
     <div class="button">
       {% if {{hasSubmitted}}%}
-      <input type="submit" value="Re-submit" class="btn btn-primary btn-lg" id="submitButton" disabled />
-      {% else %}
       <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submitButton" disabled />
+      {% else %}
+      <input type="submit" value="Re-submit" class="btn btn-primary btn-lg" id="submitButton" disabled />
       {% endif %}
     </div>
 
@@ -554,7 +554,7 @@
   </div>
 
   <script>
-    if ({{ hasSubmitted }}) $('#submitButton').prop('disabled', true)
+    if !({{ hasNotSubmitted }}) $('#submitButton').prop('disabled', true)
   </script>
 </body>
 
