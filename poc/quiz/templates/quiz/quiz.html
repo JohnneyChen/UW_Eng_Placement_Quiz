@@ -553,9 +553,14 @@
     </form>
   </div>
 
+  {% if {{hasNotSubmitted}} %}
   <script>
-    if !({{ hasNotSubmitted }}) $('#submitButton').prop('disabled', true)
+    let hasNotSubmitted = true
   </script>
-</body>
+  {% else %}
+  <script>
+    let hasNotSubmitted = false
+  </script>
+  {% endif %}
 
 </html>
