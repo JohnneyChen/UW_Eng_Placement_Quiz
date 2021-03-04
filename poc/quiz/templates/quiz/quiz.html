@@ -543,24 +543,17 @@
     </div>
 
     <div class="button">
-      {% if {{hasNotSubmitted}}%}
       <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submitButton" disabled />
-      {% else %}
-      <input type="submit" value="Re-submit" class="btn btn-primary btn-lg" id="submitButton" disabled />
-      {% endif %}
     </div>
+
+    <script>
+      let data = JSON.parse('{{data|escapejs}}')
+      console.log(data)
+      let hasNotSubmitted = data.hasNotSubmitted
+    </script>
 
     </form>
   </div>
 
-  {% if {{hasNotSubmitted}} %}
-  <script>
-    let hasNotSubmitted = true
-  </script>
-  {% else %}
-  <script>
-    let hasNotSubmitted = false
-  </script>
-  {% endif %}
 
 </html>

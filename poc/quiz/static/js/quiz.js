@@ -2,6 +2,7 @@ $(function () {
   let toOpen = 1;
   if (!hasNotSubmitted) {
     $('#submitButton').prop('disabled', true)
+    $('#submitButton').val('Re-submit')
   }
   const q1 = $('input[name="creative"]')
   const q2 = $('input[name="essay"]')

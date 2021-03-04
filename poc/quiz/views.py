@@ -11,6 +11,7 @@ import json
 import pickle
 import numpy as np
 import sys
+from json import dumps
 
 from . models import *
 from . data_load import *
@@ -25,7 +26,8 @@ def home(request):
 def quiz(request):
     result_id = request.session.get('saved_result', '')
     hasNotSubmitted = result_id == ''
-    return render(request, 'quiz/quiz.html', {"hasNotSubmitted": hasNotSubmitted})
+    jsonData = dumps({'hasNotSubmitted':hasNotSubmitted})
+    return render(request, 'quiz/quiz.html', {"data": jsonData})
 
 def programs(request):
     programs = Program.objects.order_by("program_name").all()
