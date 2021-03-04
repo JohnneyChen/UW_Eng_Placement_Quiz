@@ -8,7 +8,7 @@ d2 = datetime.strptime('1/1/2021 4:50 AM', '%m/%d/%Y %I:%M %p')
 def random_date(start, end):
     return start + datetime.timedelta( seconds = randint(0,int((end-start).total_seconds()))
 
-programList = []
+programList = list()
 for program in Program.objects.all():
     programList.append(program)
 
