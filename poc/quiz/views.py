@@ -24,9 +24,8 @@ def home(request):
     return render(request, 'quiz/home.html')
 
 def quiz(request):
-    result_id = request.session.get('saved_result', '')
-    hasNotSubmitted = result_id == ''
-    jsonData = dumps({'hasNotSubmitted':hasNotSubmitted})
+    result_id = request.session.get('saved_result', False)
+    jsonData = dumps({'result_id';result_id})
     return render(request, 'quiz/quiz.html', {"data": jsonData})
 
 def programs(request):

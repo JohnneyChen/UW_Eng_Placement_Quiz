@@ -1,6 +1,6 @@
 $(function () {
   let toOpen = 1;
-  if (!hasNotSubmitted) {
+  if (resultId) {
     $('#submitButton').prop('disabled', true)
     $('#submitButton').val('Re-submit')
   }
@@ -62,12 +62,16 @@ $(function () {
     $(`#panel-body${i}`).on('click', (e) => {
       if (e.target.value !== undefined) {
         $(`#collapse${toOpen}`).toggleClass('in')
-        toOpen = i + 1;
-        $('html, body').animate({
-          scrollTop: $(`#question${i + 1}`).offset().top
-        }, 600);
-        openTab()
-        toEnableBtn()
+        if ($(`#collapse${toOpen + 1}`).hasClass('in')) {
+          toEnableBtn()
+        } else {
+          toOpen = i + 1;
+          $('html, body').animate({
+            scrollTop: $(`#question${i + 1}`).offset().top
+          }, 600);
+          openTab()
+          toEnableBtn()
+        }
       }
     })
   }

@@ -42,7 +42,7 @@
               Would you consider yourself as being creative?
             </h4>
           </div>
-          <div id="collapse1" class="panel-collapse collapse in">
+          <div id="collapse1" class="panel-collapse collapse">
             <div class="panel-body" id="panel-body1">
               <div class="radio">
                 <label><input type="radio" name="creative" value="creative">I am very creative</label>
@@ -548,8 +548,8 @@
 
     <script>
       let data = JSON.parse('{{data|escapejs}}')
-      console.log(data)
-      let hasNotSubmitted = data.hasNotSubmitted
+      let resultId = data.result_id || false
+      console.log(resultId)
     </script>
 
     </form>
