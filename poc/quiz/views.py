@@ -23,7 +23,9 @@ def home(request):
     return render(request, 'quiz/home.html')
 
 def quiz(request):
-    return render(request, 'quiz/quiz.html')
+    result_id = request.session.get('saved_result', '')
+    hasSubmitted = !(result_id == '')
+    return render(request, 'quiz/quiz.html', {"hasSubmitted": hasSubmitted})
 
 def programs(request):
     programs = Program.objects.order_by("program_name").all()
