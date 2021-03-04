@@ -1,6 +1,6 @@
 $(function () {
   let toOpen = 1;
-  if ({{ hasSubmitted }
+  if !({{ hasNotSubmitted }
 }){
   $('#submitButton').prop('disabled', true)
 }

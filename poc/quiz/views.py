@@ -24,8 +24,8 @@ def home(request):
 
 def quiz(request):
     result_id = request.session.get('saved_result', '')
-    hasSubmitted = !(result_id == '')
-    return render(request, 'quiz/quiz.html', {"hasSubmitted": hasSubmitted})
+    hasNotSubmitted = result_id == ''
+    return render(request, 'quiz/quiz.html', {"hasNotSubmitted": hasNotSubmitted})
 
 def programs(request):
     programs = Program.objects.order_by("program_name").all()
@@ -287,23 +287,47 @@ def recommendations(request,post_dict):
     result_list= []
     for code in results:
         result_list.append(Program.objects.get(key=code))
-    res = Result()
-    res.one = result_list[0]
-    res.two = result_list[1]
-    res.three = result_list[2]
-    res.four = result_list[3]
-    res.five = result_list[4]
-    res.six = result_list[5]
-    res.seven = result_list[6]
-    res.eight = result_list[7]
-    res.nine = result_list[8]
-    res.ten = result_list[9]
-    res.eleven = result_list[10]
-    res.twelve = result_list[11]
-    res.thirteen = result_list[12]
-    res.fourteen = result_list[13]
-    res.fifteen = result_list[14]
-    res.time = datetime.today()
-    res.save()
-    request.session['saved_result'] = res.id
-    return render(request, 'quiz/recommendations.html', {'result':res})
+
+    result_id = request.session.get('saved_result', '')
+    hasSubmitted = !(result_id == '')
+    if hasSubmitted:
+        res = Result.objects.get(pk=result_id)
+        res.one = result_list[0]
+        res.two = result_list[1]
+        res.three = result_list[2]
+        res.four = result_list[3]
+        res.five = result_list[4]
+        res.six = result_list[5]
+        res.seven = result_list[6]
+        res.eight = result_list[7]
+        res.nine = result_list[8]
+        res.ten = result_list[9]
+        res.eleven = result_list[10]
+        res.twelve = result_list[11]
+        res.thirteen = result_list[12]
+        res.fourteen = result_list[13]
+        res.fifteen = result_list[14]
+        res.time = datetime.today()
+        res.save()
+        return render(request, 'quiz/recommendations.html', {'result':res})
+    else:
+        res = Result()
+        res.one = result_list[0]
+        res.two = result_list[1]
+        res.three = result_list[2]
+        res.four = result_list[3]
+        res.five = result_list[4]
+        res.six = result_list[5]
+        res.seven = result_list[6]
+        res.eight = result_list[7]
+        res.nine = result_list[8]
+        res.ten = result_list[9]
+        res.eleven = result_list[10]
+        res.twelve = result_list[11]
+        res.thirteen = result_list[12]
+        res.fourteen = result_list[13]
+        res.fifteen = result_list[14]
+        res.time = datetime.today()
+        res.save()
+        request.session['saved_result'] = res.id
+        return render(request, 'quiz/recommendations.html', {'result':res})
