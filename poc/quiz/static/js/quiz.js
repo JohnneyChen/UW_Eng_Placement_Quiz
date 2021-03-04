@@ -3,6 +3,9 @@ $(function () {
   if (resultId) {
     $('#submitButton').prop('disabled', true)
     $('#submitButton').val('Re-submit')
+    for (let i = 1; i < 15; ++i) {
+      $(`#collapse${toOpen}`).addClass('in')
+    }
   }
   const q1 = $('input[name="creative"]')
   const q2 = $('input[name="essay"]')
@@ -61,8 +64,8 @@ $(function () {
   for (let i = 1; i < 14; ++i) {
     $(`#panel-body${i}`).on('click', (e) => {
       if (e.target.value !== undefined) {
-        $(`#collapse${toOpen}`).toggleClass('in')
-        if ($(`#collapse${toOpen + 1}`).hasClass('in')) {
+        $(`#collapse${i}`).toggleClass('in')
+        if ($(`#collapse${i + 1}`).hasClass('in')) {
           toEnableBtn()
         } else {
           toOpen = i + 1;
