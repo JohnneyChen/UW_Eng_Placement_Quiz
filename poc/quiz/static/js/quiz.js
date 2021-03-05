@@ -4,7 +4,7 @@ $(function () {
     $('#submitButton').prop('disabled', true)
     $('#submitButton').val('Re-submit')
     for (let i = 1; i < 15; ++i) {
-      $(`#collapse${toOpen}`).addClass('in')
+      $(`#collapse${i}`).addClass('in')
     }
   }
   const q1 = $('input[name="creative"]')
