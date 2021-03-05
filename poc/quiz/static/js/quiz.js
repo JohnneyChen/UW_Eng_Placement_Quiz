@@ -1,12 +1,5 @@
 $(function () {
   let toOpen = 1;
-  if (resultId) {
-    $('#submitButton').prop('disabled', true)
-    $('#submitButton').val('Re-submit')
-    for (let i = 1; i < 15; ++i) {
-      $(`#collapse${i}`).addClass('in')
-    }
-  }
   const q1 = $('input[name="creative"]')
   const q2 = $('input[name="essay"]')
   const q3 = $('input[name="outdoors"]')
@@ -51,6 +44,14 @@ $(function () {
   }
 
   openTab()
+
+  if (resultId) {
+    $('#submitButton').prop('disabled', true)
+    $('#submitButton').val('Re-submit')
+    for (let i = 1; i < 15; ++i) {
+      $(`#collapse${i}`).addClass('in')
+    }
+  }
 
   for (let i = 1; i < 15; ++i) {
     $(`#question${i}`).on('click', (e) => {
