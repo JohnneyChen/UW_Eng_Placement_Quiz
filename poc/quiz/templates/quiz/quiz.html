@@ -32,7 +32,7 @@
   <div class="container">
     <!-- Submitting a form-->
     <div class="panel-group" id="accordion">
-      <form id="submit" action="{% url 'submit' %}" method='post' onsubmit="return openRequiredQuestions();">
+      <form id="submit" action="{% url 'submit' %}" method='post'>
         {% csrf_token %}
 
         <!--  Question 1 -->
@@ -545,15 +545,7 @@
     <div class="button">
       <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submitButton" disabled />
     </div>
-
-    <script>
-      let data = JSON.parse('{{data|escapejs}}')
-      let resultId = data.result_id || false
-      console.log(resultId)
-    </script>
-
     </form>
   </div>
-
 
 </html>

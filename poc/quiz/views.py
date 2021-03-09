@@ -24,9 +24,7 @@ def home(request):
     return render(request, 'quiz/home.html')
 
 def quiz(request):
-    result_id = request.session.get('saved_result', False)
-    jsonData = dumps({'result_id':result_id})
-    return render(request, 'quiz/quiz.html', {"data": jsonData})
+    return render(request, 'quiz/quiz.html')
 
 def programs(request):
     programs = Program.objects.order_by("program_name").all()

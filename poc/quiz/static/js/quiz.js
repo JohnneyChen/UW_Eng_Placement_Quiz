@@ -1,4 +1,8 @@
 $(function () {
+  $('#submit').on('submit', () => {
+    localStorage.setItem('hasSubmitted', true)
+  })
+
   let toOpen = 1;
   const q1 = $('input[name="creative"]')
   const q2 = $('input[name="essay"]')
@@ -45,7 +49,7 @@ $(function () {
 
   openTab()
 
-  if (resultId) {
+  if (localStorage.getItem('hasSubmitted')) {
     $('#submitButton').prop('disabled', true)
     $('#submitButton').val('Re-submit')
     for (let i = 1; i < 15; ++i) {
