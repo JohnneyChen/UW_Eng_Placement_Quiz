@@ -288,8 +288,14 @@ def recommendations(request,post_dict):
         result_list.append(Program.objects.get(key=code))
 
     result_id = request.session.get('saved_result', '')
-    hasNotSubmitted = result_id == ''
-    if hasNotSubmitted: 
+    noPreviousRecord = result_id == ''
+    try :
+        Result.objects.get(pk=result_id)
+    except Result.DoesNotExist:
+        print('previous saved record on session is missing')
+        noPreviousRecord = True
+
+    if noPreviousRecord: 
         res = Result()
         res.one = result_list[0]
         res.two = result_list[1]
