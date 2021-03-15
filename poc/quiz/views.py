@@ -406,3 +406,68 @@ def query_form(request):
         programs = Program.objects.all()
         positions = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen"]
         return render(request, 'quiz/queryForm.html' , {'programs': programs, 'positions':positions})
+
+@login_required
+def dashboard(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        chart = Chart()
+        chart.title = data['title']
+        chart.chart_type = data['type']
+        chart.width = data['width']
+        chart.height = data['height']
+        chart.url = data['url']
+        chart.save()
+        return HttpResponse('Your chart has been added')
+    allCharts = Chart.objects.all()
+    return render(request, 'quiz/dashboard.html', {'charts': allCharts})
+
+@login_required
+def charts_api(request):
+    if request.method == 'GET':
+        allCharts = Chart.objects.all()
+        data = {}
+        data['data'] = []
+        for chart in allCharts:
+            data['data'].append({
+                'title': chart.title,
+                'url': chart.url,
+                'type': chart.chart_type
+            })
+        return JsonResponse(data)
+
+@login_required
+def reorder_dashboard(request):
+    if request.method == 'POST':
+        charts = json.loads(request.body.decode('utf-8'))["chartPositions"]
+        for chart in charts:
+            chart_to_change = Chart.objects.get(pk=chart["chartId"])
+            chart_to_change.order = chart['position']
+            chart_to_change.save()
+        return HttpResponse()
+
+@login_required
+def edit_chart(request):
+    if request.method == 'POST':
+        chart_id = request.POST.get('chart_id')
+        width = request.POST.get('width')
+        height = request.POST.get('height')
+        title = request.POST.get('label')
+        chart_type = request.POST.get('type')
+        chart = Chart.objects.get(pk=chart_id)
+        chart.width = width
+        chart.height = height
+        chart.title = title
+        chart.chart_type = chart_type
+        chart.save()
+        messages.success(request, 'Successfully edited chart', extra_tags='alert alert-success alert-dissmissble fade show flash-message')
+        return redirect('/dashboard/')
+
+@login_required
+def delete_chart(request):
+    if request.method == 'POST':
+        chart_id = request.POST.get('chart_id')
+        chart = Chart.objects.get(pk=chart_id)
+        chart.delete()
+        messages.success(request, 'Successfully deleted chart', extra_tags='alert alert-success alert-dissmissble fade show flash-message')
+        return redirect('/dashboard/')
