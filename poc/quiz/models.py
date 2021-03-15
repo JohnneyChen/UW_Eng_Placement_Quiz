@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import URLValidator
 
 # Create your models here.
 class Program(models.Model):
@@ -73,7 +74,7 @@ class Comparison(models.Model):
         return str(self.program_1.program_name)+" vs. "+str(self.program_2.program_name)+" : "+str(self.comparison)
 
 class Chart(models.Model):
-    url = models.CharField(max_length=200)
+    url = models.models.TextField(validators=[URLValidator()])
     width = models.IntegerField(default=400)
     height = models.IntegerField(default=400)
     chart_type = models.CharField(max_length=10)
