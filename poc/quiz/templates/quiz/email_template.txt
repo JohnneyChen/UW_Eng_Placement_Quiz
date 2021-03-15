@@ -11,6 +11,8 @@ If this doesn't seem like something you're interested in, the other options in y
         {{program_name}}
     {% endfor %}
 
+Trying to be informed on all future undergraduate events? Enter your contact information to join the University of Waterloo mailing list (https://uwaterloo.ca/future-students/subscribe).
+
 Thanks for taking the quiz and we hope to see you on our campus!
 
 Faculty of Engineering, University of Waterloo

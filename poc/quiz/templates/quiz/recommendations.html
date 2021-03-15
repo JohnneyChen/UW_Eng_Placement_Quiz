@@ -88,16 +88,15 @@
       <div class="emailSection" id="beforeSubmit">
         <form id="submit" method="POST" action="{% url 'emailSubmit' %}">
           {% csrf_token %}
-          <p>Enter your email below to recieve information about Engineering at the University of Waterloo</p>
+          <p>Submit your email below to recieve your quiz results</p>
           <input type="email" id="email" name="email" required>
           <input type="submit" class="button" name="emailSubmit" id="emailSubmit" value="&#62;">
-          <div class="">
-            <input type="checkbox" name="register" id="register" class="emailChoice" required>
-            <label for="register">Update me for future events</label>
-          </div>
-          <input type="checkbox" name="sendRes" id="sendRes" class="emailChoice" required>
-          <label for="sendRes">Send my results</label>
         </form>
+        <br>
+        <p>
+          <a href="https://uwaterloo.ca/future-students/subscribe">Enter your contact information</a> to join the
+          University of Waterloo mailing list.
+        </p>
       </div>
       <div class="emailSection" id="afterSubmit">
         <p>We have recieved your email, thank you!</p>
