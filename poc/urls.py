@@ -25,10 +25,10 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('signup/', views.signup, name="signup"),
     path('queryform/', views.query_form),
-    path('all_data_api/', views.get_all_data, name='all_data_api'),
-    path('programs_data_api/', views.get_programs_data, name='programs_data_api'),
+    path('api/all_data', views.get_all_data, name='all_data_api'),
+    path('api/program_data', views.get_programs_data, name='programs_data_api'),
     path('dashboard/', views.dashboard, name="dashboard"),
-    path('charts_api/', views.charts_api, name='chart_api'),
+    path('api/all_charts', views.charts_api, name='chart_api'),
     path('reorder_dashboard/', views.reorder_dashboard, name="reorder_dashboard"),
     path('edit_chart/', views.edit_chart, name='edit_chart'),
     path('delete_chart/', views.delete_chart, name='delete_chart')

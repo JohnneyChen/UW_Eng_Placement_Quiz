@@ -74,7 +74,7 @@ class Comparison(models.Model):
         return str(self.program_1.program_name)+" vs. "+str(self.program_2.program_name)+" : "+str(self.comparison)
 
 class Chart(models.Model):
-    url = models.TextField()
+    url = models.TextField(validators=[URLValidator()], max_length=600)
     width = models.IntegerField(default=400)
     height = models.IntegerField(default=400)
     chart_type = models.CharField(max_length=10)
