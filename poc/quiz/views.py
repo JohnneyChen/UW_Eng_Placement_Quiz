@@ -290,19 +290,13 @@ def recommendations(request,post_dict):
     for code in results:
         result_list.append(Program.objects.get(key=code))
     result_id = request.session.get('saved_result', '')
-    print('result_id recieved')
-    print(result_id)
     noPreviousRecord = result_id == ''
-    print('initial noPreviousRecordDetermined')
-    print(noPreviousRecord)
-    try :
-        Result.objects.get(pk=result_id)
-    except Result.DoesNotExist:
-        print('previous saved record on session is missing')
-        noPreviousRecord = True
-
-    print('final noPreviousRecordDetermined')
-    print(noPreviousRecord)
+    if not(noPreviousRecord):
+        try :
+            Result.objects.get(pk=result_id)
+        except Result.DoesNotExist:
+            print('previous saved record on session is missing')
+            noPreviousRecord = True
 
     if noPreviousRecord: 
         res = Result()
