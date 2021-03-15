@@ -1,10 +1,14 @@
 from django.db import models
 
+# Create your models here.
 class Program(models.Model):
     program_name = models.CharField(max_length=200)
     key = models.CharField(max_length=10)
     description = models.TextField()
     site = models.CharField(max_length=200)
+
+    class Meta():
+        ordering = ['key',]
 
     def __str__(self):
         return self.program_name
@@ -26,25 +30,24 @@ class Result(models.Model):
     thirteen = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='thirteen')
     fourteen = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='fourteen')
     fifteen = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='fifteen')
-    email = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return (
             '1) ' + self.one.program_name +
-            '2) ' + self.two.program_name +
-            '3) ' + self.three.program_name +
-            '4) ' + self.four.program_name +
-            '5) ' + self.five.program_name +
-            '6) ' + self.six.program_name +
-            '7) ' + self.seven.program_name +
-            '8) ' + self.eight.program_name +
-            '9) ' + self.nine.program_name +
-            '10) ' + self.ten.program_name +
-            '11) ' + self.eleven.program_name +
-            '12) ' + self.twelve.program_name +
-            '13) ' + self.thirteen.program_name +
-            '14) ' + self.fourteen.program_name +
-            '15) ' + self.fifteen.program_name 
+            ' 2) ' + self.two.program_name +
+            ' 3) ' + self.three.program_name +
+            ' 4) ' + self.four.program_name +
+            ' 5) ' + self.five.program_name +
+            ' 6) ' + self.six.program_name +
+            ' 7) ' + self.seven.program_name +
+            ' 8) ' + self.eight.program_name +
+            ' 9) ' + self.nine.program_name +
+            ' 10) ' + self.ten.program_name +
+            ' 11) ' + self.eleven.program_name +
+            ' 12) ' + self.twelve.program_name +
+            ' 13) ' + self.thirteen.program_name +
+            ' 14) ' + self.fourteen.program_name +
+            ' 15) ' + self.fifteen.program_name 
         )
 
 class Course(models.Model):
@@ -68,3 +71,17 @@ class Comparison(models.Model):
     comparison = models.TextField()
     def __str__(self):
         return str(self.program_1.program_name)+" vs. "+str(self.program_2.program_name)+" : "+str(self.comparison)
+
+class Chart(models.Model):
+    url = models.CharField(max_length=200)
+    width = models.IntegerField(default=400)
+    height = models.IntegerField(default=400)
+    chart_type = models.CharField(max_length=10)
+    title = models.CharField(max_length=200)
+    order = models.IntegerField(default=999)
+
+    class Meta():
+        ordering = ['order',]
+
+    def __str__(self):
+        return self.title
