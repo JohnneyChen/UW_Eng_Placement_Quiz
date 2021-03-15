@@ -137,16 +137,12 @@ def email(request):
 
 
 def submit(request):
-    try:
-        print("Accessed submit...")
-        if request.method == 'POST':
-            print("Post method received")
-            post_dict = request.POST
-            print(post_dict)
-            return recommendations(request,post_dict)
-    except:
-        print("Unexpected error:", sys.exc_info()[0])
-        return HttpResponse("Something went wrong...create) 3")
+    print("Accessed submit...")
+    if request.method == 'POST':
+        print("Post method received")
+        post_dict = request.POST
+        print(post_dict)
+        return recommendations(request,post_dict)
 
 def recommendations(request,post_dict):
     model_name = MODEL_NAME
@@ -293,17 +289,19 @@ def recommendations(request,post_dict):
     result_list= []
     for code in results:
         result_list.append(Program.objects.get(key=code))
-    print('Result_list created')
-    print(result_list)
     result_id = request.session.get('saved_result', '')
+    print('result_id recieved')
+    print(result_id)
     noPreviousRecord = result_id == ''
+    print('initial noPreviousRecordDetermined')
+    print(noPreviousRecord)
     try :
         Result.objects.get(pk=result_id)
     except Result.DoesNotExist:
         print('previous saved record on session is missing')
         noPreviousRecord = True
 
-    print('noPreviousRecordDetermined')
+    print('final noPreviousRecordDetermined')
     print(noPreviousRecord)
 
     if noPreviousRecord: 
