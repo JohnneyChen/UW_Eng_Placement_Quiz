@@ -293,7 +293,8 @@ def recommendations(request,post_dict):
     result_list= []
     for code in results:
         result_list.append(Program.objects.get(key=code))
-
+    print('Result_list created')
+    print(result_list)
     result_id = request.session.get('saved_result', '')
     noPreviousRecord = result_id == ''
     try :
@@ -301,6 +302,9 @@ def recommendations(request,post_dict):
     except Result.DoesNotExist:
         print('previous saved record on session is missing')
         noPreviousRecord = True
+
+    print('noPreviousRecordDetermined')
+    print(noPreviousRecord)
 
     if noPreviousRecord: 
         res = Result()
