@@ -23,5 +23,8 @@ urlpatterns = [
     path('quiz/', include('poc.quiz.urls')),
     path('admin/', admin.site.urls),
     path('accounts/login/', views.user_login, name='login'),
-    path('signup/', views.signup, name="signup")
+    path('signup/', views.signup, name="signup"),
+    path('queryform/', views.query_form),
+    path('all_data_api/', views.get_all_data, name='all_data_api'),
+    path('programs_data_api/', views.get_programs_data, name='programs_data_api'),
 ]

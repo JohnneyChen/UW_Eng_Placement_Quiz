@@ -1,6 +1,6 @@
 import csv
 from datetime import datetime
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -21,6 +21,8 @@ from json import dumps
 from . models import *
 from . data_load import *
 from . activate_model import *
+from .allQuery import *
+from .programQuery import *
 
 def about(request):
     return render(request, 'quiz/about.html')
@@ -373,3 +375,34 @@ def signup(request):
             return redirect('/signup/')
     if request.method == 'GET':
         return render(request, 'quiz/signup.html')
+
+@login_required
+def get_all_data(request):
+    if request.method == 'GET':
+        after = request.GET.get('after')
+        before = request.GET.get('before')
+        data = all_filter(before,after)
+        return JsonResponse({'data':data})
+
+@login_required
+def get_programs_data(request):
+    if request.method == 'GET':
+        data = {}
+        programs = request.GET.getlist('programs')
+        position = request.GET.get('position')
+        after = request.GET.get('after')
+        before = request.GET.get('before')
+        countAll = request.GET.get('count', '') == 'on'
+        if countAll:
+            data['data'] = program_count_query(programs, position, before, after)
+        else:
+            data['data'] = program_position_query(programs, position, before, after)
+        return JsonResponse(data)
+            
+
+@login_required
+def query_form(request):
+    if request.method == 'GET':
+        programs = Program.objects.all()
+        positions = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen"]
+        return render(request, 'quiz/queryForm.html' , {'programs': programs, 'positions':positions})
