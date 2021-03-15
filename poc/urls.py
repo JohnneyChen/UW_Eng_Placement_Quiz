@@ -22,4 +22,6 @@ urlpatterns = [
     path('programs', views.programs, name='programs'),
     path('quiz/', include('poc.quiz.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/login/', views.user_login, name='login'),
+    path('signup/', views.signup, name="signup")
 ]

@@ -2,11 +2,15 @@ import csv
 from datetime import datetime
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.core.mail import send_mail
 from django.forms.models import model_to_dict
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 import json
 import pickle
 import numpy as np
@@ -336,3 +340,35 @@ def recommendations(request,post_dict):
         res.time = datetime.today()
         res.save()
         return render(request, 'quiz/recommendations.html', {'result':res})
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        returnUrl = request.POST.get('returnUrl')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Successfully logged in', extra_tags='alert alert-success alert-dissmissble fade show flash-message')
+            return redirect(returnUrl)
+        else:
+            messages.error(request, 'Invalid credentials, login failed', extra_tags='alert alert-danger alert-dissmissble fade show flash-message')
+            return redirect('/accounts/login/')
+    if request.method == 'GET':
+        returnUrl = request.GET.get('next', '/')
+        return render(request, 'quiz/login.html', {'returnUrl':returnUrl})
+
+def signup(request):
+    if request.method == 'POST':
+        if request.POST.get('key') == 'thisisasecretsigninkey':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = User.objects.create_superuser(username, password=password)
+            login(request, user)
+            messages.success(request, 'Successfully signed up', extra_tags='alert alert-success alert-dissmissble fade show flash-message')
+            return redirect('/programs')
+        else:
+            messages.error(request, 'Invalid input, sign up failed', extra_tags='alert alert-danger alert-dissmissble fade show flash-message')
+            return redirect('/signup/')
+    if request.method == 'GET':
+        return render(request, 'quiz/signup.html')
