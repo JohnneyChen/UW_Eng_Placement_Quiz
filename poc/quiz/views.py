@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 import json
+import os
 import pickle
 import numpy as np
 import sys
@@ -360,13 +361,13 @@ def user_login(request):
 
 def signup(request):
     if request.method == 'POST':
-        if request.POST.get('key') == 'thisisasecretsigninkey':
+        if request.POST.get('key') == os.environ.get('SIGN_UP_KEY'):
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = User.objects.create_superuser(username, password=password)
             login(request, user)
             messages.success(request, 'Successfully signed up', extra_tags='alert alert-success alert-dissmissble fade show flash-message')
-            return redirect('/programs')
+            return redirect('/')
         else:
             messages.error(request, 'Invalid input, sign up failed', extra_tags='alert alert-danger alert-dissmissble fade show flash-message')
             return redirect('/signup/')
