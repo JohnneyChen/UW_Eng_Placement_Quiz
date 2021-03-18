@@ -1,5 +1,5 @@
 $(async function () {
-    const api_url = window.location.origin + 'api/all_charts' //generates url of backend api sending data of all charts
+    const api_url = window.location.origin + '/api/all_charts' //generates url of backend api sending data of all charts
     const payload = await axios.get(api_url) //retrieving request payload
     const charts = payload.data.data //retrieving actual data from payload
 
