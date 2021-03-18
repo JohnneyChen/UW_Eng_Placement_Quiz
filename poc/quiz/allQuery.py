@@ -5,7 +5,7 @@ from django.db.models import Count, Q, F
 # helper to group results based on the 1st recommended program
 def group_program(data):
     # returns a new QuerySet containing results in format {program_id: id, times_suggested: <INT>}
-    return data.values(program_id=F('one_id')).annotate(times_suggested=Count('program'))
+    return data.values(program_id=F('one_id')).annotate(times_suggested=Count('program_id'))
 
 # herlper to reformat QuerySet object into an array of results
 def process_grouped_data_to_json(data):
