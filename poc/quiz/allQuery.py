@@ -1,28 +1,32 @@
 from .models import *
+from .queryHelper import *
 from django.db.models import Count, Q, F
 
-def filter_time(data,before,after):
-    if before != '':
-        data = data.filter(time__lte=before)
-    if after != '':
-        data = data.filter(time__gte=after)
-    return data
-
+# helper to group results based on the 1st recommended program
 def group_program(data):
-    return data.values(program=F('one_id')).annotate(times_suggested=Count('program'))
+    # returns a new QuerySet containing results in format {program_id: id, times_suggested: <INT>}
+    return data.values(program_id=F('one_id')).annotate(times_suggested=Count('program'))
 
-def all_filter( before, after):
-    data = Result.objects.all()
-    data = filter_time(data, before, after)
-    data = group_program(data)
-    return process_grouped_data_to_json(data)
-
+# herlper to reformat QuerySet object into an array of results
 def process_grouped_data_to_json(data):
     processedData = []
+    # iterates through the QuerySet and appends to the processedData array a dict containing result information for that iteration
     for row in data:
+        # each program has a corresponding result dict with containing the program's name, key, and total recommendations
         processedData.append({
-            'program': Program.objects.get(pk=row['program']).program_name,
-            'key' : Program.objects.get(pk=row['program']).key,
+            'program': Program.objects.get(pk=row['program_id']).program_name,
+            'key' : Program.objects.get(pk=row['program_id']).key,
             'total_recommendations': row['times_suggested']
         })
     return processedData
+
+# returns payload to send after query request for all program's times-recommended
+def all_filter( before, after):
+    # gets all of the results stored
+    data = Result.objects.all()
+    # keeps only results in specified time range
+    data = filter_time(data, before, after)
+    # groups results based on 1st recommendation
+    data = group_program(data)
+    # returns data reformated for JSON
+    return process_grouped_data_to_json(data)

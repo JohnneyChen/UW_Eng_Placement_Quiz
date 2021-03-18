@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    <!-- display for flash message -->
     <div class="container">
         <div class="row">
             {% if messages %}
@@ -27,7 +28,7 @@
         </div>
     </div>
 
-
+    <!-- display of charts -->
     <div id="dashboard" class="grid">
         {% for chart in charts %}
         <div class="item">
@@ -40,6 +41,7 @@
         {% endfor %}
     </div>
 
+    <!-- display of edit modals for each chart -->
     {% for chart in charts %}
     <div class="model" id="chart{{chart.id}}">
         <div class="card">

@@ -280,15 +280,20 @@ def recommendations(request,post_dict):
     result_list= []
     for code in results:
         result_list.append(Program.objects.get(key=code))
+    
+    # tries to retrieve any stored result_id to see if user has already submitted quiz
     result_id = request.session.get('saved_result', '')
     noPreviousRecord = result_id == ''
+    # tries to get stored result if the user has submitted quiz
     if not(noPreviousRecord):
         try :
             Result.objects.get(pk=result_id)
+        # handles the error case where the past result of the user is deleted
         except Result.DoesNotExist:
             print('previous saved record on session is missing')
             noPreviousRecord = True
 
+    # creates new result to store in database if user did not submit quiz before
     if noPreviousRecord: 
         res = Result()
         res.one = result_list[0]
@@ -310,6 +315,7 @@ def recommendations(request,post_dict):
         res.save()
         request.session['saved_result'] = res.id
         return render(request, 'quiz/recommendations.html', {'result':res})
+    # edits the stored result when user has submitted quiz before
     else:
         res = Result.objects.get(pk=result_id)
         res.one = result_list[0]
@@ -365,6 +371,7 @@ def signup(request):
 
 @login_required
 def get_all_data(request):
+    # api to return payload to render datatable and chart on query
     if request.method == 'GET':
         after = request.GET.get('after')
         before = request.GET.get('before')
@@ -373,6 +380,7 @@ def get_all_data(request):
 
 @login_required
 def get_programs_data(request):
+    # api to return payload to render datatable and chart on query
     if request.method == 'GET':
         data = {}
         programs = request.GET.getlist('programs')
@@ -389,6 +397,7 @@ def get_programs_data(request):
 
 @login_required
 def query_form(request):
+    # renders the query form
     if request.method == 'GET':
         programs = Program.objects.all()
         positions = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen"]
@@ -396,6 +405,7 @@ def query_form(request):
 
 @login_required
 def dashboard(request):
+    # saves the new chart added to the dashboard
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         chart = Chart()
@@ -406,11 +416,15 @@ def dashboard(request):
         chart.url = data['url']
         chart.save()
         return HttpResponse('Your chart has been added')
+    # renders the dashboard with all charts stored in the database
+    # the chart data here is just used to render canvas with width, height, and id
     allCharts = Chart.objects.all()
     return render(request, 'quiz/dashboard.html', {'charts': allCharts})
 
 @login_required
 def charts_api(request):
+    # returns all charts stored in the database
+    # this api is used in dashboard.js to eventually insert charts made by chart.js into canvas
     if request.method == 'GET':
         allCharts = Chart.objects.all()
         data = {}
@@ -425,6 +439,7 @@ def charts_api(request):
 
 @login_required
 def reorder_dashboard(request):
+    # reorders chart according to drag & drop events in dashboard
     if request.method == 'POST':
         charts = json.loads(request.body.decode('utf-8'))["chartPositions"]
         for chart in charts:
@@ -435,6 +450,7 @@ def reorder_dashboard(request):
 
 @login_required
 def edit_chart(request):
+    # edits chart according to form information submitted in edit modal on dashboard
     if request.method == 'POST':
         chart_id = request.POST.get('chart_id')
         width = request.POST.get('width')
@@ -452,6 +468,7 @@ def edit_chart(request):
 
 @login_required
 def delete_chart(request):
+    # deletes chart according to action in edit modal on dashboard
     if request.method == 'POST':
         chart_id = request.POST.get('chart_id')
         chart = Chart.objects.get(pk=chart_id)
