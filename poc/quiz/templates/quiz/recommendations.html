@@ -28,7 +28,9 @@
 <body>
   <div class="wrapper">
     <form class="back">
-      <input type="button" class="button" id="backButton" value="Back to Quiz" onclick="goBack()">
+      <a href="{% url 'startQuiz' %}">
+        <input type="button" class="button" id="backButton" value="Back to Quiz">
+      </a>
     </form>
 
     <div class="title">
