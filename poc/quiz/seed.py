@@ -47,14 +47,14 @@ geo.save()
 arch = Program()
 arch.key = 'arch'
 arch.program_name = 'School of Architechture'
-arch.site = 'https://uwaterloo.ca/architecture/'
+arch.site = 'https://uwaterloo.ca/future-students/programs/architecture'
 arch.description = "“Create the blueprints for a great career.” In one of North America’s top schools of architecture, you’ll get a broad education that covers everything from building materials and construction techniques to cultural history, social context, green architecture, and more. Not to mention you can combine it all with co-op. However, the core of pre-professional program is design courses, starting right in year one. You’ll get your own dedicated space in our studio where you’ll develop your ideas and skills through a series of hands-on projects. Learn about society and culture, the principles of physics, materials and techniques of construction, human interaction with the natural and built environment, critical thought, and the diverse forms of creative expression. It all happens in a beautiful historic building in the city of Cambridge, about 30 kilometres south of the main Waterloo campus, complete with labs, exhibition galleries, and a world-class design library."
 arch.save()
 
 arche = Program()
 arche.key = 'arch-e'
 arche.program_name = 'Architectural Engineering'
-arche.site = 'https://uwaterloo.ca/architectural-engineering/future-undergraduate-students'
+arche.site = 'https://uwaterloo.ca/future-students/programs/architectural-engineering'
 arche.description = "“Build better buildings - and a brighter career in the process.” Combine engineering expertise with architectural savvy to boost the energy efficiency, durability, and sustainability of buildings. In Waterloo's newest engineering program, you'll learn how to design, renovate, and retrofit flexible buildings that adapt to different needs. And have the opportunity to combine it all with co-op. You'll cover all the science and engineering that goes into good building design, including mechanics, structural analysis, structural design and more. In third year, you'll study at Waterloo's world-class School of Architecture, deepening your understanding of aesthetics, culture, and other elements of design. As a result, you'll graduate speaking the language of both engineers and architects — a skill that will put you on the fast track to leadership in the building design industry."
 arche.save()
 
