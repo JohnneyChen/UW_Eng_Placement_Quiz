@@ -337,7 +337,7 @@ def recommendations(request,post_dict):
         res.fifteen = result_list[14]
         res.time = datetime.today()
         res.save()
-        return render(request, 'quiz/recommendations.html', {'result':res})
+        return render(request, 'quiz/recommendations.html', {'result':result_list})
 
 def user_login(request):
     if request.method == 'POST':
