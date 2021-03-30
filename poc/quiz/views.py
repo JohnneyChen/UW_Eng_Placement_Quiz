@@ -34,7 +34,7 @@ def quiz(request):
     return render(request, 'quiz/quiz.html')
 
 def programs(request):
-    programs = Program.objects.order_by("program_name").all()
+    programs = Program.objects.all().prefetch_related('program','career_set','course_set')
     return render(request, 'quiz/programs.html', {'programs': programs})
 
 def email(request):
@@ -277,9 +277,11 @@ def recommendations(request,post_dict):
     # Getting Ordered Results
     results_dict = retrieve_prediction_labels(model,prediction)
     results = list(sorted(results_dict, key=lambda key: results_dict[key],reverse=True))
+    
     result_list= []
+    unordered_programs = list(Program.objects.all().prefetch_related('program','career_set','course_set'))
     for code in results:
-        result_list.append(Program.objects.get(key=code))
+        result_list.append(next((program for program in unordered_programs if program.key==code)))
     
     # tries to retrieve any stored result_id to see if user has already submitted quiz
     result_id = request.session.get('saved_result', '')
@@ -314,7 +316,7 @@ def recommendations(request,post_dict):
         res.time = datetime.today()
         res.save()
         request.session['saved_result'] = res.id
-        return render(request, 'quiz/recommendations.html', {'result':res})
+        return render(request, 'quiz/recommendations.html', {'result':result_list})
     # edits the stored result when user has submitted quiz before
     else:
         res = Result.objects.get(pk=result_id)
