@@ -31,5 +31,6 @@ urlpatterns = [
     path('api/all_charts', views.charts_api, name='chart_api'),
     path('reorder_dashboard/', views.reorder_dashboard, name="reorder_dashboard"),
     path('edit_chart/', views.edit_chart, name='edit_chart'),
-    path('delete_chart/', views.delete_chart, name='delete_chart')
+    path('delete_chart/', views.delete_chart, name='delete_chart'),
+    path('api/downloadresults', views.download_results, name="download_results")
 ]

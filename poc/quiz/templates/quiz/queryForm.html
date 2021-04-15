@@ -1,200 +1,290 @@
 <html>
-
-<head>
+  <head>
     {% load static %}
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="colorlib.com">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900|Poppins:700" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static '/style/model.css'%}">
-</head>
+    <meta name="author" content="colorlib.com" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:400,700,900|Poppins:700"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static '/style/model.css'%}" />
+  </head>
 
-<body>
+  <body>
     <!-- display for flash message -->
     <div class="container">
-        <div class="row">
-            {% if messages %}
-            {% for message in messages %}
-            <div class="{{message.tags}}" role="alert" style="display: flex; justify-content: space-between;">
-                {{message}}
-                <button type="button" class="btn-close flash-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endfor %}
-            {% endif %}
+      <div class="row">
+        {% if messages %} {% for message in messages %}
+        <div
+          class="{{message.tags}}"
+          role="alert"
+          style="display: flex; justify-content: space-between"
+        >
+          {{message}}
+          <button
+            type="button"
+            class="btn-close flash-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
         </div>
+        {% endfor %} {% endif %}
+      </div>
     </div>
 
     <!-- toggle to switch between different query forms -->
-    <div class="container">
-        <div class="form-check form-switch mt-3">
-            <input class="form-check-input" type="checkbox" id="searchToggle">
-            <label class="form-check-label" for="searchToggle" id='searchToggleLabel'>Search all programs</label>
-        </div>
+    <div class="container d-flex justify-content-between mt-3">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="searchToggle" />
+        <label
+          class="form-check-label"
+          for="searchToggle"
+          id="searchToggleLabel"
+          >Search all programs</label
+        >
+      </div>
+      <a class="btn btn-primary" href="{% url 'download_results' %}"
+        >Download results</a
+      >
     </div>
     <!-- form to query information about all programs and their recommendations -->
     <form action='{% url "all_data_api" %}' id="filterAllForm">
-        <div class="container">
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">Search all</h5>
-                    <div class="row mt-3 mb-3">
-                        <div class="col-6">
-                            <label for="afterInput" class="form-label">After</label>
-                            <input class="datepicker form-control" type="date" name='after' id="afterInput"
-                                placeholder="After select date" />
-                        </div>
-                        <div class="col-6">
-                            <label for="beforeInput" class="form-label">Before</label>
-                            <input class="datepicker form-control" type="date" name='before'
-                                placeholder="Before select date" id='beforeInput' />
-                        </div>
-                    </div>
-                    <button class="btn btn-success">Query</button>
-                </div>
+      <div class="container">
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title">Search all</h5>
+            <div class="row mt-3 mb-3">
+              <div class="col-6">
+                <label for="afterInput" class="form-label">After</label>
+                <input
+                  class="datepicker form-control"
+                  type="date"
+                  name="after"
+                  id="afterInput"
+                  placeholder="After select date"
+                />
+              </div>
+              <div class="col-6">
+                <label for="beforeInput" class="form-label">Before</label>
+                <input
+                  class="datepicker form-control"
+                  type="date"
+                  name="before"
+                  placeholder="Before select date"
+                  id="beforeInput"
+                />
+              </div>
             </div>
+            <button class="btn btn-success">Query</button>
+          </div>
         </div>
+      </div>
     </form>
 
     <!-- form to query about specific programs and their recommendations -->
     <form action='{% url "programs_data_api" %}' id="filterProgramForm">
-        <div class="container">
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">Search by programs</h5>
-                    <div class="row mt-3 mb-3">
-                        <div class="col-12">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    {% for program in programs %}
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name='programs'
-                                            value="{{program.program_name}}" id="{{program.key}}">
-                                        <label class="form-check-label" for="{{program.key}}">
-                                            {{program.program_name}}
-                                        </label>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <label for="selectPosition" class="form-label">Recommendation position</label>
-                            <select id='selectPosition' name="position" required class="form-select">
-                                {% for position in positions %}
-                                <option>{{position}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
+      <div class="container">
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title">Search by programs</h5>
+            <div class="row mt-3 mb-3">
+              <div class="col-12">
+                <div class="card mb-3">
+                  <div class="card-body">
+                    {% for program in programs %}
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="programs"
+                        value="{{program.program_name}}"
+                        id="{{program.key}}"
+                      />
+                      <label class="form-check-label" for="{{program.key}}">
+                        {{program.program_name}}
+                      </label>
                     </div>
-                    <div class="row mt-3 mb-3">
-                        <div class="col-6">
-                            <label for="afterInput" class="form-label">After</label>
-                            <input class="datepicker form-control" type="date" name='after' id="afterInput"
-                                placeholder="After select date" />
-                        </div>
-                        <div class="col-6">
-                            <label for="beforeInput" class="form-label">Before</label>
-                            <input class="datepicker form-control" type="date" name='before'
-                                placeholder="Before select date" id='beforeInput' />
-                        </div>
-                        <div class="col-6 mt-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name=count id="countSwitch">
-                                <label class="form-check-label" for="countSwitch">Count by program</label>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-success">Query</button>
+                    {% endfor %}
+                  </div>
                 </div>
+              </div>
+              <div class="col-12">
+                <label for="selectPosition" class="form-label"
+                  >Recommendation position</label
+                >
+                <select
+                  id="selectPosition"
+                  name="position"
+                  required
+                  class="form-select"
+                >
+                  {% for position in positions %}
+                  <option>{{position}}</option>
+                  {% endfor %}
+                </select>
+              </div>
             </div>
+            <div class="row mt-3 mb-3">
+              <div class="col-6">
+                <label for="afterInput" class="form-label">After</label>
+                <input
+                  class="datepicker form-control"
+                  type="date"
+                  name="after"
+                  id="afterInput"
+                  placeholder="After select date"
+                />
+              </div>
+              <div class="col-6">
+                <label for="beforeInput" class="form-label">Before</label>
+                <input
+                  class="datepicker form-control"
+                  type="date"
+                  name="before"
+                  placeholder="Before select date"
+                  id="beforeInput"
+                />
+              </div>
+              <div class="col-6 mt-3">
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="count"
+                    id="countSwitch"
+                  />
+                  <label class="form-check-label" for="countSwitch"
+                    >Count by program</label
+                  >
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-success">Query</button>
+          </div>
         </div>
+      </div>
     </form>
 
-
     <div class="container mb-3">
-        <div class="row">
-            <!-- display section for the data table -->
-            <div class="col-12">
-                <div class="card" id='dataCard'>
-                    <div class="card-body">
-                        <h5 class="card-title">Data</h5>
-                        <div id="dataTable"></div>
-                        <button type="button" class="btn btn-primary" id='openGraphForm' data-model-target='#graphForm'>
-                            Render as graph
-                        </button>
-                    </div>
-                </div>
+      <div class="row">
+        <!-- display section for the data table -->
+        <div class="col-12">
+          <div class="card" id="dataCard">
+            <div class="card-body">
+              <h5 class="card-title">Data</h5>
+              <div id="dataTable"></div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="openGraphForm"
+                data-model-target="#graphForm"
+              >
+                Render as graph
+              </button>
             </div>
-
+          </div>
         </div>
-        <!-- display section for the chart -->
-        <section id='chartDisplay'>
-            <div class="col-6" id="graphContainer">
-                <canvas id="myChart"></canvas>
-                <button type="submit" id="saveGraph" class="btn btn-success">Save to
-                    dashboard</button>
-            </div>
-        </section>
+      </div>
+      <!-- display section for the chart -->
+      <section id="chartDisplay">
+        <div class="col-6" id="graphContainer">
+          <canvas id="myChart"></canvas>
+          <button type="submit" id="saveGraph" class="btn btn-success">
+            Save to dashboard
+          </button>
+        </div>
+      </section>
     </div>
 
     <!-- pop-up modal for when someone wants to create a chart from dataset -->
     <div class="model" id="graphForm">
-        <div class="card">
-            <div class="card-body">
-                <div class="model-top">
-                    <h5 class="card-title">Edit graph settings</h5>
-                    <button class="model-close" data-close-button>&times</button>
-                </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="model-top">
+            <h5 class="card-title">Edit graph settings</h5>
+            <button class="model-close" data-close-button>&times</button>
+          </div>
 
-                <form action="/" id='graphFormSubmit'>
-                    <div class="mb-1"><label for="graphlabelInput">Graph label</label>
-                        <input type="text" class="form-control" id='graphlabelInput' name="label" required>
-                    </div>
-                    <div class="mb-1"><label for="graphTypeInput">Graph type</label>
-                        <select class="form-control" id='graphTypeInput' name='type'>
-                            <option value='bar'>bar</option>
-                            <option value="pie">pie</option>
-                        </select>
-                    </div>
-                    <div class="mb-1"><label for="graphwidthInput">Width (px)</label>
-                        <input type='number' class="form-control" value="400" id="graphwidthInput" step="1"
-                            name="width">
-                    </div>
-                    <div class="mb-3"><label for="graphheightInput">Height (px)</label>
-                        <input type='number' class="form-control" value="400" id="graphheightInput" step="1"
-                            name="height">
-                    </div>
-                    <button class="btn btn-success" id='mkGraphBtn' data-close-button>Generate graph</button>
-                </form>
+          <form action="/" id="graphFormSubmit">
+            <div class="mb-1">
+              <label for="graphlabelInput">Graph label</label>
+              <input
+                type="text"
+                class="form-control"
+                id="graphlabelInput"
+                name="label"
+                required
+              />
             </div>
-
+            <div class="mb-1">
+              <label for="graphTypeInput">Graph type</label>
+              <select class="form-control" id="graphTypeInput" name="type">
+                <option value="bar">bar</option>
+                <option value="pie">pie</option>
+              </select>
+            </div>
+            <div class="mb-1">
+              <label for="graphwidthInput">Width (px)</label>
+              <input
+                type="number"
+                class="form-control"
+                value="400"
+                id="graphwidthInput"
+                step="1"
+                name="width"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="graphheightInput">Height (px)</label>
+              <input
+                type="number"
+                class="form-control"
+                value="400"
+                id="graphheightInput"
+                step="1"
+                name="height"
+              />
+            </div>
+            <button class="btn btn-success" id="mkGraphBtn" data-close-button>
+              Generate graph
+            </button>
+          </form>
         </div>
+      </div>
     </div>
 
     <!-- overlay to grey out background when modal pops up -->
     <div id="overlay"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
-        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
-        crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
-        integrity="sha512-Meww2sXqNHxI1+5Dyh/9KAtvI9RZSA4c1K2k5iL02oiPO/RH3Q30L3M1albtqMg50u4gRTYdV4EXOQqXEI336A=="
-        crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
+      integrity="sha512-Meww2sXqNHxI1+5Dyh/9KAtvI9RZSA4c1K2k5iL02oiPO/RH3Q30L3M1albtqMg50u4gRTYdV4EXOQqXEI336A=="
+      crossorigin="anonymous"
+    ></script>
 
     <script>
-        const drag = false //model has a feature to prevent click events on drag, it requires a drag variable to work
+      const drag = false; //model has a feature to prevent click events on drag, it requires a drag variable to work
 
-        $(function () {
-            //hides chart and datatable on initial render
-            $('#dataCard').hide()
-            $('#chartDisplay').hide()
-        })
+      $(function () {
+        //hides chart and datatable on initial render
+        $("#dataCard").hide();
+        $("#chartDisplay").hide();
+      });
     </script>
     <script src="{% static '/js/model.js' %}"></script>
     <script src="{% static '/js/searchToggle.js' %}"></script>
@@ -202,7 +292,5 @@
     <script src="{% static '/js/allQueryFormSubmit.js' %}"></script>
     <script src="{% static '/js/graphFormSubmit.js' %}"></script>
     <script src="{% static '/js/flashMessage.js' %}"></script>
-
-</body>
-
+  </body>
 </html>
