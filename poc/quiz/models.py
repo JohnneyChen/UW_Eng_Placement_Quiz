@@ -32,9 +32,6 @@ class Result(models.Model):
     fourteen = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='fourteen')
     fifteen = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='fifteen')
 
-    class Meta():
-        ordering = ['time',]
-
     def __str__(self):
         return (
             '1) ' + self.one.program_name +

@@ -491,7 +491,7 @@ def download_results(request):
         
         writer.writerow(['Result id', 'Quiz taken date', 'First recommendation', 'Second recommendation', 'Third recommendation','Fourth recommendation','Fifth recommendation','Sixth recommendation','Seventh recommendation','Eighth recommendation','Ninth recommendation','Tenth recommendation','Eleventh recommendation','Twelfth recommendation','Thirteenth recommendation','Fourteenth recommendation', 'Fifteenth recommendation'])
         
-        results = Result.objects.select_related("one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen").all()
+        results = Result.objects.select_related("one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen").all().order_by('time')
 
         if before != '':
             results = results.filter(time__lte=before)
