@@ -51,9 +51,44 @@
           >Search all programs</label
         >
       </div>
-      <a class="btn btn-primary" href="{% url 'download_results' %}"
-        >Download results</a
-      >
+      <div class="dropdown">
+        <button
+          class="btn btn-primary dropdown-toggle"
+          type="button"
+          id="resultDropdownButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+        >
+          Download results
+        </button>
+        <div
+          class="dropdown-menu"
+          id="selectResultDate"
+          aria-labelledby="resultDropdownButton"
+        >
+          <div class="form-group">
+            <form action="{% url 'download_results'%}" class="px-4 py-3">
+              <label for="beforeInput" class="form-label">Before</label>
+              <input
+                class="datepicker form-control"
+                type="date"
+                name="before"
+                placeholder="Before select date"
+                id="beforeInput"
+              />
+              <label for="afterInput" class="form-label">After</label>
+              <input
+                class="datepicker form-control"
+                type="date"
+                name="after"
+                id="afterInput"
+                placeholder="After select date"
+              />
+              <button class="btn btn-primary mt-3">Download</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- form to query information about all programs and their recommendations -->
     <form action='{% url "all_data_api" %}' id="filterAllForm">
@@ -281,6 +316,9 @@
       const drag = false; //model has a feature to prevent click events on drag, it requires a drag variable to work
 
       $(function () {
+        $("#resultDropdownButton").click(() =>
+          $("#selectResultDate").slideToggle()
+        );
         //hides chart and datatable on initial render
         $("#dataCard").hide();
         $("#chartDisplay").hide();
