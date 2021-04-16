@@ -47,7 +47,7 @@ def email(request):
                                 result_id = request.session.get('saved_result', '')
                                 if result_id == '':
                                     HttpResponse("Please finish the quiz first")
-                                result = Result.objects.get(pk=result_id)
+                                result = Result.objects.select_related("one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen").get(pk=result_id)
                                 configs = {
                                     'best_program': result.one.program_name,
                                     'best_program_details': result.one.description,
