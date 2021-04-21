@@ -517,12 +517,14 @@ def download_results(request):
         if after != '':
             results = results.filter(time__gte=after)
         
+        results_with_headers = [['Result id', 'Quiz taken date', 'First recommendation', 'Second recommendation', 'Third recommendation','Fourth recommendation','Fifth recommendation','Sixth recommendation','Seventh recommendation','Eighth recommendation','Ninth recommendation','Tenth recommendation','Eleventh recommendation','Twelfth recommendation','Thirteenth recommendation','Fourteenth recommendation', 'Fifteenth recommendation']]
+        for result in results:
+            result_with_headers.append([result.id, result.time, result.one.program_name, result.two.program_name, result.three.program_name, result.four.program_name, result.five.program_name, result.six.program_name, result.seven.program_name, result.eight.program_name, result.nine.program_name, result.ten.program_name, result.eleven.program_name, result.twelve.program_name, result.thirteen.program_name, result.fourteen.program_name, result.fifteen.program_name])
+
         pseudo_buffer = Echo()
         writer = csv.writer(pseudo_buffer)
 
-        writer.writerow(['Result id', 'Quiz taken date', 'First recommendation', 'Second recommendation', 'Third recommendation','Fourth recommendation','Fifth recommendation','Sixth recommendation','Seventh recommendation','Eighth recommendation','Ninth recommendation','Tenth recommendation','Eleventh recommendation','Twelfth recommendation','Thirteenth recommendation','Fourteenth recommendation', 'Fifteenth recommendation'])
-
-        response = StreamingHttpResponse((writer.writerow([result.id, result.time, result.one.program_name, result.two.program_name, result.three.program_name, result.four.program_name, result.five.program_name, result.six.program_name, result.seven.program_name, result.eight.program_name, result.nine.program_name, result.ten.program_name, result.eleven.program_name, result.twelve.program_name, result.thirteen.program_name, result.fourteen.program_name, result.fifteen.program_name]) for result in results), content_type='text/csv')
+        response = StreamingHttpResponse((writer.writerow(result in results_with_headers), content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="EngineeringQuizResults.csv"'
 
         return response
