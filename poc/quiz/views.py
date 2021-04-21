@@ -506,7 +506,7 @@ def download_results(request):
         pseudo_buffer = Echo()
         writer = csv.writer(pseudo_buffer)
 
-        return StreamingHttpResponse((writer.writerow([result.id, result.time, result.one.program_name, result.two.program_name, result.three.program_name, result.four.program_name, result.five.program_name, result.six.program_name, result.seven.program_name, result.eight.program_name, result.nine.program_name, result.ten.program_name, result.eleven.program_name, result.twelve.program_name, result.thirteen.program_name, result.fourteen.program_name, result.fifteen.program_name]) for result in results), content_type='text/csv', headers={'Content-Disposition':"attachment;filename='results.csv'})
+        return StreamingHttpResponse((writer.writerow([result.id, result.time, result.one.program_name, result.two.program_name, result.three.program_name, result.four.program_name, result.five.program_name, result.six.program_name, result.seven.program_name, result.eight.program_name, result.nine.program_name, result.ten.program_name, result.eleven.program_name, result.twelve.program_name, result.thirteen.program_name, result.fourteen.program_name, result.fifteen.program_name]) for result in results), content_type='text/csv', headers={'Content-Disposition':"attachment;filename='results.csv'"})
 
 class Echo:
     def write(self, value):
