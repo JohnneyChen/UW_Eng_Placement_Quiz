@@ -508,7 +508,7 @@ def download_results(request):
 
         writer.writerow(['Result id', 'Quiz taken date', 'First recommendation', 'Second recommendation', 'Third recommendation','Fourth recommendation','Fifth recommendation','Sixth recommendation','Seventh recommendation','Eighth recommendation','Ninth recommendation','Tenth recommendation','Eleventh recommendation','Twelfth recommendation','Thirteenth recommendation','Fourteenth recommendation', 'Fifteenth recommendation'])
 
-        return StreamingHttpResponse((writer.writerow([result.id, result.time, result.one.program_name, result.two.program_name, result.three.program_name, result.four.program_name, result.five.program_name, result.six.program_name, result.seven.program_name, result.eight.program_name, result.nine.program_name, result.ten.program_name, result.eleven.program_name, result.twelve.program_name, result.thirteen.program_name, result.fourteen.program_name, result.fifteen.program_name]) for result in results), content_type='text/csv', headers={'Content-Disposition':"attachment;filename='results.csv'"})
+        return StreamingHttpResponse((writer.writerow([result.id, result.time, result.one.program_name, result.two.program_name, result.three.program_name, result.four.program_name, result.five.program_name, result.six.program_name, result.seven.program_name, result.eight.program_name, result.nine.program_name, result.ten.program_name, result.eleven.program_name, result.twelve.program_name, result.thirteen.program_name, result.fourteen.program_name, result.fifteen.program_name]) for result in results), content_type='text/csv', headers={'Content-Disposition': 'attachment; filename="results.csv"'})
 
 class Echo:
     def write(self, value):
