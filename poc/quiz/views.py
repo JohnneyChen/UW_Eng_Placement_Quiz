@@ -524,7 +524,7 @@ def download_results(request):
         pseudo_buffer = Echo()
         writer = csv.writer(pseudo_buffer)
 
-        response = StreamingHttpResponse((writer.writerow(result in results_with_headers), content_type='text/csv')
+        response = StreamingHttpResponse((writer.writerow(result) for result in results_with_headers), content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="EngineeringQuizResults.csv"'
 
         return response
