@@ -120,7 +120,7 @@ def email(request):
                         [email],
                         html_message=msg_html,
                         fail_silently=False,
-                        auth_password: os.environ.get("SMTP_PASSWORD")
+                        auth_password=os.environ.get("SMTP_PASSWORD")
                     )
                     print('email sent')
                     return render(request,'quiz/emailSubmission.html')
