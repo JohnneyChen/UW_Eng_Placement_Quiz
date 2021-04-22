@@ -136,10 +136,10 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Extra places for collectstatic to find static files.
 
-EMAIL_HOST = os.environ.get('SMTP_SERVER')
-EMAIL_PORT =  os.environ.get('SMTP_PORT')
-EMAIL_HOST_USER = os.environ.get('SMTP_LOGIN')
-EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASSWORD')
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_PORT =  587
+EMAIL_HOST_USER = "apikey"
+EMAIL_HOST_PASSWORD = "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"
 EMAIL_USE_TLS = True
 
 import django_heroku
