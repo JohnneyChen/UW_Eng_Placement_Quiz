@@ -1,18 +1,17 @@
 Hey there,
 
-Thank you for considering University of Waterloo's Engineering department!
+Thank you for taking the Waterloo Engineering Program Compatibility Quiz. We look forward to the possibility of having a talented student like yourself join our department!
 
+The Faculty of Engineering offers 15 undergraduate programs: 14 professional engineering degrees, and one world-renowned architecture degree. From your answers to our quiz, the program that best aligns with your interests is:
 After you took the engineering quiz, the best engineering program for you is:
 {{best_program}}:
 {{best_program_details}}
 
-If this doesn't seem like something you're interested in, the other options in your results may be of interest:
+If this does not seem like something you are interested in, here are the rest of our programs organized based on your interests:
     {% for program in programs %}
         {{program_name}}
     {% endfor %}
 
-Trying to be informed on all future undergraduate events? Enter your contact information to join the University of Waterloo mailing list (https://uwaterloo.ca/future-students/subscribe).
+If you are interested in one of the programs offered by the Faculty of Engineering, subscribing to the University of Waterloo’s mailing list (https://uwaterloo.ca/engineering/undergraduate-email-subscription) will let you stay informed on all upcoming events for future undergraduate students.
 
-Thanks for taking the quiz and we hope to see you on our campus!
-
-Faculty of Engineering, University of Waterloo
+We hope this information is helpful in your decision making. Please do not hesitate to reach out to our admissions team (enginfo@uwaterloo.ca) with your questions.
