@@ -123,9 +123,9 @@ def email(request):
                     )
                     print('email sent')
                     return render(request,'quiz/emailSubmission.html')
-        # except:
-        #         print("Unexpected error:", sys.exc_info()[0])
-        # return HttpResponse("Something went wrong...Your email was not submitted")
+        except:
+                print("Unexpected error:", sys.exc_info()[0])
+        return HttpResponse("Something went wrong...Your email was not submitted")
 
 
 def submit(request):
