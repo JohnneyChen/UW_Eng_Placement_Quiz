@@ -1,4 +1,17 @@
 $(document).ready(function () {
+  if(quizIsComplete()){
+    $('#submitButton').prop('disabled', false);
+  } else {
+    $('#submitButton').prop('disabled', true);
+  }
+
+  $('input').click(()=>{
+    if(quizIsComplete()){
+      $('#submitButton').prop('disabled', false);
+    } else {
+      $('#submitButton').prop('disabled', true);
+    }
+  })
 
   if (sessionStorage.getItem("pageState")) {
     // on page reload, from recommendations page
@@ -124,15 +137,6 @@ $(document).ready(function () {
     }
   });
 
-  $('input[name="industry"]').click(function () {
-    if ($(this).attr('value') == 'architecture' || 'automotive' || 'business' || 'construction' || 'health' || 'environment' || 'manufacturing' || 'technology') {
-      $('#submitButton').prop('disabled', false);
-    } else {
-      $('#submitButton').prop('disabled', true);
-    }
-
-  });
-
   $("#submit").submit(function () {
     var pageState = 1;
     sessionStorage.setItem("pageState", pageState);
@@ -216,4 +220,27 @@ function openRequiredQuestions() {
   }
 
   return true;
+}
+
+const quizIsComplete = () => {
+  var q1 = $('input[name="problem_type"]:checked');
+  var q2 = $('input[name="creative"]:checked');
+  var q3 = $('input[name="essay"]:checked');
+  var q4 = $('input[name="outdoors"]:checked');
+  var q5 = $('input[name="career"]:checked');
+  var q6 = $('input[name="group_work"]:checked');
+  var q7 = $('input[name="liked_courses"]:checked');
+  var q8 = $('input[name="disliked_courses"]:checked');
+  var q9 = $('input[name="programming"]:checked');
+  var q10 = $('input[name="join_clubs"]:checked');
+  var q11 = $('input[name="not_clubs"]:checked');
+  var q12 = $('input[name="liked_projects"]:checked');
+  var q13 = $('input[name="disliked_projects"]:checked');
+  var q14 = $('input[name="tv_shows"]:checked');
+  var q15 = $('input[name="alternate_degree"]:checked');
+  var q16 = $('input[name="expensive_equipment"]:checked');
+  var q17 = $('input[name="drawing"]:checked');
+  var q18 = $('input[name="industry"]:checked');
+
+  return q1 && q2 && q3 && q4 && q5 && q6 && q7 && q8 && q9 && q10 && q11 && q12 && q13 && q14 && q15 && q16 && q17 && q18
 }
