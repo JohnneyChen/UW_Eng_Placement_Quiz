@@ -134,211 +134,208 @@ def submit(request):
         print("Post method received")
         post_dict = request.POST
         print(post_dict)
-        return recommendations(request,post_dict)
+        model_name = MODEL_NAME
+        post_dict = transform_post_dict(post_dict)
+        print("Entered Response Creation...")
 
-def recommendations(request,post_dict):
-    model_name = MODEL_NAME
-    post_dict = transform_post_dict(post_dict)
-    print("Entered Response Creation...")
+        encoded_dictionary = get_encoded_dict(model_name)
+        print("encoded_dictionary retrieved...")
 
-    encoded_dictionary = get_encoded_dict(model_name)
-    print("encoded_dictionary retrieved...")
+        # problem_type = encoded_dictionary['problem_type']['problem_type']
+        creative = encoded_dictionary['creative']['creative']
+        outdoors = encoded_dictionary['outdoors']['outdoors']
+        career = encoded_dictionary['career']['career']
+        group_work = encoded_dictionary['group_work']['group_work']
+        liked_courses = encoded_dictionary['liked_courses']['liked_courses']
+        disliked_courses = encoded_dictionary['disliked_courses']['disliked_courses']
+        # programming = encoded_dictionary['programming']['programming']
+        join_clubs = encoded_dictionary['join_clubs']['join_clubs']
+        not_clubs = encoded_dictionary['not_clubs']['not_clubs']
+        liked_projects = encoded_dictionary['liked_projects']['liked_projects']
+        disliked_projects = encoded_dictionary['disliked_projects']['disliked_projects']
+        # tv_shows = encoded_dictionary['tv_shows']['tv_shows']
+        alternate_degree = encoded_dictionary['alternate_degree']['alternate_degree']
+        # expensive_equipment = encoded_dictionary['expensive_equipment']['expensive_equipment']
+        drawing = encoded_dictionary['drawing']['drawing']
+        essay = encoded_dictionary['essay']['essay']
+        architecture = encoded_dictionary['architecture']['architecture']
+        automotive = encoded_dictionary['automotive']['automotive']
+        business = encoded_dictionary['business']['business']
+        construction = encoded_dictionary['construction']['construction']
+        health = encoded_dictionary['health']['health']
+        environment = encoded_dictionary['environment']['environment']
+        manufacturing = encoded_dictionary['manufacturing']['manufacturing']
+        technology = encoded_dictionary['technology']['technology']
 
-    # problem_type = encoded_dictionary['problem_type']['problem_type']
-    creative = encoded_dictionary['creative']['creative']
-    outdoors = encoded_dictionary['outdoors']['outdoors']
-    career = encoded_dictionary['career']['career']
-    group_work = encoded_dictionary['group_work']['group_work']
-    liked_courses = encoded_dictionary['liked_courses']['liked_courses']
-    disliked_courses = encoded_dictionary['disliked_courses']['disliked_courses']
-    # programming = encoded_dictionary['programming']['programming']
-    join_clubs = encoded_dictionary['join_clubs']['join_clubs']
-    not_clubs = encoded_dictionary['not_clubs']['not_clubs']
-    liked_projects = encoded_dictionary['liked_projects']['liked_projects']
-    disliked_projects = encoded_dictionary['disliked_projects']['disliked_projects']
-    # tv_shows = encoded_dictionary['tv_shows']['tv_shows']
-    alternate_degree = encoded_dictionary['alternate_degree']['alternate_degree']
-    # expensive_equipment = encoded_dictionary['expensive_equipment']['expensive_equipment']
-    drawing = encoded_dictionary['drawing']['drawing']
-    essay = encoded_dictionary['essay']['essay']
-    architecture = encoded_dictionary['architecture']['architecture']
-    automotive = encoded_dictionary['automotive']['automotive']
-    business = encoded_dictionary['business']['business']
-    construction = encoded_dictionary['construction']['construction']
-    health = encoded_dictionary['health']['health']
-    environment = encoded_dictionary['environment']['environment']
-    manufacturing = encoded_dictionary['manufacturing']['manufacturing']
-    technology = encoded_dictionary['technology']['technology']
+        print("Labels encoded..")
 
-    print("Labels encoded..")
+        # Prepare the feature vector for prediction
 
-	# Prepare the feature vector for prediction
+        print("Loading new_vector....")
+        pkl_file = open('poc/quiz/exported_model_files/'+model_name+'_cat', 'rb')
+        index_dict = pickle.load(pkl_file)
+        new_vector = np.zeros(21)
 
-    print("Loading new_vector....")
-    pkl_file = open('poc/quiz/exported_model_files/'+model_name+'_cat', 'rb')
-    index_dict = pickle.load(pkl_file)
-    new_vector = np.zeros(21)
+        print("Loading response into new_vector...")
 
-    print("Loading response into new_vector...")
+        # new_vector[0] =  0 #problem_type[post_dict['problem_type'][0]]
+        new_vector[0] =  creative[post_dict['creative'][0]]
+        new_vector[1] =  outdoors[post_dict['outdoors'][0]]
+        new_vector[2] =  career[post_dict['career'][0]]
+        new_vector[3] =  group_work[post_dict['group_work'][0]]
+        new_vector[4] =  liked_courses[post_dict['liked_courses'][0]]
+        new_vector[5] =  disliked_courses[post_dict['disliked_courses'][0]]
+        # new_vector[7] =  0 #programming[post_dict['programming'][0]]
+        new_vector[6] =  join_clubs[post_dict['join_clubs'][0]]
+        new_vector[7] =  not_clubs[post_dict['not_clubs'][0]]
+        new_vector[8] = liked_projects[post_dict['liked_projects'][0]]
+        new_vector[9] = disliked_projects[post_dict['disliked_projects'][0]]
+        # new_vector[12] = 0 #tv_shows[post_dict['tv_shows'][0]]
+        new_vector[10] = alternate_degree[post_dict['alternate_degree'][0]]
+        # new_vector[14] = 0 #expensive_equipment[post_dict['expensive_equipment'][0]]
+        new_vector[11] = drawing[post_dict['drawing'][0]]
+        new_vector[12] = essay[post_dict['essay'][0]]
+        new_vector[13] = architecture[post_dict['architecture'][0]]
+        new_vector[14] = automotive[post_dict['automotive'][0]]
+        new_vector[15] = business[post_dict['business'][0]]
+        new_vector[16] = construction[post_dict['construction'][0]]
+        new_vector[17] = health[post_dict['health'][0]]
+        new_vector[18] = environment[post_dict['environment'][0]]
+        new_vector[19] = manufacturing[post_dict['manufacturing'][0]]
+        new_vector[20] = technology[post_dict['technology'][0]]
 
-    # new_vector[0] =  0 #problem_type[post_dict['problem_type'][0]]
-    new_vector[0] =  creative[post_dict['creative'][0]]
-    new_vector[1] =  outdoors[post_dict['outdoors'][0]]
-    new_vector[2] =  career[post_dict['career'][0]]
-    new_vector[3] =  group_work[post_dict['group_work'][0]]
-    new_vector[4] =  liked_courses[post_dict['liked_courses'][0]]
-    new_vector[5] =  disliked_courses[post_dict['disliked_courses'][0]]
-    # new_vector[7] =  0 #programming[post_dict['programming'][0]]
-    new_vector[6] =  join_clubs[post_dict['join_clubs'][0]]
-    new_vector[7] =  not_clubs[post_dict['not_clubs'][0]]
-    new_vector[8] = liked_projects[post_dict['liked_projects'][0]]
-    new_vector[9] = disliked_projects[post_dict['disliked_projects'][0]]
-    # new_vector[12] = 0 #tv_shows[post_dict['tv_shows'][0]]
-    new_vector[10] = alternate_degree[post_dict['alternate_degree'][0]]
-    # new_vector[14] = 0 #expensive_equipment[post_dict['expensive_equipment'][0]]
-    new_vector[11] = drawing[post_dict['drawing'][0]]
-    new_vector[12] = essay[post_dict['essay'][0]]
-    new_vector[13] = architecture[post_dict['architecture'][0]]
-    new_vector[14] = automotive[post_dict['automotive'][0]]
-    new_vector[15] = business[post_dict['business'][0]]
-    new_vector[16] = construction[post_dict['construction'][0]]
-    new_vector[17] = health[post_dict['health'][0]]
-    new_vector[18] = environment[post_dict['environment'][0]]
-    new_vector[19] = manufacturing[post_dict['manufacturing'][0]]
-    new_vector[20] = technology[post_dict['technology'][0]]
+        if 'ohe' in model_name:
+            print("entered ohe model handling")
+            new_vector = list(new_vector)
+            for i in range(len(new_vector)):
+                new_vector[i]  = str(int(new_vector[i]))
+            columns = [
+                        'creative',
+                        'outdoors',
+                        'career',
+                        'group_work',
+                        'liked_courses',
+                        'disliked_courses',
+                        'join_clubs',
+                        'not_clubs',
+                        'liked_projects',
+                        'disliked_projects',
+                        'alternate_degree',
+                        'drawing',
+                        'essay',
+                        'architecture',
+                        'automotive',
+                        'business',
+                        'construction',
+                        'health',
+                        'environment',
+                        'manufacturing',
+                        'technology'
+            ]
+            t7 = get_label_encoded_data('poc/quiz/exported_model_files/t7.csv',model_name='t7',column_list=columns,drop_not_happy='H',data_balance=False)[0]
+            data_to_append = {}
+            for i in range(len(columns)):
+                data_to_append[t7.columns[i]] = int(new_vector[i])
+            t7 = t7.append(data_to_append, ignore_index = True)
+            t7 = pd.get_dummies(t7,columns=columns)
+            rename_columns = {
+                'architecture_1':'architecture',
+                'automotive_1':'automotive',
+                'business_1':'business',
+                'construction_1':'construction',
+                'health_1':'health',
+                'environment_1':'environment',
+                'manufacturing_1':'manufacturing',
+                'technology_1':'technology'
+            }
+            drop_columns = [
+                'architecture_0',
+                'automotive_0',
+                'business_0',
+                'construction_0',
+                'health_0',
+                'environment_0',
+                'manufacturing_0',
+                'technology_0'
+            ]
+            t7 = t7.rename(index=str,columns = rename_columns)
+            t7 = t7.drop(drop_columns, axis=1)
+            new_vector = np.array(t7[len(t7)-1:len(t7)])
 
-    if 'ohe' in model_name:
-        print("entered ohe model handling")
-        new_vector = list(new_vector)
-        for i in range(len(new_vector)):
-            new_vector[i]  = str(int(new_vector[i]))
-        columns = [
-                    'creative',
-                    'outdoors',
-                    'career',
-                    'group_work',
-                    'liked_courses',
-                    'disliked_courses',
-                    'join_clubs',
-                    'not_clubs',
-                    'liked_projects',
-                    'disliked_projects',
-                    'alternate_degree',
-                    'drawing',
-                    'essay',
-                    'architecture',
-                    'automotive',
-                    'business',
-                    'construction',
-                    'health',
-                    'environment',
-                    'manufacturing',
-                    'technology'
-        ]
-        t7 = get_label_encoded_data('poc/quiz/exported_model_files/t7.csv',model_name='t7',column_list=columns,drop_not_happy='H',data_balance=False)[0]
-        data_to_append = {}
-        for i in range(len(columns)):
-            data_to_append[t7.columns[i]] = int(new_vector[i])
-        t7 = t7.append(data_to_append, ignore_index = True)
-        t7 = pd.get_dummies(t7,columns=columns)
-        rename_columns = {
-            'architecture_1':'architecture',
-            'automotive_1':'automotive',
-            'business_1':'business',
-            'construction_1':'construction',
-            'health_1':'health',
-            'environment_1':'environment',
-            'manufacturing_1':'manufacturing',
-            'technology_1':'technology'
-        }
-        drop_columns = [
-            'architecture_0',
-            'automotive_0',
-            'business_0',
-            'construction_0',
-            'health_0',
-            'environment_0',
-            'manufacturing_0',
-            'technology_0'
-        ]
-        t7 = t7.rename(index=str,columns = rename_columns)
-        t7 = t7.drop(drop_columns, axis=1)
-        new_vector = np.array(t7[len(t7)-1:len(t7)])
+        print("Loading model...")
+        print(MODEL_NAME)
+        pkl_file = open('poc/quiz/exported_model_files/'+model_name+'.pkl', 'rb')
+        model = pickle.load(pkl_file)
+        try:
+            prediction = model.predict_proba([new_vector])
+        except:
+            prediction = model.predict_proba(new_vector)
+        print("Prediction created...")
 
-    print("Loading model...")
-    print(MODEL_NAME)
-    pkl_file = open('poc/quiz/exported_model_files/'+model_name+'.pkl', 'rb')
-    model = pickle.load(pkl_file)
-    try:
-        prediction = model.predict_proba([new_vector])
-    except:
-        prediction = model.predict_proba(new_vector)
-    print("Prediction created...")
+        # Getting Ordered Results
+        results_dict = retrieve_prediction_labels(model,prediction)
+        results = list(sorted(results_dict, key=lambda key: results_dict[key],reverse=True))
+        
+        result_list= []
+        unordered_programs = list(Program.objects.all().prefetch_related('program','career_set','course_set'))
+        for code in results:
+            result_list.append(next((program for program in unordered_programs if program.key==code)))
+        
+        # tries to retrieve any stored result_id to see if user has already submitted quiz
+        result_id = request.session.get('saved_result', '')
+        noPreviousRecord = result_id == ''
+        # tries to get stored result if the user has submitted quiz
+        if not(noPreviousRecord):
+            try :
+                Result.objects.get(pk=result_id)
+            # handles the error case where the past result of the user is deleted
+            except Result.DoesNotExist:
+                print('previous saved record on session is missing')
+                noPreviousRecord = True
 
-    # Getting Ordered Results
-    results_dict = retrieve_prediction_labels(model,prediction)
-    results = list(sorted(results_dict, key=lambda key: results_dict[key],reverse=True))
-    
-    result_list= []
-    unordered_programs = list(Program.objects.all().prefetch_related('program','career_set','course_set'))
-    for code in results:
-        result_list.append(next((program for program in unordered_programs if program.key==code)))
-    
-    # tries to retrieve any stored result_id to see if user has already submitted quiz
-    result_id = request.session.get('saved_result', '')
-    noPreviousRecord = result_id == ''
-    # tries to get stored result if the user has submitted quiz
-    if not(noPreviousRecord):
-        try :
-            Result.objects.get(pk=result_id)
-        # handles the error case where the past result of the user is deleted
-        except Result.DoesNotExist:
-            print('previous saved record on session is missing')
-            noPreviousRecord = True
-
-    # creates new result to store in database if user did not submit quiz before
-    if noPreviousRecord: 
-        res = Result()
-        res.one = result_list[0]
-        res.two = result_list[1]
-        res.three = result_list[2]
-        res.four = result_list[3]
-        res.five = result_list[4]
-        res.six = result_list[5]
-        res.seven = result_list[6]
-        res.eight = result_list[7]
-        res.nine = result_list[8]
-        res.ten = result_list[9]
-        res.eleven = result_list[10]
-        res.twelve = result_list[11]
-        res.thirteen = result_list[12]
-        res.fourteen = result_list[13]
-        res.fifteen = result_list[14]
-        res.time = datetime.today()
-        res.save()
-        request.session['saved_result'] = res.id
-        return render(request, 'quiz/recommendations.html', {'result':result_list})
-    # edits the stored result when user has submitted quiz before
-    else:
-        res = Result.objects.get(pk=result_id)
-        res.one = result_list[0]
-        res.two = result_list[1]
-        res.three = result_list[2]
-        res.four = result_list[3]
-        res.five = result_list[4]
-        res.six = result_list[5]
-        res.seven = result_list[6]
-        res.eight = result_list[7]
-        res.nine = result_list[8]
-        res.ten = result_list[9]
-        res.eleven = result_list[10]
-        res.twelve = result_list[11]
-        res.thirteen = result_list[12]
-        res.fourteen = result_list[13]
-        res.fifteen = result_list[14]
-        res.time = datetime.today()
-        res.save()
-        return render(request, 'quiz/recommendations.html', {'result':result_list})
+        # creates new result to store in database if user did not submit quiz before
+        if noPreviousRecord: 
+            res = Result()
+            res.one = result_list[0]
+            res.two = result_list[1]
+            res.three = result_list[2]
+            res.four = result_list[3]
+            res.five = result_list[4]
+            res.six = result_list[5]
+            res.seven = result_list[6]
+            res.eight = result_list[7]
+            res.nine = result_list[8]
+            res.ten = result_list[9]
+            res.eleven = result_list[10]
+            res.twelve = result_list[11]
+            res.thirteen = result_list[12]
+            res.fourteen = result_list[13]
+            res.fifteen = result_list[14]
+            res.time = datetime.today()
+            res.save()
+            request.session['saved_result'] = res.id
+            return render(request, 'quiz/recommendations.html', {'result':result_list})
+        # edits the stored result when user has submitted quiz before
+        else:
+            res = Result.objects.get(pk=result_id)
+            res.one = result_list[0]
+            res.two = result_list[1]
+            res.three = result_list[2]
+            res.four = result_list[3]
+            res.five = result_list[4]
+            res.six = result_list[5]
+            res.seven = result_list[6]
+            res.eight = result_list[7]
+            res.nine = result_list[8]
+            res.ten = result_list[9]
+            res.eleven = result_list[10]
+            res.twelve = result_list[11]
+            res.thirteen = result_list[12]
+            res.fourteen = result_list[13]
+            res.fifteen = result_list[14]
+            res.time = datetime.today()
+            res.save()
+            return render(request, 'quiz/recommendations.html', {'result':result_list})
 
 def user_login(request):
     if request.method == 'POST':
