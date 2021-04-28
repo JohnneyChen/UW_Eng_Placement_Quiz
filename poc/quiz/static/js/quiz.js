@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  console.log(quizIsComplete())
   if(quizIsComplete()){
     $('#submitButton').prop('disabled', false);
   } else {
@@ -6,6 +7,7 @@ $(document).ready(function () {
   }
 
   $('input').click(()=>{
+    console.log(quizIsComplete())
     if(quizIsComplete()){
       $('#submitButton').prop('disabled', false);
     } else {
@@ -242,5 +244,5 @@ const quizIsComplete = () => {
   var q17 = $('input[name="drawing"]:checked');
   var q18 = $('input[name="industry"]:checked');
 
-  return q1 && q2 && q3 && q4 && q5 && q6 && q7 && q8 && q9 && q10 && q11 && q12 && q13 && q14 && q15 && q16 && q17 && q18
+  return q1.value && q2.value && q3.value && q4.value && q5.value && q6.value && q7.value && q8.value && q9.value && q10.value && q11.value && q12.value && q13.value && q14.value && q15.value && q16.value && q17.value && q18.value
 }
