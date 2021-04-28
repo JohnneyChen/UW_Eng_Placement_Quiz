@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
   if(isQuizComplete()){
     $('#submitButton').prop('disabled', false);
   } else {
@@ -6,6 +6,8 @@ $(document).ready(function () {
   }
 
   $('input').click(()=>{
+    console.log('clicked')
+    console.log(isQuizComplete())
     if(isQuizComplete()){
       $('#submitButton').prop('disabled', false);
     } else {
