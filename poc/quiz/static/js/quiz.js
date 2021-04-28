@@ -127,6 +127,8 @@ $(document).ready(function () {
   $('input[name="industry"]').click(function () {
     if ($(this).attr('value') == 'architecture' || 'automotive' || 'business' || 'construction' || 'health' || 'environment' || 'manufacturing' || 'technology') {
       $('#submitButton').prop('disabled', false);
+    } else {
+      $('#submitButton').prop('disabled', true);
     }
 
   });
