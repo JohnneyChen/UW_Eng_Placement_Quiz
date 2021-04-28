@@ -6,8 +6,6 @@ $(function () {
   }
 
   $('input').click(()=>{
-    console.log('clicked')
-    console.log(isQuizComplete())
     if(isQuizComplete()){
       $('#submitButton').prop('disabled', false);
     } else {
