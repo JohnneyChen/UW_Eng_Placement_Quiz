@@ -17,7 +17,6 @@ $(document).ready(function () {
     // on page reload, from recommendations page
 
     $(".collapse").collapse('show');
-    $('#submitButton').prop('disabled', false);
     sessionStorage.clear();
   }
 
@@ -137,9 +136,14 @@ $(document).ready(function () {
     }
   });
 
-  $("#submit").submit(function () {
-    var pageState = 1;
-    sessionStorage.setItem("pageState", pageState);
+  $("#submit").submit(function (e) {
+    if(!isQuizComplete()){
+      e.preventDefault()
+      $('#submitButton').prop('disabled', true);
+    } else {
+      var pageState = 1;
+      sessionStorage.setItem("pageState", pageState);
+    }
   })
 });
 
