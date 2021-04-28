@@ -1,14 +1,12 @@
 $(document).ready(function () {
-  console.log(quizIsComplete())
-  if(quizIsComplete()){
+  if(isQuizComplete()){
     $('#submitButton').prop('disabled', false);
   } else {
     $('#submitButton').prop('disabled', true);
   }
 
   $('input').click(()=>{
-    console.log(quizIsComplete())
-    if(quizIsComplete()){
+    if(isQuizComplete()){
       $('#submitButton').prop('disabled', false);
     } else {
       $('#submitButton').prop('disabled', true);
@@ -224,25 +222,26 @@ function openRequiredQuestions() {
   return true;
 }
 
-const quizIsComplete = () => {
-  var q1 = $('input[name="problem_type"]:checked');
-  var q2 = $('input[name="creative"]:checked');
-  var q3 = $('input[name="essay"]:checked');
-  var q4 = $('input[name="outdoors"]:checked');
-  var q5 = $('input[name="career"]:checked');
-  var q6 = $('input[name="group_work"]:checked');
-  var q7 = $('input[name="liked_courses"]:checked');
-  var q8 = $('input[name="disliked_courses"]:checked');
-  var q9 = $('input[name="programming"]:checked');
-  var q10 = $('input[name="join_clubs"]:checked');
-  var q11 = $('input[name="not_clubs"]:checked');
-  var q12 = $('input[name="liked_projects"]:checked');
-  var q13 = $('input[name="disliked_projects"]:checked');
-  var q14 = $('input[name="tv_shows"]:checked');
-  var q15 = $('input[name="alternate_degree"]:checked');
-  var q16 = $('input[name="expensive_equipment"]:checked');
-  var q17 = $('input[name="drawing"]:checked');
-  var q18 = $('input[name="industry"]:checked');
+const isQuizComplete = ()=>{
+  const completed1 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed2 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed3 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed4 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed5 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed6 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed7 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed8 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed9 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed10 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed11 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed12 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed13 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed14 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed15 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed16 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed17 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+  const completed18 = Object.values($('input[name="industry"]')).find(input=>input.checked)
 
-  return q1.value && q2.value && q3.value && q4.value && q5.value && q6.value && q7.value && q8.value && q9.value && q10.value && q11.value && q12.value && q13.value && q14.value && q15.value && q16.value && q17.value && q18.value
+  return completed1 && completed2 && completed3 && completed4 && completed5 && completed6 && completed7 && completed8 && completed9 && completed10 && completed11 && completed12 && completed13 && completed14 && completed15 && completed16 && completed17 && completed18
+
 }
