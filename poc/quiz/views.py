@@ -139,6 +139,10 @@ def submit(request):
         result_list = request.session.get('save_results_list', False)
         if not result_list:
             return HttpResponse("Please finish the quiz first before attempting to view results")
+        result_list= []
+        unordered_programs = list(Program.objects.all().prefetch_related('program','career_set','course_set'))
+        for code in results:
+            result_list.append(next((program for program in unordered_programs if program.key==code)))
         return render(request, 'quiz/recommendations.html', {'result':result_list})
 
 
@@ -326,7 +330,7 @@ def recommendations(request,post_dict):
     res.time = datetime.today()
     res.save()
     request.session['saved_result'] = res.id
-    request.session['saved_result_list'] = result_list
+    request.session['saved_result_list'] = results
     return render(request, 'quiz/recommendations.html', {'result':result_list})
 
 def user_login(request):
