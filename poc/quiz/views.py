@@ -41,88 +41,88 @@ def programs(request):
 def email(request):
     try:
         if request.method == 'POST':
-                if request.POST.get('email'):
-                        print('got email')
-                        email = request.POST.get('email')
-                        result_id = request.session.get('saved_result', '')
-                        if result_id == '':
-                            HttpResponse("Please finish the quiz first")
-                        result = Result.objects.select_related("one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen").get(pk=result_id)
-                        configs = {
-                            'best_program': result.one.program_name,
-                            'best_program_details': result.one.description,
-                            'best_program_site': result.one.site,
-                            'programs': [
-                                {
-                                'program_name': result.two.program_name,
-                                'program_site': result.two.site
-                                },
-                                {
-                                'program_name': result.three.program_name,
-                                'program_site': result.three.site
-                                },
-                                {
-                                'program_name': result.four.program_name,
-                                'program_site': result.four.site
-                                },
-                                {
-                                'program_name': result.five.program_name,
-                                'program_site': result.five.site
-                                },
-                                {
-                                'program_name': result.six.program_name,
-                                'program_site': result.six.site
-                                },
-                                {
-                                'program_name': result.seven.program_name,
-                                'program_site': result.seven.site
-                                },
-                                {
-                                'program_name': result.eight.program_name,
-                                'program_site': result.eight.site
-                                },
-                                {
-                                'program_name': result.nine.program_name,
-                                'program_site': result.nine.site
-                                },
-                                {
-                                'program_name': result.ten.program_name,
-                                'program_site': result.ten.site
-                                },
-                                {
-                                'program_name': result.eleven.program_name,
-                                'program_site': result.eleven.site
-                                },
-                                {
-                                'program_name': result.twelve.program_name,
-                                'program_site': result.twelve.site
-                                },
-                                {
-                                'program_name': result.thirteen.program_name,
-                                'program_site': result.thirteen.site
-                                },
-                                {
-                                'program_name': result.fourteen.program_name,
-                                'program_site': result.fourteen.site
-                                },
-                                {
-                                'program_name': result.fifteen.program_name,
-                                'program_site': result.fifteen.site
-                                }
-                            ]
+            if request.POST.get('email'):
+                print('got email')
+                email = request.POST.get('email')
+                result_id = request.session.get('saved_result', '')
+                if result_id == '':
+                    HttpResponse("Please finish the quiz first")
+                result = Result.objects.select_related("one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen").get(pk=result_id)
+                configs = {
+                    'best_program': result.one.program_name,
+                    'best_program_details': result.one.description,
+                    'best_program_site': result.one.site,
+                    'programs': [
+                        {
+                        'program_name': result.two.program_name,
+                        'program_site': result.two.site
+                        },
+                        {
+                        'program_name': result.three.program_name,
+                        'program_site': result.three.site
+                        },
+                        {
+                        'program_name': result.four.program_name,
+                        'program_site': result.four.site
+                        },
+                        {
+                        'program_name': result.five.program_name,
+                        'program_site': result.five.site
+                        },
+                        {
+                        'program_name': result.six.program_name,
+                        'program_site': result.six.site
+                        },
+                        {
+                        'program_name': result.seven.program_name,
+                        'program_site': result.seven.site
+                        },
+                        {
+                        'program_name': result.eight.program_name,
+                        'program_site': result.eight.site
+                        },
+                        {
+                        'program_name': result.nine.program_name,
+                        'program_site': result.nine.site
+                        },
+                        {
+                        'program_name': result.ten.program_name,
+                        'program_site': result.ten.site
+                        },
+                        {
+                        'program_name': result.eleven.program_name,
+                        'program_site': result.eleven.site
+                        },
+                        {
+                        'program_name': result.twelve.program_name,
+                        'program_site': result.twelve.site
+                        },
+                        {
+                        'program_name': result.thirteen.program_name,
+                        'program_site': result.thirteen.site
+                        },
+                        {
+                        'program_name': result.fourteen.program_name,
+                        'program_site': result.fourteen.site
+                        },
+                        {
+                        'program_name': result.fifteen.program_name,
+                        'program_site': result.fifteen.site
                         }
-                        msg_html = render_to_string('quiz/email_template.html', configs)
-                        msg_txt = render_to_string('quiz/email_template.txt', configs)
-                        send_mail(
-                            'Your Engineering Department Quiz Results',
-                            msg_txt,
-                            'engrecruitment@uwaterloo.ca',
-                            [email],
-                            html_message=msg_html,
-                            fail_silently=False
-                        )
-                        print('email sent')
-                        return render(request,'quiz/emailSubmission.html')
+                    ]
+                }
+                msg_html = render_to_string('quiz/email_template.html', configs)
+                msg_txt = render_to_string('quiz/email_template.txt', configs)
+                send_mail(
+                    'Your Engineering Department Quiz Results',
+                    msg_txt,
+                    'engrecruitment@uwaterloo.ca',
+                    [email],
+                    html_message=msg_html,
+                    fail_silently=False
+                )
+                print('email sent')
+                return render(request,'quiz/emailSubmission.html')
     except:
         print("Unexpected error:", sys.exc_info()[0])
         return HttpResponse("Something went wrong...Your email was not submitted")
@@ -135,6 +135,12 @@ def submit(request):
         post_dict = request.POST
         print(post_dict)
         return recommendations(request,post_dict)
+    if request.method == 'GET':
+        result_list = request.session.get('save_results_list', False)
+        if not result_list:
+            return HttpResponse("Please finish the quiz first before attempting to view results")
+        return render(request, 'quiz/recommendations.html', {'result':result_list})
+
 
 def recommendations(request,post_dict):
     model_name = MODEL_NAME
@@ -320,6 +326,7 @@ def recommendations(request,post_dict):
     res.time = datetime.today()
     res.save()
     request.session['saved_result'] = res.id
+    request.session['saved_result_list'] = result_list
     return render(request, 'quiz/recommendations.html', {'result':result_list})
 
 def user_login(request):
