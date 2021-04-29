@@ -136,7 +136,7 @@ def submit(request):
         print(post_dict)
         return recommendations(request,post_dict)
     if request.method == 'GET':
-        results = request.session.get('save_result_list', False)
+        results = request.session.get('saved_result_list', False)
         if not results:
             return HttpResponse("Please finish the quiz first before attempting to view results")
         result_list= []
