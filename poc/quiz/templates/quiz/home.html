@@ -1,44 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     {% load static %}
     <title>UW Program Compatibility Tool | Home</title>
-    <link rel="stylesheet" type="text/css" href="{% static '/style/home.css' %}">
+    <link rel="icon" href="data:," />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/style/home.css' %}"
+    />
     <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175169707-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-175169707-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'UA-175169707-1');
-</script>
+      gtag("config", "UA-175169707-1");
+    </script>
+  </head>
 
-
-</head>
-
-<body>
+  <body>
     <div class="engineeringWatermark">
-        <span><img src="{% static '/img/ENG_stack_rgb_withoutbg.png' %}" alt="University of Waterloo engineering watermark"></span>
+      <span
+        ><img
+          src="{% static '/img/ENG_stack_rgb_withoutbg.png' %}"
+          alt="University of Waterloo engineering watermark"
+      /></span>
     </div>
     <div class="homepage">
-        <div class="title">Waterloo Engineering Program Compatibility Tool</div>
-        <div class="blurb">
-            <p><span>Your starting point to determine which Waterloo Engineering program may be the right fit for you!</span></p>
-            <p><span>Waterloo Engineering programs are direct-entry (there is no general first year). If you're not sure which program your interests align with, this tool is a great place to start.</span></p>
-        </div>
-        <div class="links">
-            <ul>
-                <li><a class="button" href="{% url 'startQuiz' %}">Start Quiz</a></li>
-                <li><a class="button" href="{% url 'about' %}" target="_blank">About</a></li>
-                <li><a class="button" href="{% url 'programInfo' %}" target="_blank">Programs</a></li>
-            </ul>
-        </div>
-        <div class="blurb">
-            <p><span>If you have questions about engineering admissions, please email enginfo@uwaterloo.ca or visit our <a href="https://uwaterloo.ca/engineering/future-undergraduate-students" target="_blank">website</a></span></p>
-        </div>
+      <div class="title">Waterloo Engineering Program Compatibility Tool</div>
+      <div class="blurb">
+        <p>
+          <span
+            >Your starting point to determine which Waterloo Engineering program
+            may be the right fit for you!</span
+          >
+        </p>
+        <p>
+          <span
+            >Waterloo Engineering programs are direct-entry (there is no general
+            first year). If you're not sure which program your interests align
+            with, this tool is a great place to start.</span
+          >
+        </p>
+      </div>
+      <div class="links">
+        <ul>
+          <li><a class="button" href="{% url 'startQuiz' %}">Start Quiz</a></li>
+          <li>
+            <a class="button" href="{% url 'about' %}" target="_blank">About</a>
+          </li>
+          <li>
+            <a class="button" href="{% url 'programInfo' %}" target="_blank"
+              >Programs</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="blurb">
+        <p>
+          <span
+            >If you have questions about engineering admissions, please email
+            enginfo@uwaterloo.ca or visit our
+            <a
+              href="https://uwaterloo.ca/engineering/future-undergraduate-students"
+              target="_blank"
+              >website</a
+            ></span
+          >
+        </p>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

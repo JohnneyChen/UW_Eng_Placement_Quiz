@@ -1,102 +1,129 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    {% load static %}
+    <title>UW Program Compatibility Tool | Results</title>
+    <link rel="icon" href="data:," />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/style/programs.css' %}"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-175169707-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-<head>
-  {% load static %}
-  <title>UW Program Compatibility Tool | Results</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static '/style/programs.css' %}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175169707-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+      gtag("config", "UA-175169707-1");
+    </script>
+  </head>
 
-    gtag('config', 'UA-175169707-1');
-  </script>
+  <body>
+    <div class="wrapper">
+      <div class="title">
+        <h2>
+          All The Engineering Programs Offered At The University Of Waterloo
+        </h2>
+      </div>
+      <div class="content">
+        {% for program in programs %}
+        <div class="program" id="program{{forloop.counter0}}">
+          <div class="programInfo">
+            <h3>{{ program.program_name }}</h3>
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a data-toggle="tab" href="#home{{forloop.counter0}}">About</a>
+              </li>
+              <li>
+                <a data-toggle="tab" href="#courses{{forloop.counter0}}"
+                  >Courses</a
+                >
+              </li>
+              <li>
+                <a data-toggle="tab" href="#careers{{forloop.counter0}}"
+                  >Careers</a
+                >
+              </li>
+              <li>
+                <a data-toggle="tab" href="#comparison{{forloop.counter0}}"
+                  >Compared To</a
+                >
+              </li>
+            </ul>
 
-
-</head>
-
-<body>
-  <div class="wrapper">
-    <div class="title">
-      <h2>All The Engineering Programs Offered At The University Of Waterloo</h2>
-    </div>
-    <div class="content">
-      {% for program in programs %}
-      <div class="program" id="program{{forloop.counter0}}">
-        <div class="programInfo">
-          <h3>{{ program.program_name }}</h3>
-          <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home{{forloop.counter0}}">About</a></li>
-            <li><a data-toggle="tab" href="#courses{{forloop.counter0}}">Courses</a></li>
-            <li><a data-toggle="tab" href="#careers{{forloop.counter0}}">Careers</a></li>
-            <li><a data-toggle="tab" href="#comparison{{forloop.counter0}}">Compared To</a></li>
-          </ul>
-
-          <div class="tab-content">
-            <div id="home{{forloop.counter0}}" class="tab-pane fade in active">
-              <p>{{ program.description}}</p>
-              <p> Read more about this program <a href="{{ program.site}}" target="_blank">here</a></p>
-            </div>
-            <div id="courses{{forloop.counter0}}" class="tab-pane fade">
-              <div class="row">
-                <div class="column">
-                  <h4>Sample First Year Courses</h4>
-                  {% for course in program.course_set.all %}
-                  {% if course.course_type == 'first' %}
-                  <p>{{ course.course }}</p>
-                  {% endif %}
-                  {% endfor %}
-                </div>
-                <div class="column">
-                  <h4>Sample Upper Year Courses</h4>
-                  {% for course in program.course_set.all %}
-                  {% if course.course_type == 'upper' %}
-                  <p>{{ course.course }}</p>
-                  {% endif %}
-                  {% endfor %}
+            <div class="tab-content">
+              <div
+                id="home{{forloop.counter0}}"
+                class="tab-pane fade in active"
+              >
+                <p>{{ program.description}}</p>
+                <p>
+                  Read more about this program
+                  <a href="{{ program.site}}" target="_blank">here</a>
+                </p>
+              </div>
+              <div id="courses{{forloop.counter0}}" class="tab-pane fade">
+                <div class="row">
+                  <div class="column">
+                    <h4>Sample First Year Courses</h4>
+                    {% for course in program.course_set.all %} {% if
+                    course.course_type == 'first' %}
+                    <p>{{ course.course }}</p>
+                    {% endif %} {% endfor %}
+                  </div>
+                  <div class="column">
+                    <h4>Sample Upper Year Courses</h4>
+                    {% for course in program.course_set.all %} {% if
+                    course.course_type == 'upper' %}
+                    <p>{{ course.course }}</p>
+                    {% endif %} {% endfor %}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div id="careers{{forloop.counter0}}" class="tab-pane fade">
-              <div class="row">
-                <div class="column">
-                  <h4>Sample Co-op Jobs</h4>
-                  {% for career in program.career_set.all%}
-                  {% if career.career_type == 'coop'%}
-                  <p>{{ career.career }}</p>
-                  {% endif %}
-                  {% endfor %}
-                </div>
-                <div class="column">
-                  <h4>Sample Full-Time Jobs</h4>
-                  {% for career in program.career_set.all%}
-                  {% if career.career_type == 'fulltime'%}
-                  <p>{{ career.career }}</p>
-                  {% endif %}
-                  {% endfor %}
+              <div id="careers{{forloop.counter0}}" class="tab-pane fade">
+                <div class="row">
+                  <div class="column">
+                    <h4>Sample Co-op Jobs</h4>
+                    {% for career in program.career_set.all%} {% if
+                    career.career_type == 'coop'%}
+                    <p>{{ career.career }}</p>
+                    {% endif %} {% endfor %}
+                  </div>
+                  <div class="column">
+                    <h4>Sample Full-Time Jobs</h4>
+                    {% for career in program.career_set.all%} {% if
+                    career.career_type == 'fulltime'%}
+                    <p>{{ career.career }}</p>
+                    {% endif %} {% endfor %}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div id="comparison{{forloop.counter0}}" class="tab-pane fade">
-              {% for comparison in program.program.all %}
-              <p><strong>{{comparison.program_2}}</strong></p>
-              <p>{{ comparison.comparison}}</p>
-              {% endfor %}
+              <div id="comparison{{forloop.counter0}}" class="tab-pane fade">
+                {% for comparison in program.program.all %}
+                <p><strong>{{comparison.program_2}}</strong></p>
+                <p>{{ comparison.comparison}}</p>
+                {% endfor %}
+              </div>
             </div>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
-  </div>
-</body>
-
+  </body>
 </html>
