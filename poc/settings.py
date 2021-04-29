@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import dj_database_url
 from dotenv import load_dotenv
 import os
+import logging
 from whitenoise.storage import CompressedManifestStaticFilesStorage
 
 
@@ -153,56 +154,28 @@ EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN')
 EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD')
 EMAIL_USE_TLS = True
 
+DEBUG = False
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
-    'formatters': {
-        'verbose': {
-            'format': '[contactor] %(levelname)s %(asctime)s %(message)s'
-        },
-    },
     'handlers': {
-        # Send all messages to console
         'console': {
-            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-        },
-        # Send info messages to syslog
-        'syslog':{
-            'level':'INFO',
-            'class': 'logging.handlers.SysLogHandler',
-            'facility': SysLogHandler.LOG_LOCAL2,
-            'address': '/dev/log',
-            'formatter': 'verbose',
-        },
-        # Warning messages are sent to admin emails
-        'mail_admins': {
-            'level': 'WARNING',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler',
-        },
-        # critical errors are logged to sentry
-        'sentry': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'raven.contrib.django.handlers.SentryHandler',
         },
     },
     'loggers': {
-        # This is the "catch all" logger
-        '': {
-            'handlers': ['console', 'syslog', 'mail_admins', 'sentry'],
-            'level': 'DEBUG',
-            'propagate': False,
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
         },
-    }
+    },
 }
 
+for logger in LOGGING['loggers']:
+    LOGGING['loggers'][logger]['handlers'] = ['console']
+
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
 import django_heroku
 django_heroku.settings(locals())
