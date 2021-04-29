@@ -137,7 +137,7 @@ def submit(request):
         return recommendations(request,post_dict)
     if request.method == 'GET':
         results = request.session.get('save_result_list', False)
-        if not result_list:
+        if not results:
             return HttpResponse("Please finish the quiz first before attempting to view results")
         result_list= []
         unordered_programs = list(Program.objects.all().prefetch_related('program','career_set','course_set'))
