@@ -1,201 +1,161 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    {% load static %}
-    <title>UW Program Compatibility Tool | Results</title>
-    <meta charset="utf-8" />
-    <link rel="icon" href="data:," />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'style/recommendations.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/recommendations.js' %}"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-175169707-1"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
 
-      gtag("config", "UA-175169707-1");
-    </script>
-  </head>
+<head>
+  {% load static %}
+  <title>UW Program Compatibility Tool | Results</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'style/recommendations.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="{% static 'js/recommendations.js' %}"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175169707-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  <body>
-    <div class="wrapper">
-      <form class="back">
-        <a href="{% url 'startQuiz' %}">
-          <input
-            type="button"
-            class="button"
-            id="backButton"
-            value="Back to Quiz"
-          />
-        </a>
-      </form>
+    gtag('config', 'UA-175169707-1');
+  </script>
 
-      <div class="title">
-        <h2>Your Results Are In</h2>
-        <p>
-          The following is your personalized list of all the engineering
-          programs offered at the University of Waterloo, ordered starting with
-          the program that aligns best with your interest.
-        </p>
-        <p>Select a program to directly compare it below.</p>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <form class="back">
+      <a href="{% url 'startQuiz' %}">
+        <input type="button" class="button" id="backButton" value="Back to Quiz">
+      </a>
+    </form>
+
+    <div class="title">
+      <h2>Your Results Are In</h2>
+      <p>The following is your personalized list of all the engineering programs offered at the University of Waterloo,
+        ordered starting with the program that aligns best with your interest.</p>
+      <p>Select a program to directly compare it below.</p>
+    </div>
+    <div class="sidenav">
+      {% for pos in result %}
+      <div class="link">
+        <a name="#program{{forloop.counter0}}" id="link{{forloop.counter0}}">{{forloop.counter}} {{ pos.program_name }}
+          <i class="fa fa-eye" id="eye0"></i></a>
       </div>
-      <div class="sidenav">
-        {% for pos in result %}
-        <div class="link">
-          <a name="#program{{forloop.counter0}}" id="link{{forloop.counter0}}"
-            >{{forloop.counter}} {{ pos.program_name }}
-            <i class="fa fa-eye" id="eye0"></i
-          ></a>
-        </div>
-        {% endfor %}
-      </div>
-      <div class="emailWrapper">
-        <div class="emailSection" id="beforeSubmit">
-          <!-- <form id="submit" method="POST" action="{% url 'emailSubmit' %}">
+      {% endfor %}
+    </div>
+    <div class="emailWrapper">
+      <div class="emailSection" id="beforeSubmit">
+        <!-- <form id="submit" method="POST" action="{% url 'emailSubmit' %}">
           {% csrf_token %}
           <p>Submit your email below to recieve your quiz results</p>
           <input type="email" id="email" name="email" required>
           <input type="submit" class="button" name="emailSubmit" id="emailSubmit" value="&#62;">
         </form> -->
-          <br />
-          <p>
-            <a
-              href="https://uwaterloo.ca/engineering/undergraduate-email-subscription"
-              >Enter your contact information</a
-            >
-            to join the University of Waterloo mailing list.
-          </p>
-        </div>
-        <div class="emailSection" id="afterSubmit">
-          <p>We have recieved your email, thank you!</p>
-        </div>
+        <br>
+        <p>
+          <a href="https://uwaterloo.ca/engineering/undergraduate-email-subscription">Enter your contact information</a> to join the
+          University of Waterloo mailing list.
+        </p>
       </div>
-      <div class="content">
-        {% for pos in result %}
-        <div class="program" id="program{{forloop.counter0}}">
-          <div class="programInfo">
-            <h3>{{forloop.counter}} {{ pos.program_name }}</h3>
-            <ul class="nav nav-tabs">
-              <li class="active">
-                <a data-toggle="tab" href="#home{{forloop.counter0}}">About</a>
-              </li>
-              <li>
-                <a data-toggle="tab" href="#courses{{forloop.counter0}}"
-                  >Courses</a
-                >
-              </li>
-              <li>
-                <a data-toggle="tab" href="#careers{{forloop.counter0}}"
-                  >Careers</a
-                >
-              </li>
-              <li>
-                <a data-toggle="tab" href="#comparison{{forloop.counter0}}"
-                  >Compared To</a
-                >
-              </li>
-            </ul>
+      <div class="emailSection" id="afterSubmit">
+        <p>We have recieved your email, thank you!</p>
+      </div>
+    </div>
+    <div class="content">
+      {% for pos in result %}
+      <div class="program" id="program{{forloop.counter0}}">
+        <div class="programInfo">
+          <h3>{{forloop.counter}} {{ pos.program_name }}</h3>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home{{forloop.counter0}}">About</a></li>
+            <li><a data-toggle="tab" href="#courses{{forloop.counter0}}">Courses</a></li>
+            <li><a data-toggle="tab" href="#careers{{forloop.counter0}}">Careers</a></li>
+            <li><a data-toggle="tab" href="#comparison{{forloop.counter0}}">Compared To</a></li>
+          </ul>
 
-            <div class="tab-content">
-              <div
-                id="home{{forloop.counter0}}"
-                class="tab-pane fade in active"
-              >
-                <p>{{ pos.description }}</p>
+          <div class="tab-content">
+            <div id="home{{forloop.counter0}}" class="tab-pane fade in active">
+              <p>{{ pos.description }}</p>
 
-                <p>
-                  Read more about this program
-                  <a href="{{pos.site}}" target="_blank">here</a>
-                </p>
-              </div>
-              <div id="courses{{forloop.counter0}}" class="tab-pane fade">
-                <div class="row">
-                  <div class="column">
-                    <h4>Sample First Year Courses</h4>
-                    {% for course in pos.course_set.all%} {% if
-                    course.course_type == 'first' %}
-                    <p>{{ course.course }}</p>
-                    {% endif %} {% endfor %}
-                  </div>
-                  <div class="column">
-                    <h4>Sample Upper Year Courses</h4>
-                    {% for course in pos.course_set.all%} {% if
-                    course.course_type == 'upper' %}
-                    <p>{{ course.course }}</p>
-                    {% endif %} {% endfor %}
-                  </div>
+              <p> Read more about this program <a href="{{pos.site}}" target="_blank">here</a></p>
+            </div>
+            <div id="courses{{forloop.counter0}}" class="tab-pane fade">
+              <div class="row">
+                <div class="column">
+                  <h4>Sample First Year Courses</h4>
+                  {% for course in pos.course_set.all%}
+                  {% if course.course_type == 'first' %}
+                  <p>{{ course.course }}</p>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Upper Year Courses</h4>
+                  {% for course in pos.course_set.all%}
+                  {% if course.course_type == 'upper' %}
+                  <p>{{ course.course }}</p>
+                  {% endif %}
+                  {% endfor %}
                 </div>
               </div>
-              <div id="careers{{forloop.counter0}}" class="tab-pane fade">
-                <div class="row">
-                  <div class="column">
-                    <h4>Sample Co-op Jobs</h4>
-                    {% for career in pos.career_set.all%} {% if
-                    career.career_type == 'coop'%}
-                    <p>{{ career.career }}</p>
-                    {% endif %} {% endfor %}
-                  </div>
-                  <div class="column">
-                    <h4>Sample Full-Time Jobs</h4>
-                    {% for career in pos.career_set.all%} {% if
-                    career.career_type == 'fulltime'%}
-                    <p>{{ career.career }}</p>
-                    {% endif %} {% endfor %}
-                  </div>
+            </div>
+            <div id="careers{{forloop.counter0}}" class="tab-pane fade">
+              <div class="row">
+                <div class="column">
+                  <h4>Sample Co-op Jobs</h4>
+                  {% for career in pos.career_set.all%}
+                  {% if career.career_type == 'coop'%}
+                  <p>{{ career.career }}</p>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="column">
+                  <h4>Sample Full-Time Jobs</h4>
+                  {% for career in pos.career_set.all%}
+                  {% if career.career_type == 'fulltime'%}
+                  <p>{{ career.career }}</p>
+                  {% endif %}
+                  {% endfor %}
                 </div>
               </div>
-              <div id="comparison{{forloop.counter0}}" class="tab-pane fade">
-                {% for comparison in pos.program.all %}
-                <p><strong>{{comparison.program_2}}</strong></p>
-                <p>{{ comparison.comparison}}</p>
-                {% endfor %}
-              </div>
+            </div>
+            <div id="comparison{{forloop.counter0}}" class="tab-pane fade">
+              {% for comparison in pos.program.all %}
+              <p><strong>{{comparison.program_2}}</strong></p>
+              <p>{{ comparison.comparison}}</p>
+              {% endfor %}
             </div>
           </div>
         </div>
-        {% endfor %}
       </div>
+      {% endfor %}
     </div>
+  </div>
 
-    <script>
-      const countCheckbox = () => {
-        let counter = 0;
-        $(".emailChoice").each((idx, box) => {
-          if (box.checked) counter++;
-        });
-        return counter;
-      };
-      $(function () {
-        $(".emailChoice").on("change", () => {
-          let checked = countCheckbox();
-          if (checked > 0) {
-            $(".emailChoice").removeAttr("required");
-          } else {
-            $(".emailChoice").attr("required", "required");
-          }
-        });
-      });
-    </script>
-  </body>
+  <script>
+    const countCheckbox = () => {
+      let counter = 0
+      $('.emailChoice').each((idx, box) => {
+        if (box.checked) counter++;
+      })
+      return counter
+    }
+    $(function () {
+      $('.emailChoice').on('change', () => {
+        let checked = countCheckbox()
+        if (checked > 0) {
+          $('.emailChoice').removeAttr('required')
+        } else {
+          $('.emailChoice').attr('required', 'required')
+        }
+      })
+    })
+  </script>
+</body>
+
 </html>
