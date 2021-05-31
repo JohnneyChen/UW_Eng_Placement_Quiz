@@ -1,6 +1,6 @@
 import csv
 from datetime import datetime
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, StreamingHttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -12,9 +12,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 import json
+import csv
 import os
 import pickle
-import numpy as np
 import sys
 from json import dumps
 
@@ -34,12 +34,10 @@ def quiz(request):
     return render(request, 'quiz/quiz.html')
 
 def programs(request):
-    programs = Program.objects.order_by("program_name").all()
+    programs = Program.objects.all().prefetch_related('program','career_set','course_set')
     return render(request, 'quiz/programs.html', {'programs': programs})
 
 def email(request):
-    if request.method == 'GET':
-        return HttpResponse('Cannot GET this route')
     try:
         if request.method == 'POST':
             if request.POST.get('email'):
@@ -48,7 +46,7 @@ def email(request):
                 result_id = request.session.get('saved_result', '')
                 if result_id == '':
                     HttpResponse("Please finish the quiz first")
-                result = Result.objects.get(pk=result_id)
+                result = Result.objects.select_related("one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen").get(pk=result_id)
                 configs = {
                     'best_program': result.one.program_name,
                     'best_program_details': result.one.description,
@@ -117,16 +115,17 @@ def email(request):
                 send_mail(
                     'Your Engineering Department Quiz Results',
                     msg_txt,
-                    'johnneychendev@gmail.com',
+                    'engrecruitment@uwaterloo.ca',
                     [email],
                     html_message=msg_html,
-                    fail_silently=False,
+                    fail_silently=False
                 )
                 print('email sent')
                 return render(request,'quiz/emailSubmission.html')
     except:
-            print("Unexpected error:", sys.exc_info()[0])
-    return HttpResponse("Something went wrong...Your email was not submitted")
+        print("Unexpected error:", sys.exc_info()[0])
+        return HttpResponse("Something went wrong...Your email was not submitted")
+    return HttpResponse('This route does not exist')
 
 
 def submit(request):
@@ -136,6 +135,16 @@ def submit(request):
         post_dict = request.POST
         print(post_dict)
         return recommendations(request,post_dict)
+    if request.method == 'GET':
+        results = request.session.get('saved_result_list', False)
+        if not results:
+            return HttpResponse("Please finish the quiz first before attempting to view results")
+        result_list= []
+        unordered_programs = list(Program.objects.all().prefetch_related('program','career_set','course_set'))
+        for code in results:
+            result_list.append(next((program for program in unordered_programs if program.key==code)))
+        return render(request, 'quiz/recommendations.html', {'result':result_list})
+
 
 def recommendations(request,post_dict):
     model_name = MODEL_NAME
@@ -279,9 +288,11 @@ def recommendations(request,post_dict):
     # Getting Ordered Results
     results_dict = retrieve_prediction_labels(model,prediction)
     results = list(sorted(results_dict, key=lambda key: results_dict[key],reverse=True))
+    
     result_list= []
+    unordered_programs = list(Program.objects.all().prefetch_related('program','career_set','course_set'))
     for code in results:
-        result_list.append(Program.objects.get(key=code))
+        result_list.append(next((program for program in unordered_programs if program.key==code)))
     
     # tries to retrieve any stored result_id to see if user has already submitted quiz
     result_id = request.session.get('saved_result', '')
@@ -298,46 +309,29 @@ def recommendations(request,post_dict):
     # creates new result to store in database if user did not submit quiz before
     if noPreviousRecord: 
         res = Result()
-        res.one = result_list[0]
-        res.two = result_list[1]
-        res.three = result_list[2]
-        res.four = result_list[3]
-        res.five = result_list[4]
-        res.six = result_list[5]
-        res.seven = result_list[6]
-        res.eight = result_list[7]
-        res.nine = result_list[8]
-        res.ten = result_list[9]
-        res.eleven = result_list[10]
-        res.twelve = result_list[11]
-        res.thirteen = result_list[12]
-        res.fourteen = result_list[13]
-        res.fifteen = result_list[14]
-        res.time = datetime.today()
-        res.save()
-        request.session['saved_result'] = res.id
-        return render(request, 'quiz/recommendations.html', {'result':res})
     # edits the stored result when user has submitted quiz before
     else:
         res = Result.objects.get(pk=result_id)
-        res.one = result_list[0]
-        res.two = result_list[1]
-        res.three = result_list[2]
-        res.four = result_list[3]
-        res.five = result_list[4]
-        res.six = result_list[5]
-        res.seven = result_list[6]
-        res.eight = result_list[7]
-        res.nine = result_list[8]
-        res.ten = result_list[9]
-        res.eleven = result_list[10]
-        res.twelve = result_list[11]
-        res.thirteen = result_list[12]
-        res.fourteen = result_list[13]
-        res.fifteen = result_list[14]
-        res.time = datetime.today()
-        res.save()
-        return render(request, 'quiz/recommendations.html', {'result':res})
+    res.one = result_list[0]
+    res.two = result_list[1]
+    res.three = result_list[2]
+    res.four = result_list[3]
+    res.five = result_list[4]
+    res.six = result_list[5]
+    res.seven = result_list[6]
+    res.eight = result_list[7]
+    res.nine = result_list[8]
+    res.ten = result_list[9]
+    res.eleven = result_list[10]
+    res.twelve = result_list[11]
+    res.thirteen = result_list[12]
+    res.fourteen = result_list[13]
+    res.fifteen = result_list[14]
+    res.time = datetime.today()
+    res.save()
+    request.session['saved_result'] = res.id
+    request.session['saved_result_list'] = results
+    return render(request, 'quiz/recommendations.html', {'result':result_list})
 
 def user_login(request):
     if request.method == 'POST':
@@ -477,3 +471,32 @@ def delete_chart(request):
         chart.delete()
         messages.success(request, 'Successfully deleted chart', extra_tags='alert alert-success alert-dissmissble fade show flash-message')
         return redirect('/dashboard/')
+
+@login_required
+def download_results(request):
+    if request.method == 'GET':
+        before = request.GET.get('before')
+        after = request.GET.get('after')
+        
+        results = Result.objects.select_related("one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen").all().order_by('time')
+
+        if before != '':
+            results = results.filter(time__lte=before)
+        if after != '':
+            results = results.filter(time__gte=after)
+        
+        results_with_headers = [['Result id', 'Quiz taken date', 'First recommendation', 'Second recommendation', 'Third recommendation','Fourth recommendation','Fifth recommendation','Sixth recommendation','Seventh recommendation','Eighth recommendation','Ninth recommendation','Tenth recommendation','Eleventh recommendation','Twelfth recommendation','Thirteenth recommendation','Fourteenth recommendation', 'Fifteenth recommendation']]
+        for result in results:
+            results_with_headers.append([result.id, result.time, result.one.program_name, result.two.program_name, result.three.program_name, result.four.program_name, result.five.program_name, result.six.program_name, result.seven.program_name, result.eight.program_name, result.nine.program_name, result.ten.program_name, result.eleven.program_name, result.twelve.program_name, result.thirteen.program_name, result.fourteen.program_name, result.fifteen.program_name])
+
+        pseudo_buffer = Echo()
+        writer = csv.writer(pseudo_buffer)
+
+        response = StreamingHttpResponse((writer.writerow(result) for result in results_with_headers), content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="EngineeringQuizResults.csv"'
+
+        return response
+
+class Echo:
+    def write(self, value):
+        return value

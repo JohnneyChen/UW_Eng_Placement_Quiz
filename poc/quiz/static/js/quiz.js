@@ -1,10 +1,22 @@
-$(document).ready(function () {
+$(function () {
+  if(isQuizComplete()){
+    $('#submitButton').prop('disabled', false);
+  } else {
+    $('#submitButton').prop('disabled', true);
+  }
+
+  $('input').click(()=>{
+    if(isQuizComplete()){
+      $('#submitButton').prop('disabled', false);
+    } else {
+      $('#submitButton').prop('disabled', true);
+    }
+  })
 
   if (sessionStorage.getItem("pageState")) {
     // on page reload, from recommendations page
 
     $(".collapse").collapse('show');
-    $('#submitButton').prop('disabled', false);
     sessionStorage.clear();
   }
 
@@ -124,16 +136,14 @@ $(document).ready(function () {
     }
   });
 
-  $('input[name="industry"]').click(function () {
-    if ($(this).attr('value') == 'architecture' || 'automotive' || 'business' || 'construction' || 'health' || 'environment' || 'manufacturing' || 'technology') {
-      $('#submitButton').prop('disabled', false);
+  $("#submit").submit(function (e) {
+    if(!isQuizComplete()){
+      e.preventDefault()
+      $('#submitButton').prop('disabled', true);
+    } else {
+      var pageState = 1;
+      sessionStorage.setItem("pageState", pageState);
     }
-
-  });
-
-  $("#submit").submit(function () {
-    var pageState = 1;
-    sessionStorage.setItem("pageState", pageState);
   })
 });
 
@@ -214,4 +224,24 @@ function openRequiredQuestions() {
   }
 
   return true;
+}
+
+const isQuizComplete = ()=>{
+  const completed1 = Object.values($('input[name="creative"]')).find(input=>input.checked)
+  const completed2 = Object.values($('input[name="essay"]')).find(input=>input.checked)
+  const completed3 = Object.values($('input[name="outdoors"]')).find(input=>input.checked)
+  const completed4 = Object.values($('input[name="career"]')).find(input=>input.checked)
+  const completed5 = Object.values($('input[name="group_work"]')).find(input=>input.checked)
+  const completed6 = Object.values($('input[name="liked_courses"]')).find(input=>input.checked)
+  const completed7 = Object.values($('input[name="disliked_courses"]')).find(input=>input.checked)
+  const completed8 = Object.values($('input[name="join_clubs"]')).find(input=>input.checked)
+  const completed9 = Object.values($('input[name="not_clubs"]')).find(input=>input.checked)
+  const completed10 = Object.values($('input[name="liked_projects"]')).find(input=>input.checked)
+  const completed11 = Object.values($('input[name="disliked_projects"]')).find(input=>input.checked)
+  const completed12 = Object.values($('input[name="alternate_degree"]')).find(input=>input.checked)
+  const completed13 = Object.values($('input[name="drawing"]')).find(input=>input.checked)
+  const completed14 = Object.values($('input[name="industry"]')).find(input=>input.checked)
+
+  return completed1 && completed2 && completed3 && completed4 && completed5 && completed6 && completed7 && completed8 && completed9 && completed10 && completed11 && completed12 && completed13 && completed14
+
 }

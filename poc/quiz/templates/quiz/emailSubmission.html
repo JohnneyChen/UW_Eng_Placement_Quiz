@@ -1,41 +1,62 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     {% load static %}
     <title>UW Program Compatibility Tool | Results</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static '/style/emailSubmission.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'style/emailSubmission.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="{% static '/js/emailSubmission.js' %}"></script>
+    <script src="{% static 'js/emailSubmission.js' %}"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175169707-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-175169707-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'UA-175169707-1');
-</script>
+      gtag("config", "UA-175169707-1");
+    </script>
+  </head>
 
-
-</head>
-
-<body>
+  <body>
     <div class="wrapper">
-        <form class="back">
-            <input type="button" class="button" id="backButton" value="Back to My Results" onclick="goBack()">
-        </form>
-        <div class="message">
-            <h2>Thank You!</h2>
-            <p>We have recieved your email and will keep you up to date with all the engieering events for prespective
-                students that will be taking place at the University of Waterloo</p>
-        </div>
+      <form class="back">
+        <input
+          type="button"
+          class="button"
+          id="backButton"
+          value="Back to My Results"
+          onclick="goBack()"
+        />
+      </form>
+      <div class="message">
+        <h2>Thank You!</h2>
+        <p>
+          We have sent your results to the email you provided, you should be
+          receiving the results shortly. If you have not received the email,
+          please check your spam folder for a email from engrecruitment
+        </p>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
